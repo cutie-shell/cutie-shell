@@ -1,0 +1,25 @@
+<RCC>
+    <qresource prefix="/">
+        <file>main.qml</file>
+        <file>qml/Actions.qml</file>
+        <file>qml/ApplicationWindow.qml</file>
+        <file>qml/Calculator.qml</file>
+        <file>qml/Display.qml</file>
+        <file>qml/Engine.qml</file>
+        <file>qml/ExpressionBuilder.qml</file>
+        <file>qml/Key.qml</file>
+        <file>qml/KeyForm.qml</file>
+        <file>qml/KeyManager.qml</file>
+        <file>qml/Keypad.qml</file>
+        <file>qml/Memory.qml</file>
+        <file>qml/MenuBar.qml</file>
+        <file>qml/Object.qml</file>
+        <file>qml/OperandBuffer.qml</file>
+        <file>qml/Processor.qml</file>
+        <file>qml/qmldir</file>
+        <file>qml/StateMachine.qml</file>
+        <file>qml/Units.qml</file>
+        <file>qml/Util.qml</file>
+        <file>qml/wallpaper.jpg</file>
+    </qresource>
+</RCC>

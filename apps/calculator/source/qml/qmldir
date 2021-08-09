@@ -1,0 +1,3 @@
+singleton Actions 1.0 Actions.qml
+singleton Units 1.0 Units.qml
+singleton Util 1.0 Util.qml

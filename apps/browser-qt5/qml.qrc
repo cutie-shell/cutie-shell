@@ -1,0 +1,7 @@
+<RCC>
+    <qresource prefix="/">
+        <file>browser.qml</file>
+        <file>wallpaper.jpg</file>
+        <file>Font Awesome 5 Free-Solid-900.otf</file>
+    </qresource>
+</RCC>

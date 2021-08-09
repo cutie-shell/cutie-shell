@@ -1,0 +1,9 @@
+<RCC>
+    <qresource prefix="/">
+        <file>main.qml</file>
+        <file>qtquickcontrols2.conf</file>
+        <file>wallpaper.jpg</file>
+        <file>44831719.png</file>
+        <file>minUi-icons/loader.gif</file>
+    </qresource>
+</RCC>
