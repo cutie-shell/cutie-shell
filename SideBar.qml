@@ -6,29 +6,44 @@ Rectangle {
     id: sidebar
      x: 0
      y: 0
+    z: 200
     property alias tabListView: tabListView
-    width: 400
-    height: parent.height 
+    width: view.width
+    height: view.height 
    // anchors { left: parent.left; top: parent.top }
     color: "#2E3440"
 
-
+    MouseArea { 
+        enabled: root.state == "drawer"
+        drag.target: parent; drag.axis: Drag.XAxis; drag.minimumX: -view.width; drag.maximumX: 0
+        width: 5 * shellScaleFactor
+        height: view.height
+        z: 100
+        anchors {
+            top: parent.top
+            bottom: parent.bottom
+            right: parent.right
+        }
+        onPressed: {
+            if (parent.x > -view.width / 2) { root.state = "normal" } else { root.state = "drawer" }
+        }
+        onReleased: {
+            if (parent.x > -view.width / 2) { root.state = "drawer" } else { 
+                root.state = "parked";
+                root.state = "normal";
+            }
+        }
+    }
 
 
     Image {
         id: ui
         x: 0
-        width: 400
-        anchors.right: parent.right
-        anchors.top: parent.top
-        anchors.bottom: parent.bottom
+        anchors.fill: parent
         source: "wallpaper.jpg"
-        anchors.topMargin: 0
-        anchors.rightMargin: 0
-        anchors.bottomMargin: 0
         sourceSize.height: 2000
         sourceSize.width: 800
-        fillMode: Image.Pad
+        fillMode: Image.PreserveAspectCrop
     }
     FastBlur {
         anchors.fill: ui
@@ -51,26 +66,27 @@ Rectangle {
     Component {
         id: tabDelegate
         Row {
-            spacing: 10
+            spacing: 5*shellScaleFactor
             Rectangle {
-                width: drawerWidth
-                height: 50 
+                width: view.width
+                height: 25 * shellScaleFactor
                 color: "transparent"
                 Image { 
-                    height: 24; width: 24; 
+                    height: 12 * shellScaleFactor
+                    width: 12 * shellScaleFactor 
                     source: "icons/favicon.png"; // FIXME 
                     anchors { left: parent.left; margins: drawerMargin; verticalCenter: parent.verticalCenter} 
                 }
                 Text { 
-                    text: modelData.title 
+                    text: modelData.toplevel.title 
                     color: "white"; 
-                    font.pointSize: 7
+                    font.pointSize: 4* shellScaleFactor
                     anchors { left: parent.left; margins: drawerMargin; verticalCenter: parent.verticalCenter
-                        leftMargin: drawerMargin+30; right: parent.right; rightMargin: 36 } 
+                        leftMargin: drawerMargin+15*shellScaleFactor; right: parent.right; rightMargin: 18*shellScaleFactor } 
                     elide: Text.ElideRight 
                 }
                 MouseArea { 
-                    anchors { top: parent.top; left: parent.left; bottom: parent.bottom; right: parent.right; rightMargin: 40 }
+                    anchors { top: parent.top; left: parent.left; bottom: parent.bottom; right: parent.right; rightMargin: 20*shellScaleFactor }
                     enabled: (root.state == "drawer") 
                     onClicked: { 
                         tabListView.currentIndex = index
@@ -78,7 +94,8 @@ Rectangle {
                 }
 
                 Rectangle {
-                    width: 40; height: 40
+                    width: 20 * shellScaleFactor
+                    height: 20 * shellScaleFactor
                     color: "transparent"
                     anchors { right: parent.right; top: parent.top}
                     Text { 
@@ -86,11 +103,11 @@ Rectangle {
                         anchors { top: parent.top; right: parent.right; margins: drawerMargin }
                         text: "\uF057"
                         font.family: icon.name
-                        font.pointSize: 10
+                        font.pointSize: 3 * shellScaleFactor
                         color: "gray"
 
                         MouseArea { 
-                            anchors.fill: parent; anchors.margins: -2 
+                            anchors.fill: parent; anchors.margins: -shellScaleFactor 
                             onClicked: modelData.surface.client.close()
                         }
                     }
@@ -101,30 +118,26 @@ Rectangle {
 
     ListView {
         id: tabListView
-        height: 800
+        height: parent.height
         anchors.fill: parent
 
         onCurrentIndexChanged: {
-            if (shellSurfaces.get(currentIndex).shellSurface.toString().match(/XWaylandShellSurface/)) { 
-                shellSurfaces.get(currentIndex).shellSurface.sendResize(Qt.size(view.width, view.height - 85));
-            } else { 
-                shellSurfaces.get(currentIndex).shellSurface.sendConfigure(Qt.size(view.width, view.height), WlShellSurface.NoneEdge);
-            }
+            shellSurfaces.get(currentIndex).shellSurface.toplevel.sendConfigure(Qt.size(view.width, view.height), [ XdgToplevel.NoneEdge ]);
         }
 
         header: Rectangle { 
-            width: drawerWidth
-            height: 80
+            width: view.width
+            height: 40*shellScaleFactor
             color: "transparent"
             Text { 
-                text: "\uF067"; font.family: icon.name; color: "white"; font.pointSize: 10
-                anchors { top: parent.top; left: parent.left; margins: 20; leftMargin: 30 }
+                text: "\uF067"; font.family: icon.name; color: "white"; font.pointSize: 3*shellScaleFactor
+                anchors { top: parent.top; left: parent.left; margins: 10*shellScaleFactor; leftMargin: 15*shellScaleFactor }
             }
             Text { 
                 text: "<b>New Tab</b>"
                 color: "white"
-                font.pointSize: 10
-                anchors { top: parent.top; left: parent.left; margins: 20; leftMargin: 70; }
+                font.pointSize: 3*shellScaleFactor
+                anchors { top: parent.top; left: parent.left; margins: 10*shellScaleFactor; leftMargin: 35*shellScaleFactor; }
             }
             MouseArea { 
                 anchors.fill: parent; 
@@ -141,7 +154,7 @@ Rectangle {
         model: shellSurfaces
         delegate: tabDelegate 
         highlight: Rectangle { 
-            width: drawerWidth; height: drawerHeight + 10 
+            width: view.width; height: view.height
             gradient: Gradient {
                 GradientStop { position: 0.1; color: "#1F1F23" }
                 GradientStop { position: 0.5; color: "#28282F" }
