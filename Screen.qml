@@ -6,8 +6,6 @@ import QtQuick.Controls 2.1
 import QtSensors 5.11
 //import MeeGo.Connman 0.2 
 
-
-
 WaylandOutput {
     id: compositor
     property variant formatDateTimeString: "HH:mm"
@@ -28,22 +26,20 @@ WaylandOutput {
     property int drawerMargin: 10
     property int drawerHeight: 45
 
-    function handleShellSurface(shellSurface) {
+    function handleShellSurface(shellSurface, toplevel) {
         shellSurfaces.insert(0, {shellSurface: shellSurface});
     }
 
     onScreenLockedChanged: {
         if (screenLocked) {
-            process.start("raspi-gpio", ["set", "12", "dl"]);
+            //process.start("raspi-gpio", ["set", "12", "dl"]);
             root.state = "locked";
             lockscreen.lockscreenMosueArea.enabled = false; 
         } else {
-            process.start("raspi-gpio", ["set", "12", "dh"]);
+            //process.start("raspi-gpio", ["set", "12", "dh"]);
             lockscreen.lockscreenMosueArea.enabled = true; 
         }
     }
-
-
 
     Item {
         id: root
@@ -66,7 +62,7 @@ WaylandOutput {
              State {
                  name: "normal"
                  PropertyChanges { target: content; anchors.leftMargin: 0 }
-                 PropertyChanges { target: settingSheet; y: -800 + 0 }
+                 PropertyChanges { target: settingSheet; y: -view.height + 0 }
              }
 
        ]
@@ -92,10 +88,7 @@ WaylandOutput {
         Rectangle {
             id: view 
             color: "#2E3440"
-            width: (orientation == 0 || orientation == 0) ?  480 : 800
-            height: (orientation == 0 || orientation == 0) ? 800 : 480
-            x: (orientation == 0 || orientation == 0) ? 0 : 0
-            y: (orientation == 0 || orientation == 0) ? 0 : 0
+            anchors.fill: parent
           //  rotation: orientation
 
             Rectangle { anchors.fill: parent; color: '#2E3440' }
@@ -185,7 +178,8 @@ WaylandOutput {
                   StatusArea { id: setting }
 
                 Repeater {
-                    anchors { top: naviBar.bottom; left: parent.left; bottom: parent.bottom; right: parent.right }
+                    anchors.fill: parent
+                    //anchors { top: naviBar.bottom; left: parent.left; bottom: parent.bottom; right: parent.right }
                     model: shellSurfaces
                     delegate: Component {
                         Loader {
