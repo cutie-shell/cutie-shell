@@ -1,20 +1,16 @@
 import QtQuick 2.14
 import QtWayland.Compositor 1.14
 import QtGraphicalEffects 1.0
-import QtQuick.Controls 2.15
 
-Drawer {
+Rectangle {
     id: sidebar
      x: 0
      y: 0
-     dragMargin: 20 * shellScaleFactor
     property alias tabListView: tabListView
-    width: parent.width
+    width: 400
     height: parent.height 
-    edge: Qt.LeftEdge
-    background: Rectange {
-        color: "#2E3440" 
-    }
+   // anchors { left: parent.left; top: parent.top }
+    color: "#2E3440"
 
 
 
@@ -26,7 +22,7 @@ Drawer {
         anchors.right: parent.right
         anchors.top: parent.top
         anchors.bottom: parent.bottom
-        source: "wallpaper.jpg"
+        source: "file://usr/share/atmospheres/current/wallpaper.jpg"
         anchors.topMargin: 0
         anchors.rightMargin: 0
         anchors.bottomMargin: 0
@@ -130,7 +126,7 @@ Drawer {
                 anchors.fill: parent; 
                 enabled: (root.state == "drawer") 
                 onClicked: {
-                    process.startDetached("./apps/webview.sh");
+                    process.startDetached(".apps/test.sh");
                 }
                 onPressAndHold: {
                     process.startDetached("./apps/terminal.sh");
