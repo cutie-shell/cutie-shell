@@ -35,7 +35,7 @@ Rectangle {
         x: 0
         y: 0
         anchors.fill: parent
-        source: "wallpaper.jpg"
+        source: "file://usr/share/atmospheres/current/wallpaper.jpg"
         sourceSize.height: 2000
         sourceSize.width: 800
         fillMode: Image.PreserveAspectCrop
@@ -65,7 +65,7 @@ Rectangle {
             y: 55 * shellScaleFactor
             width: 60 * shellScaleFactor
             height: 60 * shellScaleFactor
-            source: "wallpaper.jpg"
+            source: "file://usr/share/atmospheres/city/wallpaper.jpg"
             fillMode: Image.PreserveAspectFit
 
             Text {
@@ -125,7 +125,7 @@ Rectangle {
                 anchors.bottom: parent.bottom
                 anchors.bottomMargin: 7 * shellScaleFactor
                 color: "#ffffff"
-                text: qsTr("Tele2")
+                text: qsTr("Modem")
                 font.pixelSize: 9 * shellScaleFactor
                 horizontalAlignment: Text.AlignHCenter
                 font.bold: false
@@ -220,7 +220,7 @@ Rectangle {
         }
 
         Rectangle {
-            id: statusbarmm
+            id: statusbar_applet
             x: 0
             y: 4 * shellScaleFactor
             width: parent.width

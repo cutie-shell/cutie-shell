@@ -40,7 +40,7 @@ Rectangle {
         id: ui
         x: 0
         anchors.fill: parent
-        source: "wallpaper.jpg"
+        source: "file://usr/share/atmospheres/current/wallpaper.jpg"
         sourceSize.height: 2000
         sourceSize.width: 800
         fillMode: Image.PreserveAspectCrop
@@ -143,7 +143,7 @@ Rectangle {
                 anchors.fill: parent; 
                 enabled: (root.state == "drawer") 
                 onClicked: {
-                    process.startDetached("./apps/webview.sh");
+                    process.startDetached(".apps/test.sh");
                 }
                 onPressAndHold: {
                     process.startDetached("./apps/terminal.sh");
