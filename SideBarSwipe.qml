@@ -1,14 +1,13 @@
 import QtQuick 2.0
 
-    Rectangle {
-      width: 5 * shellScaleFactor
-      height: 20 * shellScaleFactor
-      y: 15 * shellScaleFactor
+
+    MouseArea {
+      //anchors{ top: parent.top; left: parent.left }]
+
+      width: 1
+      height: 128
+      y: 25
       x:0
-      color: "red"
-      MouseArea {
-      width: 5 * shellScaleFactor
-      height: 20 * shellScaleFactor
         // open or close the drawer
         onClicked: {
             root.state == "drawer" ? root.state = "normal" : root.state = "drawer"
