@@ -39,7 +39,7 @@ Window {
         anchors.topMargin: 0
         anchors.bottomMargin: 0
         anchors.rightMargin: 0
-        fillMode: Image.Pad
+        fillMode: Image.PreserveAspectCrop
     }
     FastBlur {
             anchors.fill: bug

@@ -6,8 +6,6 @@ import QtQuick.Controls 2.1
 import QtSensors 5.11
 //import MeeGo.Connman 0.2 
 
-
-
 WaylandOutput {
     id: compositor
     property variant formatDateTimeString: "HH:mm"
@@ -24,50 +22,46 @@ WaylandOutput {
     property variant orientation: 0
     property variant sensorEnabled: true 
 
-    property int drawerWidth: 360 
-    property int drawerMargin: 10
-    property int drawerHeight: 45
+    property int drawerMargin: 5*shellScaleFactor
 
-    function handleShellSurface(shellSurface) {
+    function handleShellSurface(shellSurface, toplevel) {
         shellSurfaces.insert(0, {shellSurface: shellSurface});
+        toplevel.sendConfigure(Qt.size(view.width, view.height), [ XdgToplevel.NoneEdge ]);
     }
 
     onScreenLockedChanged: {
         if (screenLocked) {
-            process.start("raspi-gpio", ["set", "12", "dl"]);
+            //process.start("raspi-gpio", ["set", "12", "dl"]);
             root.state = "locked";
             lockscreen.lockscreenMosueArea.enabled = false; 
         } else {
-            process.start("raspi-gpio", ["set", "12", "dh"]);
+            //process.start("raspi-gpio", ["set", "12", "dh"]);
             lockscreen.lockscreenMosueArea.enabled = true; 
         }
     }
-
-
 
     Item {
         id: root
         state: "normal" 
         states: [
             State {
-              name: "setting"
-               PropertyChanges { target: settingSheet; y: 0 }
-           },
-
+                name: "setting"
+                PropertyChanges { target: sidebar; x: -view.width }
+                PropertyChanges { target: settingSheet; y: 0 }
+            },
             State { name: "locked" }, 
             State { name: "popup" }, 
-           State{
+            State { name: "parked" },
+            State{
                 name: "drawer"
-               PropertyChanges { target: content; anchors.leftMargin: drawerWidth }
+                PropertyChanges { target: sidebar; x: 0 }
+                PropertyChanges { target: settingSheet; y: -view.height }
             },
-
-
-
-             State {
-                 name: "normal"
-                 PropertyChanges { target: content; anchors.leftMargin: 0 }
-                 PropertyChanges { target: settingSheet; y: -800 + 0 }
-             }
+            State {
+                name: "normal"
+                PropertyChanges { target: settingSheet; y: -view.height }
+                PropertyChanges { target: sidebar; x: -view.width }
+            }
 
        ]
 
@@ -75,7 +69,7 @@ WaylandOutput {
            Transition {
                 to: "*"
                 NumberAnimation { target: settingSheet; properties: "y"; duration: 400; easing.type: Easing.InOutQuad; }
-                NumberAnimation { target: content; properties: "anchors.leftMargin"; duration: 300; easing.type: Easing.InOutQuad; }
+                NumberAnimation { target: sidebar; properties: "x"; duration: 400; easing.type: Easing.InOutQuad; }
            }
 
 
@@ -92,10 +86,7 @@ WaylandOutput {
         Rectangle {
             id: view 
             color: "#2E3440"
-            width: (orientation == 0 || orientation == 0) ?  480 : 800
-            height: (orientation == 0 || orientation == 0) ? 800 : 480
-            x: (orientation == 0 || orientation == 0) ? 0 : 0
-            y: (orientation == 0 || orientation == 0) ? 0 : 0
+            anchors.fill: parent
           //  rotation: orientation
 
             Rectangle { anchors.fill: parent; color: '#2E3440' }
@@ -112,8 +103,6 @@ WaylandOutput {
                 source: "qrc:/Font Awesome 5 Free-Solid-900.otf"
             }
 
-          SideBar { id: sidebar }
-
             Rectangle {
                 id: content 
                 anchors.fill: parent 
@@ -121,7 +110,7 @@ WaylandOutput {
                 // navi bar 
 
 
-                MouseArea { 
+                /*MouseArea { 
                     id: overlayMouseArea 
                     anchors.fill: parent 
                     z: 3
@@ -130,7 +119,7 @@ WaylandOutput {
                         if ( root.state == "setting" || root.state == "drawer") 
                             root.state = "normal"
                     }
-                }
+                }*/
 
                 //Rectangle {
                //     width: 10; height: 10; color: "#2E3440"; z: 2; anchors { top: parent.top; right: setting.left }
@@ -177,15 +166,15 @@ WaylandOutput {
                    // }
                // }
 
+                SideBarSwipe { id: sideBarSwipe }
+                SideBar { id: sidebar }
+
                 SettingSheet { id: settingSheet } 
-
-
-                //SideBar { id: sidebar}
-                  SideBarSwipe { id: sideswipe }
-                  StatusArea { id: setting }
+                StatusArea { id: setting }
 
                 Repeater {
-                    anchors { top: naviBar.bottom; left: parent.left; bottom: parent.bottom; right: parent.right }
+                    anchors.fill: parent
+                    //anchors { top: naviBar.bottom; left: parent.left; bottom: parent.bottom; right: parent.right }
                     model: shellSurfaces
                     delegate: Component {
                         Loader {
