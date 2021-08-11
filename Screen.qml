@@ -4,6 +4,8 @@ import QtWayland.Compositor 1.14
 import QtGraphicalEffects 1.0
 import QtQuick.Controls 2.1
 import QtSensors 5.11
+import Process 1.0
+
 //import MeeGo.Connman 0.2 
 
 WaylandOutput {
@@ -14,7 +16,7 @@ WaylandOutput {
     property variant queue: []
     property bool screenLocked: false
     property bool batteryCharging: false
-    property variant wallpaperUrl: ":/wallpaper.jpg"
+    //property variant wallpaperUrl: ":/wallpaper.jpg"
 
     property real pitch: 0.0
     property real roll: 0.0
@@ -32,12 +34,12 @@ WaylandOutput {
 
     onScreenLockedChanged: {
         if (screenLocked) {
-            //process.start("raspi-gpio", ["set", "12", "dl"]);
+            //process.start("raspi-gpio", ["set", "12", "dl"]); for rpi/cutiePi-Tablet
             root.state = "locked";
-            lockscreen.lockscreenMosueArea.enabled = false; 
+            lockscreen.lockscreenMosueArea.enabled = false; //for halium9 android devices
         } else {
-            //process.start("raspi-gpio", ["set", "12", "dh"]);
-            lockscreen.lockscreenMosueArea.enabled = true; 
+            //process.start("raspi-gpio", ["set", "12", "dh"]); for rpi/cutiePi-Tablet
+            lockscreen.lockscreenMosueArea.enabled = true; //for halium9 android devices
         }
     }
 
@@ -93,6 +95,11 @@ WaylandOutput {
 
             Rectangle { anchors.fill: parent; color: '#2E3440' }
 
+            Process { id: process }
+                        Component {
+                            id: procComponent
+                            Process {}
+                        }
 
 
 
@@ -111,7 +118,6 @@ WaylandOutput {
                 id: content 
                 anchors.fill: parent 
 
-                // navi bar 
 
 
                 MouseArea { 
@@ -125,50 +131,7 @@ WaylandOutput {
                     }
                 }
 
-                //Rectangle {
-               //     width: 10; height: 10; color: "#2E3440"; z: 2; anchors { top: parent.top; right: setting.left }
-               // }
-              //  Rectangle {
-              //      width: 24; height: 24; color: "#ECEFF4"; radius: 12; z: 3; anchors { top: parent.top; right: setting.left }
-              //  }
 
-
-
-
-
-
-
-
-
-
-
-                //LOL
-        //        Rectangle {
-             //       width: setting.width - 20; height: 20 + 30; color: "#2E3440"; z: 3
-            //        anchors { top: parent.top; right: parent.right; topMargin: -20 } radius: 22
-            //    }
-
-             //   Rectangle {
-                //    color: "transparent"
-                 //   width: 85
-                 //   height: 85
-                 //   anchors { top: parent.top; left: parent.left }
-                 //   z: 3
-                  //  y: -10
-                    // hamburger button 
-                 //   Image {
-
-                    //    source: "qrc:/44831719.png"
-                     //   width: 25
-                     //   height:25
-
-                       // id: hamburgerButton
-                      //  anchors {
-                      //      left: parent.left; margins: 0; verticalCenter: parent.verticalCenter;
-                      //  }
-
-                   // }
-               // }
 
                 SettingSheet { id: settingSheet } 
 
