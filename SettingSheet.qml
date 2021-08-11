@@ -12,105 +12,12 @@ Rectangle {
 
 
 
-
-
-
-
-
-    // wifi scan result
-    ListView {
-        id: wifiListView
-        visible: root.state == "setting"
-        clip: true
-        anchors {
-            bottomMargin: 15
-            topMargin: 56
-            top: separator.bottom
-            left: parent.left
-            right: parent.right
-            bottom: parent.bottom
-        }
-        /*
-        model: networkingModel
-        delegate: Rectangle {
-            height: 45
-            width: parent.width
-            color: 'transparent'
-            Row {
-                width: parent.width - 40
-                height: parent.height
-                spacing: 10
-
-                Rectangle {
-                    width: 30
-                    height: 20
-                    color: 'transparent'
-                    anchors.verticalCenter: parent.verticalCenter
-                    Text {
-                        font.family: icon.name
-                        font.pixelSize: 12
-                        text: (modelData.state == "online" || modelData.state == "ready") ? "\uf00c" : ""
-                        color: "#ECEFF4"
-                        anchors.right: parent.right
-                        anchors.verticalCenter: parent.verticalCenter
-                    }
-                }
-                Text {
-                    text: (modelData.name == "") ? "[Hidden Wifi]" : modelData.name
-                    color: "#ECEFF4"
-                    elide: Text.ElideRight
-                    width: 230
-                    anchors.verticalCenter: parent.verticalCenter
-                    font.pointSize: 9
-                }
-            }
-            Row {
-                anchors {
-                    right: parent.right
-                    top: parent.top
-                    bottom: parent.bottom
-                    rightMargin: 30
-                }
-                width: 50
-                spacing: 10
-                Rectangle {
-                    width: 20
-                    height: 20
-                    color: 'transparent'
-                    anchors.verticalCenter: parent.verticalCenter
-                    Image {
-                        width: 20; height: width; sourceSize.width: width*2; sourceSize.height: height*2;
-                        source: (modelData.security[0] == "none") ? "" : "icons/network-wireless-encrypted-symbolic.svg"
-                    }
-                }
-                Image {
-                    width: 20; height: width; sourceSize.width: width*2; sourceSize.height: height*2;
-                    source: if (modelData.strength >= 55 ) { return "icons/network-wireless-signal-excellent-symbolic.svg" }
-                    else if (modelData.strength >= 50 ) { return "icons/network-wireless-signal-good-symbolic.svg" }
-                    else if (modelData.strength >= 45 ) { return "icons/network-wireless-signal-ok-symbolic.svg" }
-                    else if (modelData.strength >= 30 ) { return "icons/network-wireless-signal-weak-symbolic.svg" }
-                    anchors.verticalCenter: parent.verticalCenter
-                }
-            }
-            MouseArea {
-                anchors.fill: parent
-                onClicked: {
-                    if (modelData.state == "idle" || modelData.state == "failure") {
-                        networkingModel.networkName = modelData.name
-                        modelData.requestConnect()
-                    }
-                }
-            }
-        }
-        */
-    }
-
     Image {
         id: ui
         x: 0
         y: 0
         anchors.fill: parent
-        source: "wallpaper.jpg"
+        source: "file://usr/share/atmospheres/current/wallpaper.jpg"
         sourceSize.height: 2000
         sourceSize.width: 800
         fillMode: Image.PreserveAspectCrop
@@ -140,7 +47,7 @@ Rectangle {
             y: 55 * shellScaleFactor
             width: 60 * shellScaleFactor
             height: 60 * shellScaleFactor
-            source: "wallpaper.jpg"
+            source: "file://usr/share/atmospheres/city/wallpaper.jpg"
             fillMode: Image.PreserveAspectFit
 
             Text {
@@ -157,8 +64,8 @@ Rectangle {
             id: rectangle
             x: 25 * shellScaleFactor
             y: 135 * shellScaleFactor
-            width: view.width / 2 - 37 * shellScaleFactor
-            height: view.width / 2 - 37 * shellScaleFactor
+            width: view.width / 2 - 50 * shellScaleFactor
+            height: view.width / 2 - 50 * shellScaleFactor
             color: "#2fffffff"
             radius: 10 * shellScaleFactor
 
@@ -187,10 +94,10 @@ Rectangle {
 
         Rectangle {
             id: rectangle1
-            x: view.width / 2 + 12 * shellScaleFactor
+            x: view.width / 2 + 25 * shellScaleFactor
             y: 135 * shellScaleFactor
-            width: view.width / 2 - 37 * shellScaleFactor
-            height: view.width / 2 - 37 * shellScaleFactor
+            width: view.width / 2 - 50 * shellScaleFactor
+            height: view.width / 2 - 50 * shellScaleFactor
             color: "#2fffffff"
             radius: 10 * shellScaleFactor
 
@@ -200,7 +107,7 @@ Rectangle {
                 anchors.bottom: parent.bottom
                 anchors.bottomMargin: 7 * shellScaleFactor
                 color: "#ffffff"
-                text: qsTr("Tele2")
+                text: qsTr("Modem")
                 font.pixelSize: 9 * shellScaleFactor
                 horizontalAlignment: Text.AlignHCenter
                 font.bold: false
@@ -221,9 +128,9 @@ Rectangle {
         Rectangle {
             id: rectangle2
             x: 25 * shellScaleFactor
-            y: 120 * shellScaleFactor + view.width / 2
-            width: view.width / 2 - 37 * shellScaleFactor
-            height: view.width / 2 - 37 * shellScaleFactor
+            y: 100 * shellScaleFactor + view.width / 2
+            width: view.width / 2 - 50 * shellScaleFactor
+            height: view.width / 2 - 50 * shellScaleFactor
             color: "#2fffffff"
             radius: 10 * shellScaleFactor
 
@@ -252,10 +159,10 @@ Rectangle {
 
         Rectangle {
             id: rectangle3
-            x: view.width / 2 + 12 * shellScaleFactor
-            y: 120 * shellScaleFactor + view.width / 2
-            width: view.width / 2 - 37 * shellScaleFactor
-            height: view.width / 2 - 37 * shellScaleFactor
+            x: view.width / 2 + 25 * shellScaleFactor
+            y: 100 * shellScaleFactor + view.width / 2
+            width: view.width / 2 - 50 * shellScaleFactor
+            height: view.width / 2 - 50 * shellScaleFactor
             color: "#2fffffff"
             radius: 10 * shellScaleFactor
 
@@ -295,7 +202,7 @@ Rectangle {
         }
 
         Rectangle {
-            id: statusbarmm
+            id: statusbar_applet
             x: 0
             y: 4 * shellScaleFactor
             width: parent.width
@@ -335,7 +242,7 @@ Rectangle {
                 anchors.right: image2.left
                 anchors.rightMargin: 4 * shellScaleFactor
                 anchors.top: parent.top
-                anchors.topMargin: 2 * shellScaleFactor
+                anchors.topMargin: shellScaleFactor
                 color: "#ffffff"
                 text: qsTr("4G")
                 font.pixelSize: 9 * shellScaleFactor
@@ -344,7 +251,7 @@ Rectangle {
 
             Image {
                 id: image3
-                anchors.left: text15.right
+                anchors.left: parent.left
                 anchors.leftMargin: 4 * shellScaleFactor
                 anchors.top: parent.top
                 anchors.topMargin: shellScaleFactor
@@ -361,7 +268,6 @@ Rectangle {
                 anchors.left: image3.right
                 anchors.leftMargin: 4 * shellScaleFactor
                 anchors.top: parent.top
-                anchors.topMargin: 2 * shellScaleFactor
                 color: "#ffffff"
                 text: qsTr("75%")
                 font.pixelSize: 9 * shellScaleFactor
@@ -370,12 +276,10 @@ Rectangle {
 
             Text {
                 id: text15
-                anchors.left: parent.left
-                anchors.leftMargin: 4 * shellScaleFactor
+                anchors.horizontalCenter: parent.horizontalCenter
                 anchors.top: parent.top
-                anchors.topMargin: 2 * shellScaleFactor
                 color: "#ffffff"
-                text: qsTr("17:46")
+                 text: Qt.formatDateTime(new Date(), formatDateTimeString)
                 font.pixelSize: 9 * shellScaleFactor
                 font.bold: false
             }
