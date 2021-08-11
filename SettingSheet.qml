@@ -6,11 +6,29 @@ Rectangle {
     id: settingSheet
     width: view.width
     height: view.height
+    z: 200
 
-    // anchors { right: parent.right;  }
-    y: -view.height
-
-
+    MouseArea { 
+        enabled: root.state == "setting"
+        drag.target: parent; drag.axis: Drag.YAxis; drag.minimumY: -view.height; drag.maximumY: 0
+        width: view.width
+        height: 5 * shellScaleFactor
+        z: 100
+        anchors {
+            left: parent.left
+            bottom: parent.bottom
+            right: parent.right
+        }
+        onPressed: {
+            if (parent.y > -view.height / 2) { root.state = "normal" } else { root.state = "setting" }
+        }
+        onReleased: {
+            if (parent.y > -view.height / 2) { root.state = "setting" } else { 
+                root.state = "parked";
+                root.state = "normal";
+            }
+        }
+    }
 
     Image {
         id: ui
@@ -64,8 +82,8 @@ Rectangle {
             id: rectangle
             x: 25 * shellScaleFactor
             y: 135 * shellScaleFactor
-            width: view.width / 2 - 50 * shellScaleFactor
-            height: view.width / 2 - 50 * shellScaleFactor
+            width: view.width / 2 - 37 * shellScaleFactor
+            height: view.width / 2 - 37 * shellScaleFactor
             color: "#2fffffff"
             radius: 10 * shellScaleFactor
 
@@ -94,10 +112,10 @@ Rectangle {
 
         Rectangle {
             id: rectangle1
-            x: view.width / 2 + 25 * shellScaleFactor
+            x: view.width / 2 + 12 * shellScaleFactor
             y: 135 * shellScaleFactor
-            width: view.width / 2 - 50 * shellScaleFactor
-            height: view.width / 2 - 50 * shellScaleFactor
+            width: view.width / 2 - 37 * shellScaleFactor
+            height: view.width / 2 - 37 * shellScaleFactor
             color: "#2fffffff"
             radius: 10 * shellScaleFactor
 
@@ -128,9 +146,9 @@ Rectangle {
         Rectangle {
             id: rectangle2
             x: 25 * shellScaleFactor
-            y: 100 * shellScaleFactor + view.width / 2
-            width: view.width / 2 - 50 * shellScaleFactor
-            height: view.width / 2 - 50 * shellScaleFactor
+            y: 120 * shellScaleFactor + view.width / 2
+            width: view.width / 2 - 37 * shellScaleFactor
+            height: view.width / 2 - 37 * shellScaleFactor
             color: "#2fffffff"
             radius: 10 * shellScaleFactor
 
@@ -159,10 +177,10 @@ Rectangle {
 
         Rectangle {
             id: rectangle3
-            x: view.width / 2 + 25 * shellScaleFactor
-            y: 100 * shellScaleFactor + view.width / 2
-            width: view.width / 2 - 50 * shellScaleFactor
-            height: view.width / 2 - 50 * shellScaleFactor
+            x: view.width / 2 + 12 * shellScaleFactor
+            y: 120 * shellScaleFactor + view.width / 2
+            width: view.width / 2 - 37 * shellScaleFactor
+            height: view.width / 2 - 37 * shellScaleFactor
             color: "#2fffffff"
             radius: 10 * shellScaleFactor
 
@@ -242,7 +260,7 @@ Rectangle {
                 anchors.right: image2.left
                 anchors.rightMargin: 4 * shellScaleFactor
                 anchors.top: parent.top
-                anchors.topMargin: shellScaleFactor
+                anchors.topMargin: 2 * shellScaleFactor
                 color: "#ffffff"
                 text: qsTr("4G")
                 font.pixelSize: 9 * shellScaleFactor
@@ -251,7 +269,7 @@ Rectangle {
 
             Image {
                 id: image3
-                anchors.left: parent.left
+                anchors.left: text15.right
                 anchors.leftMargin: 4 * shellScaleFactor
                 anchors.top: parent.top
                 anchors.topMargin: shellScaleFactor
@@ -268,6 +286,7 @@ Rectangle {
                 anchors.left: image3.right
                 anchors.leftMargin: 4 * shellScaleFactor
                 anchors.top: parent.top
+                anchors.topMargin: 2 * shellScaleFactor
                 color: "#ffffff"
                 text: qsTr("75%")
                 font.pixelSize: 9 * shellScaleFactor
@@ -276,10 +295,12 @@ Rectangle {
 
             Text {
                 id: text15
-                anchors.horizontalCenter: parent.horizontalCenter
+                anchors.left: parent.left
+                anchors.leftMargin: 4 * shellScaleFactor
                 anchors.top: parent.top
+                anchors.topMargin: 2 * shellScaleFactor
                 color: "#ffffff"
-                 text: Qt.formatDateTime(new Date(), formatDateTimeString)
+                text: qsTr("17:46")
                 font.pixelSize: 9 * shellScaleFactor
                 font.bold: false
             }
@@ -290,7 +311,7 @@ Rectangle {
     Rectangle {
         id: brightness
         width: parent.width - 10 * shellScaleFactor
-        height: 15 * shellScaleFactor
+        height: 25 * shellScaleFactor
         color: "#00000000"
         anchors.left: parent.left
         anchors.right: parent.right
