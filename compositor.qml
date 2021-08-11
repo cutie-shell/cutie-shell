@@ -20,14 +20,12 @@ import QtWayland.Compositor 1.14
 
 WaylandCompositor {
     Screen { id: screen }
-    WlShell {
-        onWlShellSurfaceCreated: {
-            screen.handleShellSurface(shellSurface)
+    
+    XdgShell {
+        onToplevelCreated: {
+            screen.handleShellSurface(xdgSurface, toplevel)
         }
     }
-
-
-
 
     ListModel { id: shellSurfaces }
     TextInputManager {}
