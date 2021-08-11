@@ -1,16 +1,20 @@
 import QtQuick 2.14
 import QtWayland.Compositor 1.14
 import QtGraphicalEffects 1.0
+import QtQuick.Controls 2.15
 
-Rectangle {
+Drawer {
     id: sidebar
      x: 0
      y: 0
+     dragMargin: 20 * shellScaleFactor
     property alias tabListView: tabListView
-    width: 400
+    width: parent.width
     height: parent.height 
-   // anchors { left: parent.left; top: parent.top }
-    color: "#2E3440"
+    edge: Qt.LeftEdge
+    background: Rectange {
+        color: "#2E3440" 
+    }
 
 
 
@@ -105,11 +109,7 @@ Rectangle {
         anchors.fill: parent
 
         onCurrentIndexChanged: {
-            if (shellSurfaces.get(currentIndex).shellSurface.toString().match(/XWaylandShellSurface/)) { 
-                shellSurfaces.get(currentIndex).shellSurface.sendResize(Qt.size(view.width, view.height - 85));
-            } else { 
-                shellSurfaces.get(currentIndex).shellSurface.sendConfigure(Qt.size(view.width, view.height), WlShellSurface.NoneEdge);
-            }
+            shellSurfaces.get(currentIndex).shellSurface.toplevel.sendConfigure(Qt.size(view.width, view.height), [ XdgToplevel.NoneEdge ]);
         }
 
         header: Rectangle { 
