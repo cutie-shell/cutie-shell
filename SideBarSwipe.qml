@@ -1,17 +1,21 @@
-import QtQuick 2.0
+import QtQuick 2.14
 
-
-    MouseArea {
-      //anchors{ top: parent.top; left: parent.left }]
-
-      width: 1
-      height: 128
-      y: 25
-      x:0
-        // open or close the drawer
-        onClicked: {
-            root.state == "drawer" ? root.state = "normal" : root.state = "drawer"
-            Qt.inputMethod.hide();
-        }
+MouseArea {
+    z: 300
+    width: 5 * shellScaleFactor
+    height: parent.height
+    anchors {
+        left: parent.left
     }
+    drag.target: sidebar; drag.axis: Drag.XAxis; drag.minimumX: -view.width; drag.maximumX: 0
+    onPressed: {
+        if (sidebar.x > -view.width / 2) { root.state = "normal" } else { root.state = "drawer" }
+    }
+    onReleased: {
+        if (sidebar.x > -view.width / 2) { 
+            root.state = "parked";
+            root.state = "drawer";
+        } else { root.state = "normal" }
+    }
+}
 
