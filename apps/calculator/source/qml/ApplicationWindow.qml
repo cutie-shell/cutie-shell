@@ -12,6 +12,8 @@ Window {
 
     title: qsTr("Calculator")
 
+    color: "#00000000"
+
     contentItem.implicitWidth: calculator.implicitWidth
     contentItem.implicitHeight: calculator.implicitHeight
 
@@ -28,26 +30,6 @@ Window {
 
     //    toolBar: App.ToolBar { }
 
-    Image {
-        id: bug
-        anchors.left: parent.left
-        anchors.right: parent.right
-        anchors.top: parent.top
-        anchors.bottom: parent.bottom
-        source: "wallpaper.jpg"
-        sourceSize.width: 800
-        anchors.leftMargin: 0
-        anchors.topMargin: 0
-        anchors.bottomMargin: 0
-        anchors.rightMargin: 0
-        fillMode: Image.Pad
-    }
-    FastBlur {
-            anchors.fill: bug
-            source: bug
-            radius: 65
-
-        }
 
     App.Calculator {
         id: calculator
