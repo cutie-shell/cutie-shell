@@ -70,6 +70,7 @@ Rectangle {
         id: tabListView
         height: parent.height
         anchors.fill: parent
+        anchors.topMargin: 20 * shellScaleFactor
 
         onCurrentIndexChanged: {
              if (currentIndex < 0) {
