@@ -40,7 +40,7 @@ Rectangle {
         id: ui
         x: 0
         anchors.fill: parent
-        source: "file://usr/share/atmospheres/current/wallpaper.jpg"
+        source: "file://usr/share/atmospheres/Current/wallpaper.jpg"
         sourceSize.height: 2000
         sourceSize.width: 800
         fillMode: Image.PreserveAspectCrop
