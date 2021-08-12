@@ -106,7 +106,7 @@ WaylandOutput {
 
             FontLoader {
                 id: icon
-                source: "qrc:/Font Awesome 5 Free-Solid-900.otf"
+                source: "qrc:/fonts/Font Awesome 5 Free-Solid-900.otf"
             }
 
             Rectangle {
@@ -138,12 +138,7 @@ WaylandOutput {
                     anchors.fill: parent
                     //anchors { top: naviBar.bottom; left: parent.left; bottom: parent.bottom; right: parent.right }
                     model: shellSurfaces
-                    delegate: Component {
-                        Loader {
-                            source: ( modelData.toString().match(/XWaylandShellSurface/) ) ? 
-                                "XWaylandChrome.qml" : "WaylandChrome.qml" 
-                        }
-                    }
+                    delegate: WaylandChrome {}
                 }
             }
 
