@@ -5,7 +5,6 @@ import QtGraphicalEffects 1.0
 import QtQuick.Controls 2.1
 import QtSensors 5.11
 import Process 1.0
-//import MeeGo.Connman 0.2 
 
 WaylandOutput {
     id: compositor
@@ -15,7 +14,6 @@ WaylandOutput {
     property variant queue: []
     property bool screenLocked: false
     property bool batteryCharging: false
-    //property variant wallpaperUrl: ":/wallpaper.jpg"
 
     property real pitch: 0.0
     property real roll: 0.0
@@ -43,66 +41,82 @@ WaylandOutput {
 
     Item {
         id: root
-        state: "normal" 
+        state: "homeScreen" 
         states: [
-            State {
-                name: "setting"
-                PropertyChanges { target: sidebar; x: -view.width }
-                PropertyChanges { target: settingSheet; y: 0 }
-            },
-            State { name: "locked" }, 
-            State { name: "popup" }, 
-            State { name: "parked" },
             State{
-                name: "drawer"
-                PropertyChanges { target: sidebar; x: 0 }
+                name: "homeScreen"
                 PropertyChanges { target: settingSheet; y: -view.height }
+                PropertyChanges { target: homeScreen; opacity: 1 }
+                PropertyChanges { target: appScreen; opacity: 0 }
             },
             State {
-                name: "normal"
+                name: "appScreen"
                 PropertyChanges { target: settingSheet; y: -view.height }
-                PropertyChanges { target: sidebar; x: -view.width }
+                PropertyChanges { target: homeScreen; opacity: 0 }
+                PropertyChanges { target: appScreen; opacity: 1 }
             }
-
-       ]
+        ]
 
         transitions: [
            Transition {
                 to: "*"
                 NumberAnimation { target: settingSheet; properties: "y"; duration: 400; easing.type: Easing.InOutQuad; }
-                NumberAnimation { target: sidebar; properties: "x"; duration: 400; easing.type: Easing.InOutQuad; }
+                NumberAnimation { target: homeScreen; properties: "opacity"; duration: 200; easing.type: Easing.InOutQuad; }
+                NumberAnimation { target: appScreen; properties: "opacity"; duration: 200; easing.type: Easing.InOutQuad; }
            }
 
+        ]
+    }
 
-
+    Item {
+        id: settingsState
+        state: "normal" 
+        states: [
+            State {
+                name: "opened"
+                PropertyChanges { target: settingSheet; y: 0 }
+            },
+            State {
+                name: "closed"
+                PropertyChanges { target: settingSheet; y: -view.height }
+            },
+            State {
+                name: "opening"
+                PropertyChanges { target: settingSheet; y: -view.height }
+            },
+            State {
+                name: "closing"
+                PropertyChanges { target: settingSheet; y: 0 }
+            }
         ]
 
-
-
+        transitions: [
+           Transition {
+                to: "*"
+                NumberAnimation { target: settingSheet; properties: "y"; duration: 400; easing.type: Easing.InOutQuad; }
+           }
+        ]
     }
 
     sizeFollowsWindow: true
     window: Window {
         visible: true
+        width: 222 * shellScaleFactor
+        height: 370 * shellScaleFactor
         Rectangle {
             id: view 
             color: "#2E3440"
             anchors.fill: parent
-          //  rotation: orientation
+            //rotation: orientation
 
             Rectangle { anchors.fill: parent; color: '#2E3440' }
 
             Process { id: process }
-                        Component {
-                            id: procComponent
-                            Process {}
-                        }
 
-
-
-
-
-
+            Component {
+                id: procComponent
+                Process {}
+            }
 
             FontLoader {
                 id: icon
@@ -111,96 +125,29 @@ WaylandOutput {
 
             Rectangle {
                 id: content 
-                anchors.fill: parent 
+                anchors.fill: parent
 
+                Image {
+                    z: 100
+                    id: wallpaper
+                    anchors.fill: parent
+                    source: "file://usr/share/atmospheres/Current/wallpaper.jpg"
+                    fillMode: Image.PreserveAspectCrop
+                }
 
-
-                /*MouseArea { 
-                    id: overlayMouseArea 
-                    anchors.fill: parent 
-                    z: 3
-                    enabled: (root.state == "setting" || root.state == "popup" || root.state == "drawer" )
-                    onClicked: { 
-                        if ( root.state == "setting" || root.state == "drawer") 
-                            root.state = "normal"
-                    }
-                }*/
-
-
-
-                SideBarSwipe { id: sideBarSwipe }
-                SideBar { id: sidebar }
+                AppScreen { id: appScreen }
+                HomeScreen { id: homeScreen }
 
                 SettingSheet { id: settingSheet } 
                 StatusArea { id: setting }
-
-                Repeater {
-                    anchors.fill: parent
-                    //anchors { top: naviBar.bottom; left: parent.left; bottom: parent.bottom; right: parent.right }
-                    model: shellSurfaces
-                    delegate: WaylandChrome {}
-                }
             }
 
             LockScreen { id: lockscreen }
-
-
-
-
 
             Loader {
                 anchors.fill: parent
                 source: "Keyboard.qml"
             }
         }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     }
 }
