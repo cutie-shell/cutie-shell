@@ -1,0 +1,5 @@
+*.o
+cutie-ui-io
+.qmake.stash
+Makefile
+qrc_*.cpp
