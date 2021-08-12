@@ -8,7 +8,7 @@ Image {
     property alias lockscreenDate: lockscreenDate 
 
     visible: ( root.state == "locked" )
-    source: "wallpaper.jpg"
+    source: "file://usr/share/atmospheres/Current/wallpaper.jpg"
     fillMode: Image.PreserveAspectCrop
     z: 6
     x: 0; y: 0; width: parent.width; height: parent.height 

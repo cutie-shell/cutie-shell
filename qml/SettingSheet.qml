@@ -6,10 +6,10 @@ Rectangle {
     id: settingSheet
     width: view.width
     height: view.height
-    z: 200
+    z: 350
 
     MouseArea { 
-        enabled: root.state == "setting"
+        enabled: settingsState.state != "closed"
         drag.target: parent; drag.axis: Drag.YAxis; drag.minimumY: -view.height; drag.maximumY: 0
         width: view.width
         height: 5 * shellScaleFactor
@@ -19,14 +19,13 @@ Rectangle {
             bottom: parent.bottom
             right: parent.right
         }
+
         onPressed: {
-            if (parent.y > -view.height / 2) { root.state = "normal" } else { root.state = "setting" }
+            settingsState.state = "closing";
         }
+
         onReleased: {
-            if (parent.y > -view.height / 2) { root.state = "setting" } else { 
-                root.state = "parked";
-                root.state = "normal";
-            }
+            if (parent.y > -view.height / 2) { settingsState.state = "opened" } else { settingsState.state = "closed" }
         }
     }
 

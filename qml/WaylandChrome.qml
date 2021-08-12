@@ -3,7 +3,7 @@ import QtWayland.Compositor 1.14
 
 ShellSurfaceItem {
     anchors { top: parent.top; left: parent.left }
-    z: -100
+    z: 200
     height: view.height
     width: view.width
     sizeFollowsSurface: false
