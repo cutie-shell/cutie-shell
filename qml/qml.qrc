@@ -1,0 +1,13 @@
+<RCC>
+    <qresource prefix="/">
+        <file>compositor.qml</file>
+        <file>Keyboard.qml</file>
+        <file>LockScreen.qml</file>
+        <file>Screen.qml</file>
+        <file>SettingSheet.qml</file>
+        <file>SideBar.qml</file>
+        <file>SideBarSwipe.qml</file>
+        <file>StatusArea.qml</file>
+        <file>WaylandChrome.qml</file>
+    </qresource>
+</RCC>

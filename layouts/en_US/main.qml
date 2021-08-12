@@ -23,7 +23,7 @@ KeyboardLayout {
     keyWeight: 160
     FontLoader {
         id: fa
-        source: "file:///opt/cutiepi-shell/Font Awesome 5 Free-Solid-900.otf"
+        source: "qrc:/fonts/Font Awesome 5 Free-Solid-900.otf"
     }
     KeyboardRow {
         EscKey { }
