@@ -1,0 +1,5 @@
+<RCC>
+    <qresource prefix="/fonts/">
+        <file>Font Awesome 5 Free-Solid-900.otf</file>
+    </qresource>
+</RCC>
