@@ -4,7 +4,7 @@ import QtWayland.Compositor 1.14
 import QtGraphicalEffects 1.0
 import QtQuick.Controls 2.1
 import QtSensors 5.11
-import Process 1.0
+//import Process 1.0
 
 WaylandOutput {
     id: compositor
@@ -111,12 +111,12 @@ WaylandOutput {
 
             Rectangle { anchors.fill: parent; color: '#2E3440' }
 
-            Process { id: process }
+           // Process { id: process }
 
-            Component {
-                id: procComponent
-                Process {}
-            }
+            //Component {
+              //  id: procComponent
+                //Process {}
+            //}
 
             FontLoader {
                 id: icon
