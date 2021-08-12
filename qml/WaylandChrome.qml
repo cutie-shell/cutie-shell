@@ -7,7 +7,8 @@ ShellSurfaceItem {
     height: view.height
     width: view.width
     sizeFollowsSurface: false
-    shellSurface: modelData
-    onSurfaceDestroyed: shellSurfaces.remove(index)
-    visible: sidebar.tabListView.currentIndex == index
+    onSurfaceDestroyed: {
+        shellSurfaces.remove(parent.shellSurfaceIdx);
+        root.state = "homeScreen";
+    }
 }

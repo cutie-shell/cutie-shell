@@ -1,5 +1,6 @@
 import QtQuick 2.12
 import QtGraphicalEffects 1.0
+import QtWayland.Compositor 1.14
 
 Rectangle {
     anchors.fill: parent
@@ -7,15 +8,21 @@ Rectangle {
     z: 150
     color: "transparent"
 
+    property ShellSurface shellSurface
+    property int shellSurfaceIdx
+
+    onShellSurfaceChanged: {
+        visibleClient.shellSurface = shellSurface;
+    }
+
     FastBlur {
         anchors.fill: parent
         source: wallpaper
         radius: 70
     }
 
-    Repeater {
-        model: shellSurfaces
-        delegate: WaylandChrome {}
+    WaylandChrome {
+        id: visibleClient
     }
 
     Item {
