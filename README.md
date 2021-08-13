@@ -18,22 +18,44 @@ qt5-weather-app
 qt5-welcome-app                                                                      
 
 ## Building and Running on halium9 devices (powered by droidian)
+Status: WIP 
 
-Firstly, copy `com.github.CutiePiShellCommunityProject.SettingsDaemon.conf` over to `/usr/share/dbus-1/system.d/com.github.CutiePiShellCommunityProject.SettingsDaemon.conf` and `logind.conf.d/10-cutie.conf` to `/etc/systemd/logind.conf.d/10-cutie.conf`. You may have to create the `logind.conf.d` directory. After copying the files, you need to reboot your device.
-
-Then, build the settings daemon and run it as root:
+1)Please installing droidian phosh and devtools on your device.
+2)Connected device to pc linux via rndis ssh.     ssh droidian@10.15.19.82
+```
+sudo apt update && sudo apt install git qt-creator qml qtbase5-gles-dev qt5-qpa-hwcomposer-plugin g++ make libudev-dev qml-module-qtquick2 qml-module-qtquick-controls
+cd /usr/share/
+sudo git clone https://github.com/Cutie-Pi-Shell-community-project/atmospheres.git
+sudo git clone https://github.com/Cutie-Pi-Shell-community-project/CutiePi-shell-phone-components.git
+cd CutiePi-shell-phone-components 
+sudo cp -R com.github.CutiePiShellCommunityProject.SettingsDaemon.conf /usr/share/dbus-1/system.d/com.github.CutiePiShellCommunityProject.SettingsDaemon.conf
+cd /etc/systemd
+mkdir logind.conf.d
+cd /usr/share/CutiePi-shell-phone-components/
+sudo cp -R logind.conf.d/10-cutie.conf /etc/systemd/logind.conf.d/10-cutie.conf
+sudo reboot
+```
+Please connected to device.   ssh droidian@10.15.19.82
 
 ```
 cd settings-daemon
 qmake
 make
 sudo ./cutie-settings-daemon
-```
-
-After that, build the actual shell and run it as the normal user (in the root of this repo):
-
-```
+cd ..
 qmake
 make
-./start-halium.sh
+sh start-halium.sh
 ```
+
+Fix isues scale shell:
+```
+nano start-halium.sh
+
+There is a line in the script (export QT_SCALE_FACTOR= "4"). By default, the scale is 4, but if you have too large, you can make it less than 2.
+
+ctrl x
+y
+enter
+```
+
