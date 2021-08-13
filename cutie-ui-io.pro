@@ -32,4 +32,5 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
 
 DBUS_INTERFACES += \
+        org.freedesktop.DBus.xml \
         com.github.CutiePiShellCommunityProject.xml
