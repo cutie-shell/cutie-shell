@@ -281,16 +281,9 @@ Rectangle {
                 drag.minimumX: volumeBarTrack1.x
             }
             onXChanged: {
-                var fullrange = volumeBarTrack1.width - volumeBarThumb1.width
-                var vol = 100*(volumeBarThumb1.x - volumeBarTrack1.x)/fullrange
-                if(vol <= 2)
-                    setting.audio.source = "icons/audio-volume-muted-symbolic.svg"
-                else if(vol < 25)
-                    setting.audio.source = "icons/audio-volume-low-symbolic.svg"
-                else if(vol < 75)
-                    setting.audio.source = "icons/audio-volume-medium-symbolic.svg"
-                else
-                    setting.audio.source = "icons/audio-volume-high-symbolic.svg"
+                var fullrange = volumeBarTrack1.width - volumeBarThumb1.width;
+                var vol = 100*(volumeBarThumb1.x - volumeBarTrack1.x)/fullrange;
+                settings.SetBrightness(settings.GetMaxBrightness() * vol / 100);
             }
         }
     }
