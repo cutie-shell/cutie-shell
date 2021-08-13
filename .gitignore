@@ -4,3 +4,9 @@ cutie-ui-io
 Makefile
 qrc_*.cpp
 Calculator
+moc_*
+cutie-settings-daemon
+*interface.cpp
+*interface.h
+*adaptor.cpp
+*adaptor.h

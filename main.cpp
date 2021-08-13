@@ -1,6 +1,8 @@
 #include <QGuiApplication>
 #include <QQmlApplicationEngine>
 #include <QQmlContext>
+#include <QDBusPendingReply>
+#include "settings.h"
 
 int main(int argc, char *argv[])
 {
@@ -14,8 +16,13 @@ int main(int argc, char *argv[])
 
     QGuiApplication app(argc, argv);
 
+    Settings *settings = new Settings();
+
+    settings->SetBrightness(settings->GetMaxBrightness());
+
     QQmlApplicationEngine engine;
     engine.rootContext()->setContextProperty("shellScaleFactor", shellScaleFactor);
+    engine.rootContext()->setContextProperty("settings", settings);
     const QUrl url(QStringLiteral("qrc:/compositor.qml"));
     QObject::connect(&engine, &QQmlApplicationEngine::objectCreated,
                      &app, [url](QObject *obj, const QUrl &objUrl) {
