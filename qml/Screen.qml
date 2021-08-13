@@ -23,6 +23,7 @@ WaylandOutput {
     property real unlockBrightness: 0.5
 
     property int drawerMargin: 5*shellScaleFactor
+    property string atmospherePath: "file://usr/share/atmospheres/city/"
 
     function handleShellSurface(shellSurface, toplevel) {
         shellSurfaces.insert(0, {shellSurface: shellSurface});
@@ -164,7 +165,7 @@ WaylandOutput {
                     z: 100
                     id: wallpaper
                     anchors.fill: parent
-                    source: "file://usr/share/atmospheres/Current/wallpaper.jpg"
+                    source: atmospherePath + "wallpaper.jpg"
                     fillMode: Image.PreserveAspectCrop
                 }
 
