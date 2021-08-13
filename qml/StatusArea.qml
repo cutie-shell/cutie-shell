@@ -51,7 +51,12 @@ Rectangle {
         anchors.verticalCenter: parent.verticalCenter
         width: 15 * shellScaleFactor
         height: 15 * shellScaleFactor
-        source: "icons/battery-070.svg"
+        source: ((batteryStatus.Percentage == 100) ? "icons/battery-100-charged.svg" : 
+            ((batteryStatus.State === 1) ? ((batteryStatus.Percentage > 70) ? "icons/battery-070-charging.svg" : 
+            ((batteryStatus.Percentage > 50) ? "icons/battery-050-charging.svg": "icons/battery-010-charging.svg")) : 
+            ((batteryStatus.Percentage > 90) ? "icons/battery-090.svg" : ((batteryStatus.Percentage > 70) ? "icons/battery-070.svg" : 
+            ((batteryStatus.Percentage > 50) ? "icons/battery-050.svg" : ((batteryStatus.Percentage > 30) ? "icons/battery-030.svg" :
+            "icons/battery-010.svg"))))))
         sourceSize.height: 128
         sourceSize.width: 128
         fillMode: Image.PreserveAspectFit
@@ -63,7 +68,7 @@ Rectangle {
         anchors.leftMargin: 4 * shellScaleFactor
         anchors.verticalCenter: parent.verticalCenter
         color: "#ffffff"
-        text: qsTr("75%")
+        text: batteryStatus.Percentage.toString() + " %"
         font.pixelSize: 9 * shellScaleFactor
         font.bold: false
     }
