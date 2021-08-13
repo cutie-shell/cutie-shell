@@ -12,7 +12,7 @@ Rectangle {
 
     Image {
         id: lockscreenImage
-        source: "file://usr/share/atmospheres/Current/wallpaper.jpg"
+        source: atmospherePath + "wallpaper.jpg"
         fillMode: Image.PreserveAspectCrop
         anchors.fill: parent
     }
