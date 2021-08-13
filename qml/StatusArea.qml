@@ -10,12 +10,11 @@ Rectangle {
     Image {
         id: image1
         anchors.right: parent.right
-        anchors.rightMargin: 4 * shellScaleFactor
-        anchors.top: parent.top
-        anchors.topMargin: shellScaleFactor
+        anchors.rightMargin: 12 * shellScaleFactor
+        anchors.verticalCenter: parent.verticalCenter
         width: 15 * shellScaleFactor
         height: 15 * shellScaleFactor
-        source: "icons/network-cellular-signal-good.svg"
+        source: "icons/network-wireless-signal-good-symbolic.svg"
         sourceSize.height: 400
         sourceSize.width: 400
         fillMode: Image.PreserveAspectFit
@@ -25,11 +24,10 @@ Rectangle {
         id: image2
         anchors.right: image1.left
         anchors.rightMargin: 4 * shellScaleFactor
-        anchors.top: parent.top
-        anchors.topMargin: shellScaleFactor
+        anchors.verticalCenter: parent.verticalCenter
         width: 15 * shellScaleFactor
         height: 15 * shellScaleFactor
-        source: "icons/network-wireless-signal-good-symbolic.svg"
+        source: "icons/network-cellular-signal-good.svg"
         sourceSize.height: 128
         sourceSize.width: 128
         fillMode: Image.PreserveAspectFit
@@ -39,8 +37,7 @@ Rectangle {
         id: text13
         anchors.right: image2.left
         anchors.rightMargin: 4 * shellScaleFactor
-        anchors.top: parent.top
-        anchors.topMargin: 2 * shellScaleFactor
+        anchors.verticalCenter: parent.verticalCenter
         color: "#ffffff"
         text: qsTr("4G")
         font.pixelSize: 9 * shellScaleFactor
@@ -51,8 +48,7 @@ Rectangle {
         id: image3
         anchors.left: text15.right
         anchors.leftMargin: 4 * shellScaleFactor
-        anchors.top: parent.top
-        anchors.topMargin: shellScaleFactor
+        anchors.verticalCenter: parent.verticalCenter
         width: 15 * shellScaleFactor
         height: 15 * shellScaleFactor
         source: "icons/battery-070.svg"
@@ -65,8 +61,7 @@ Rectangle {
         id: text14
         anchors.left: image3.right
         anchors.leftMargin: 4 * shellScaleFactor
-        anchors.top: parent.top
-        anchors.topMargin: 2 * shellScaleFactor
+        anchors.verticalCenter: parent.verticalCenter
         color: "#ffffff"
         text: qsTr("75%")
         font.pixelSize: 9 * shellScaleFactor
@@ -76,9 +71,8 @@ Rectangle {
     Text {
         id: text15
         anchors.left: parent.left
-        anchors.leftMargin: 4 * shellScaleFactor
-        anchors.top: parent.top
-        anchors.topMargin: 2 * shellScaleFactor
+        anchors.leftMargin: 12 * shellScaleFactor
+        anchors.verticalCenter: parent.verticalCenter
         color: "#ffffff"
         text: qsTr("17:46")
         font.pixelSize: 9 * shellScaleFactor
