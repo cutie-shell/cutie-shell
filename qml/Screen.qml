@@ -91,7 +91,6 @@ WaylandOutput {
            Transition {
                 to: "locked, opened"
                 NumberAnimation { target: lockscreen; properties: "opacity"; duration: 200; easing.type: Easing.InOutQuad; }
-                NumberAnimation { target: lockscreen; properties: "y"; duration: 400; easing.type: Easing.InOutQuad; }
            }
 
         ]
