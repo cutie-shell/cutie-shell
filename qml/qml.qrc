@@ -10,4 +10,7 @@
         <file>StatusArea.qml</file>
         <file>WaylandChrome.qml</file>
     </qresource>
+    <qresource prefix="/QtQuick/VirtualKeyboard/content/styles/cutie">
+        <file>style.qml</file>
+    </qresource>
 </RCC>
