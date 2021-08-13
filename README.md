@@ -19,7 +19,7 @@ qt5-welcome-app
 
 ## Building and Running
 
-Firstly, copy `com.github.CutiePiShellCommunityProject.SettingsDaemon.conf` over to `/usr/share/dbus-1/system.d/com.github.CutiePiShellCommunityProject.SettingsDaemon.conf`. After copying, you need to reboot your device.
+Firstly, copy `com.github.CutiePiShellCommunityProject.SettingsDaemon.conf` over to `/usr/share/dbus-1/system.d/com.github.CutiePiShellCommunityProject.SettingsDaemon.conf` and `logind.conf.d/10-cutie.conf` to `/etc/systemd/logind.conf.d/10-cutie.conf`. You may have to create the `logind.conf.d` directory. After copying the files, you need to reboot your device.
 
 Then, build the settings daemon and run it as root:
 
