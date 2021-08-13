@@ -67,3 +67,6 @@ y
 enter
 ```
 
+
+# Status
+https://github.com/Cutie-Pi-Shell-community-project/development-status
