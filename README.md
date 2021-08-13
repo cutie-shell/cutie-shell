@@ -20,8 +20,8 @@ qt5-welcome-app
 ## Building and Running on halium9 devices (powered by droidian)
 Status: WIP 
 
-1)Please installing droidian phosh and devtools on your device.
-2)Connected device to pc linux via rndis ssh.     ssh droidian@10.15.19.82
+1)Please installing droidian phosh and devtools on your device.                                                                 
+2)Connected device to pc linux via rndis ssh.     ssh droidian@10.15.19.82                                                        
 ```
 sudo apt update && sudo apt install git qt-creator qml qtbase5-gles-dev qt5-qpa-hwcomposer-plugin g++ make libudev-dev qml-module-qtquick2 qml-module-qtquick-controls
 cd /usr/share/
