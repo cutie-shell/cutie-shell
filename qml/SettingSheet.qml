@@ -8,8 +8,8 @@ Rectangle {
     width: view.width
     height: view.height
     z: 350
-    color: "#88000000"
     opacity: 0
+    color: "transparent"
     y: -view.height
 
     function setSettingContainerY(y) {
@@ -97,6 +97,11 @@ Rectangle {
         anchors.leftMargin: 0
         anchors.topMargin: 0
         radius: 90
+
+        Rectangle {
+            anchors.fill: parent
+            color: "#50000000"
+        }
 
         Item {
             id: settingContainer
