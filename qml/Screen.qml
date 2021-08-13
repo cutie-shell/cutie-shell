@@ -103,22 +103,22 @@ WaylandOutput {
         states: [
             State {
                 name: "opened"
-                PropertyChanges { target: settingSheet; y: 0 }
+                PropertyChanges { target: settingSheet; y: 0; opacity: 1 }
                 PropertyChanges { target: setting; opacity: 1 }
             },
             State {
                 name: "closed"
-                PropertyChanges { target: settingSheet; y: -view.height }
+                PropertyChanges { target: settingSheet; y: -view.height; opacity: 0 }
                 PropertyChanges { target: setting; opacity: 1 }
             },
             State {
                 name: "opening"
-                PropertyChanges { target: settingSheet; y: -view.height }
+                PropertyChanges { target: settingSheet; y: 0; opacity: 0 }
                 PropertyChanges { target: setting; opacity: 0 }
             },
             State {
                 name: "closing"
-                PropertyChanges { target: settingSheet; y: 0 }
+                PropertyChanges { target: settingSheet; y: 0; opacity: 1 }
                 PropertyChanges { target: setting; opacity: 0 }
             }
         ]
@@ -126,7 +126,7 @@ WaylandOutput {
         transitions: [
            Transition {
                 to: "*"
-                NumberAnimation { target: settingSheet; properties: "y"; duration: 400; easing.type: Easing.InOutQuad; }
+                NumberAnimation { target: settingSheet; properties: "opacity"; duration: 300; easing.type: Easing.InOutQuad; }
                 NumberAnimation { target: setting; properties: "opacity"; duration: 300; easing.type: Easing.InOutQuad; }
            }
         ]
