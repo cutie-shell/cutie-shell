@@ -1,4 +1,5 @@
 import QtQuick 2.14
+import QtQuick.Controls 2.14
 import QtGraphicalEffects 1.0
 
 // setting sheet 
@@ -58,8 +59,15 @@ Rectangle {
             font.bold: false
         }
 
+
+
+
+        //Armospheres ui block
+
+
         Image {
-            id: image
+            id: city_preview
+
             x: 25 * shellScaleFactor
             y: 55 * shellScaleFactor
             width: 60 * shellScaleFactor
@@ -67,15 +75,141 @@ Rectangle {
             source: "file://usr/share/atmospheres/city/wallpaper.jpg"
             fillMode: Image.PreserveAspectFit
 
+
             Text {
-                id: text1
+                id: text_city
                 anchors.centerIn: parent
                 color: "#ffffff"
                 text: qsTr("City")
                 font.pixelSize: 9 * shellScaleFactor
                 font.bold: false
             }
+            MouseArea{
+                id: area_city
+                anchors.fill: parent
+                onClicked:{
+                    ui.source = 'file://usr/share/atmospheres/city/wallpaper.jpg';
+                    wallpaper.source = 'file://usr/share/atmospheres/city/wallpaper.jpg';
+
+
+                }
+            }
         }
+
+        Image {
+            id: aurora_preview
+            x: 85 * shellScaleFactor
+            y: 55 * shellScaleFactor
+            width: 60 * shellScaleFactor
+            height: 60 * shellScaleFactor
+            source: "file://usr/share/atmospheres/aurora/wallpaper.jpg"
+            fillMode: Image.PreserveAspectFit
+
+            Text {
+                id: text_aurora
+                anchors.centerIn: parent
+                color: "#ffffff"
+                text: qsTr("Aurora")
+                font.pixelSize: 9 * shellScaleFactor
+                font.bold: false
+            }
+            MouseArea{
+                id: area_aurora
+                anchors.fill: parent
+                onClicked:{
+                    ui.source = 'file://usr/share/atmospheres/aurora/wallpaper.jpg';
+                    wallpaper.source = 'file://usr/share/atmospheres/aurora/wallpaper.jpg';
+
+
+                }
+            }
+        }
+        Image {
+            id: night_preview
+            x: 146 * shellScaleFactor
+            y: 55 * shellScaleFactor
+            width: 60 * shellScaleFactor
+            height: 60 * shellScaleFactor
+            source: "file://usr/share/atmospheres/night/wallpaper.jpg"
+            fillMode: Image.PreserveAspectFit
+
+            Text {
+                id: text_night
+                anchors.centerIn: parent
+                color: "#ffffff"
+                text: qsTr("Night")
+                font.pixelSize: 9 * shellScaleFactor
+                font.bold: false
+            }
+            MouseArea{
+                id: area_air
+                anchors.fill: parent
+                onClicked:{
+                    ui.source = 'file://usr/share/atmospheres/night/wallpaper.jpg';
+                    wallpaper.source = 'file://usr/share/atmospheres/night/wallpaper.jpg';
+
+
+                }
+            }
+        }
+        Image {
+            id: air_preview
+            x: 206 * shellScaleFactor
+            y: 55 * shellScaleFactor
+            width: 60 * shellScaleFactor
+            height: 60 * shellScaleFactor
+            source: "file://usr/share/atmospheres/air/wallpaper.jpg"
+            fillMode: Image.PreserveAspectFit
+
+            Text {
+                id: text_air
+                anchors.centerIn: parent
+                color: "#ffffff"
+                text: qsTr("Air")
+                font.pixelSize: 9 * shellScaleFactor
+                font.bold: false
+            }
+            MouseArea{
+                id: air_aurora
+                anchors.fill: parent
+                onClicked:{
+                    ui.source = 'file://usr/share/atmospheres/air/wallpaper.jpg';
+                    wallpaper.source = 'file://usr/share/atmospheres/air/wallpaper.jpg';
+
+
+                }
+            }
+        }
+        Image {
+            id: airy_preview
+            x: 266 * shellScaleFactor
+            y: 55 * shellScaleFactor
+            width: 60 * shellScaleFactor
+            height: 60 * shellScaleFactor
+            source: "file://usr/share/atmospheres/airy/wallpaper.jpg"
+            fillMode: Image.PreserveAspectFit
+
+            Text {
+                id: text_airy
+                anchors.centerIn: parent
+                color: "#ffffff"
+                text: qsTr("Airy")
+                font.pixelSize: 9 * shellScaleFactor
+                font.bold: false
+            }
+            MouseArea{
+                id: airy_aurora
+                anchors.fill: parent
+                onClicked:{
+                    ui.source = 'file://usr/share/atmospheres/airy/wallpaper.jpg';
+                    wallpaper.source = 'file://usr/share/atmospheres/airy/wallpaper.jpg';
+
+
+                }
+            }
+        }
+//End atmospheres
+
 
         Rectangle {
             id: rectangle
