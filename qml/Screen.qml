@@ -161,6 +161,8 @@ WaylandOutput {
                 id: content 
                 anchors.fill: parent
 
+                property real keyboardHeight: 0
+
                 Image {
                     z: 100
                     id: wallpaper
@@ -169,18 +171,16 @@ WaylandOutput {
                     fillMode: Image.PreserveAspectCrop
                 }
 
-                AppScreen { id: appScreen }
+                AppScreen { id: appScreen; focus: true }
                 HomeScreen { id: homeScreen }
 
                 SettingSheet { id: settingSheet } 
                 StatusArea { id: setting }
                 LockScreen { id: lockscreen }
             }
-
-            Loader {
-                anchors.fill: parent
-                source: "Keyboard.qml"
-            }
+        }
+        Loader {
+            source: "Keyboard.qml"
         }
     }
 }
