@@ -19,6 +19,7 @@ qt5-welcome-app
 
 ## Building and Running on halium9 devices (powered by droidian)
 Status: WIP 
+tested on: VollaPhone, Xiaomi Redmi 7
 
 1)Please installing droidian phosh and devtools on your device.                                                                 
 2)Connected device to pc linux via rndis ssh.     ssh droidian@10.15.19.82                                                        
