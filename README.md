@@ -24,7 +24,7 @@ tested on: VollaPhone, Xiaomi Redmi 7
 1)Please installing droidian phosh and devtools on your device.                                                                 
 2)Connected device to pc linux via rndis ssh.     ssh droidian@10.15.19.82                                                        
 ```
-sudo apt update && sudo apt install git qtcreator qml qtbase5-gles-dev qt5-qpa-hwcomposer-plugin g++ make libudev-dev qml-module-qtquick2 qml-module-qtquick-controls qml-module-qtwayland-compositor
+sudo apt update && sudo apt install git qtcreator qml qtbase5-gles-dev qt5-qpa-hwcomposer-plugin g++ make libudev-dev qml-module-qtquick2 qml-module-qtquick-controls qml-module-qtwayland-compositor qml-module-qtquick-virtualkeyboard
 cd /usr/share/
 sudo git clone https://github.com/Cutie-Pi-Shell-community-project/atmospheres.git
 sudo git clone https://github.com/Cutie-Pi-Shell-community-project/CutiePi-shell-phone-components.git
