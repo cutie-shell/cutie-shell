@@ -1,7 +1,7 @@
 # CutiePi-shell-phone-components source
-A mobile Qt-wayland EGL shell for smartphones and tablets.
+A mobile QtWayland compositor and shell and for smartphones and tablets.
 
-# Screenshots ui
+## Screenshots ui
 ![alt text](https://github.com/Cutie-Pi-Shell-community-project/CutiePi-shell-phone-components/blob/main/screenshots/photo5226690739709261655.jpg) 
 Qt5-simple-browser                                                                                        
                                                                                                     
@@ -17,5 +17,23 @@ qt5-weather-app
 ![alt text](https://github.com/Cutie-Pi-Shell-community-project/CutiePi-shell-phone-components/blob/main/screenshots/photo5226690739709261779.png) 
 qt5-welcome-app                                                                      
 
+## Building and Running
 
+Firstly, copy `com.github.CutiePiShellCommunityProject.SettingsDaemon.conf` over to `/usr/share/dbus-1/system.d/com.github.CutiePiShellCommunityProject.SettingsDaemon.conf`. After copying, you need to reboot your device.
 
+Then, build the settings daemon and run it as root:
+
+```
+cd settings-daemon
+qmake
+make
+sudo ./cutie-settings-daemon
+```
+
+After that, build the actual shell and run it as the normal user (in the root of this repo):
+
+```
+qmake
+make
+./start-halium.sh
+```
