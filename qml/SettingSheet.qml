@@ -283,7 +283,9 @@ Rectangle {
             onXChanged: {
                 var fullrange = volumeBarTrack1.width - volumeBarThumb1.width;
                 var vol = 100*(volumeBarThumb1.x - volumeBarTrack1.x)/fullrange;
-                settings.SetBrightness(settings.GetMaxBrightness() * vol / 100);
+                if (screenLockState.state != "closed") {
+                    settings.SetBrightness(settings.GetMaxBrightness() * vol / 100);
+                } 
             }
         }
     }

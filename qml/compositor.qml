@@ -20,6 +20,10 @@ import QtWayland.Compositor 1.14
 
 WaylandCompositor {
     Screen { id: screen }
+
+    function lock() {
+        screen.lock();
+    }
     
     XdgShell {
         onToplevelCreated: {
