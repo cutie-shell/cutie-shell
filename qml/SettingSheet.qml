@@ -20,26 +20,6 @@ Rectangle {
         settingContainer.state = state;
     }
 
-    /*MouseArea { 
-        enabled: settingsState.state != "closed"
-        drag.target: parent; drag.axis: Drag.YAxis; drag.minimumY: -view.height; drag.maximumY: 0
-        width: view.width
-        height: 5 * shellScaleFactor
-        z: 100
-        anchors {
-            left: parent.left
-            bottom: parent.bottom
-            right: parent.right
-        }
-
-        onPressed: {
-            settingsState.state = "closing";
-        }
-
-        onReleased: {
-            if (parent.y > -view.height / 2) { settingsState.state = "opened" } else { settingsState.state = "closed" }
-        }
-    }*/
     Item {
         x: 0
         y: parent.height - 5 * shellScaleFactor
@@ -79,16 +59,6 @@ Rectangle {
         }
     }
 
-    /*Image {
-        id: ui
-        x: 0
-        y: 0
-        anchors.fill: parent
-        source: atmospherePath + "wallpaper.jpg"
-        sourceSize.height: 2000
-        sourceSize.width: 800
-        fillMode: Image.PreserveAspectCrop
-    }*/
     FastBlur {
         anchors.fill: parent
         source: wallpaper

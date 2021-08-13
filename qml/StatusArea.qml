@@ -121,22 +121,4 @@ Rectangle {
             }
         }
     }
-
-    /*MouseArea {
-        enabled: (settingsState.state != "opened") && (screenLockState.state == "opened")
-        anchors.fill: parent
-        drag.target: settingSheet; drag.axis: Drag.YAxis; drag.minimumY: -view.height; drag.maximumY: 0
-
-        onPressed: {
-            settingsState.state = "opening";
-        }
-
-        onReleased: {
-            if (settingSheet.y > -view.height / 2) { 
-                settingsState.state = "opened";
-            } else { 
-                settingsState.state = "closed";
-            }
-        }
-    }*/
 }
