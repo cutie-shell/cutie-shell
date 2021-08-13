@@ -79,8 +79,46 @@ Rectangle {
         font.bold: false
     }
 
-    MouseArea {
-        enabled: settingsState.state != "opened"
+    Item {
+        x: 0
+        y: 0
+        height: parent.height
+        width: parent.width
+        z: 100
+
+        MouseArea { 
+            enabled: (settingsState.state != "opened") && (screenLockState.state == "opened")
+            drag.target: parent; drag.axis: Drag.YAxis; drag.minimumY: 0; drag.maximumY: view.height
+            anchors.fill: parent
+
+            onReleased: {
+                if (parent.y > view.height / 2) { 
+                    settingsState.state = "opened"
+                    settingSheet.setSettingContainerState("opened");
+                }
+                else { 
+                    settingsState.state = "closed"
+                    settingSheet.setSettingContainerState("closed");
+                }
+                parent.y = 0
+            }
+
+            onPressed: {
+                settingsState.state = "opening";
+                settingSheet.setSettingContainerState("opening");
+            }
+
+            onPositionChanged: {
+                if (drag.active) {
+                    settingSheet.opacity = parent.y / view.height;
+                    settingSheet.setSettingContainerY(parent.y - view.height);
+                }
+            }
+        }
+    }
+
+    /*MouseArea {
+        enabled: (settingsState.state != "opened") && (screenLockState.state == "opened")
         anchors.fill: parent
         drag.target: settingSheet; drag.axis: Drag.YAxis; drag.minimumY: -view.height; drag.maximumY: 0
 
@@ -95,5 +133,5 @@ Rectangle {
                 settingsState.state = "closed";
             }
         }
-    }
+    }*/
 }
