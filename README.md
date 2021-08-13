@@ -39,13 +39,18 @@ Please connected to device.   ssh droidian@10.15.19.82
 
 ```
 sudo systemctl stop phosh
-cd settings-daemon
+sudo -s
+cd /usr/share/CutiePi-shell-phone-components/settings-daemon/
 qmake
 make
 sudo ./cutie-settings-daemon
 cd ..
 qmake
 make
+exit
+
+!!Start shell only not sudo!!
+
 sh start-halium.sh
 ```
 
