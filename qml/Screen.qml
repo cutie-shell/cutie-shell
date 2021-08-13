@@ -12,7 +12,6 @@ WaylandOutput {
     property variant batteryPercentage: "56"
     property variant simPercentage: "27"
     property variant queue: []
-    property bool screenLocked: false
     property bool batteryCharging: false
 
     property real pitch: 0.0
@@ -21,6 +20,8 @@ WaylandOutput {
     property variant orientation: 0
     property variant sensorEnabled: true 
 
+    property real unlockBrightness: 0.5
+
     property int drawerMargin: 5*shellScaleFactor
 
     function handleShellSurface(shellSurface, toplevel) {
@@ -28,14 +29,14 @@ WaylandOutput {
         toplevel.sendConfigure(Qt.size(view.width, view.height - 20 * shellScaleFactor), [ XdgToplevel.NoneEdge ]);
     }
 
-    onScreenLockedChanged: {
-        if (screenLocked) {
-            //process.start("raspi-gpio", ["set", "12", "dl"]); for rpi/cutiePi-Tablet
-            root.state = "locked";
-            lockscreen.lockscreenMosueArea.enabled = false; //for halium9 android devices
+    function lock() {
+        if (screenLockState.state == "closed") {
+            screenLockState.state = "locked";
+            settings.SetBrightness(settings.GetMaxBrightness() * unlockBrightness);
         } else {
-            //process.start("raspi-gpio", ["set", "12", "dh"]); for rpi/cutiePi-Tablet
-            lockscreen.lockscreenMosueArea.enabled = true; //for halium9 android devices
+            screenLockState.state = "closed";
+            unlockBrightness = settings.GetBrightness() / settings.GetMaxBrightness();
+            settings.SetBrightness(0);
         }
     }
 
@@ -63,6 +64,33 @@ WaylandOutput {
                 NumberAnimation { target: settingSheet; properties: "y"; duration: 400; easing.type: Easing.InOutQuad; }
                 NumberAnimation { target: homeScreen; properties: "opacity"; duration: 200; easing.type: Easing.InOutQuad; }
                 NumberAnimation { target: appScreen; properties: "opacity"; duration: 200; easing.type: Easing.InOutQuad; }
+           }
+
+        ]
+    }
+
+    Item {
+        id: screenLockState
+        state: "locked" 
+        states: [
+            State{
+                name: "closed"
+                PropertyChanges { target: lockscreen; opacity: 1; y: 0 }
+            },
+            State {
+                name: "locked"
+                PropertyChanges { target: lockscreen; opacity: 1; y: 0 }
+            },
+            State {
+                name: "opened"
+                PropertyChanges { target: lockscreen; opacity: 0; y: -view.height }
+            }
+        ]
+
+        transitions: [
+           Transition {
+                to: "locked, opened"
+                NumberAnimation { target: lockscreen; properties: "opacity"; duration: 200; easing.type: Easing.InOutQuad; }
            }
 
         ]
@@ -145,9 +173,8 @@ WaylandOutput {
 
                 SettingSheet { id: settingSheet } 
                 StatusArea { id: setting }
+                LockScreen { id: lockscreen }
             }
-
-            LockScreen { id: lockscreen }
 
             Loader {
                 anchors.fill: parent

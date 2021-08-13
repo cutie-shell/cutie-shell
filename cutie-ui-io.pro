@@ -8,10 +8,12 @@ CONFIG += c++11
 
 SOURCES += \
         main.cpp \
-        settings.cpp
+        settings.cpp \
+        hwbuttons.cpp
 
 HEADERS += \
-        settings.h
+        settings.h \
+        hwbuttons.h
 
 RESOURCES += \
         qml/qml.qrc \

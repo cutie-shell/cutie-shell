@@ -3,6 +3,7 @@
 #include <QQmlContext>
 #include <QDBusPendingReply>
 #include "settings.h"
+#include "hwbuttons.h"
 
 int main(int argc, char *argv[])
 {
@@ -18,8 +19,6 @@ int main(int argc, char *argv[])
 
     Settings *settings = new Settings();
 
-    settings->SetBrightness(settings->GetMaxBrightness());
-
     QQmlApplicationEngine engine;
     engine.rootContext()->setContextProperty("shellScaleFactor", shellScaleFactor);
     engine.rootContext()->setContextProperty("settings", settings);
@@ -30,6 +29,9 @@ int main(int argc, char *argv[])
             QCoreApplication::exit(-1);
     }, Qt::QueuedConnection);
     engine.load(url);
+
+    HWButtons *btns = new HWButtons(&engine);
+    app.installEventFilter(btns);
 
     return app.exec();
 }
