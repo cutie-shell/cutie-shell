@@ -56,7 +56,8 @@ sh start-halium.sh
 
 Fix isues scale shell:
 ```
-nano start-halium.sh
+cd /usr/share/CutiePi-shell-phone-components/
+sudo nano start-halium.sh
 
 There is a line in the script (export QT_SCALE_FACTOR= "4"). By default, the scale is 4, but if you have too large, you can make it less than 2.
 
