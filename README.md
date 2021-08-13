@@ -17,7 +17,7 @@ qt5-weather-app
 ![alt text](https://github.com/Cutie-Pi-Shell-community-project/CutiePi-shell-phone-components/blob/main/screenshots/photo5226690739709261779.png) 
 qt5-welcome-app                                                                      
 
-## Building and Running
+## Building and Running on halium9 devices (powered by droidian)
 
 Firstly, copy `com.github.CutiePiShellCommunityProject.SettingsDaemon.conf` over to `/usr/share/dbus-1/system.d/com.github.CutiePiShellCommunityProject.SettingsDaemon.conf` and `logind.conf.d/10-cutie.conf` to `/etc/systemd/logind.conf.d/10-cutie.conf`. You may have to create the `logind.conf.d` directory. After copying the files, you need to reboot your device.
 
