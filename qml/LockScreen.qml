@@ -6,7 +6,7 @@ Rectangle {
     z: 325
     x: 0; y: 0; width: parent.width; height: parent.height 
 
-    property alias lockscreenMosueArea: lockscreenMosueArea
+    property alias lockscreenMouseArea: lockscreenMouseArea
     property alias lockscreenTime: lockscreenTime
     property alias lockscreenDate: lockscreenDate 
 
@@ -38,8 +38,9 @@ Rectangle {
             width: parent.width
 
             MouseArea { 
-                id: lockscreenMosueArea
+                id: lockscreenMouseArea
                 drag.target: parent; drag.axis: Drag.YAxis; drag.minimumY: -view.height; drag.maximumY: 0
+                enabled: screenLockState.state == "locked";
                 anchors.fill: parent
                 onReleased: {
                     if (parent.y < -view.height / 2) { screenLockState.state = "opened";}
