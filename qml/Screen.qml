@@ -29,6 +29,9 @@ WaylandOutput {
     function handleShellSurface(shellSurface, toplevel) {
         shellSurfaces.insert(0, {shellSurface: shellSurface});
         toplevel.sendConfigure(Qt.size(view.width, view.height - 20 * shellScaleFactor), [ XdgToplevel.NoneEdge ]);
+        appScreen.shellSurface = shellSurface;
+        appScreen.shellSurfaceIdx = 0;
+        root.state = "appScreen";
     }
 
     function lock() {

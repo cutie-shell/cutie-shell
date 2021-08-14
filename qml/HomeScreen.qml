@@ -26,9 +26,9 @@ Rectangle {
                     anchors { left: parent.left; margins: drawerMargin; verticalCenter: parent.verticalCenter} 
                 }
                 Text { 
-                    text: modelData.toplevel.title 
-                    color: "white"; 
-                    font.pointSize: 4* shellScaleFactor
+                    text: modelData.toplevel.title
+                    color: (atmosphereVariant == "dark") ? "#ffffff" : "#000000"
+                    font.pixelSize: 14* shellScaleFactor
                     anchors { left: parent.left; margins: drawerMargin; verticalCenter: parent.verticalCenter
                         leftMargin: drawerMargin+15*shellScaleFactor; right: parent.right; rightMargin: 18*shellScaleFactor } 
                     elide: Text.ElideRight 
@@ -37,8 +37,9 @@ Rectangle {
                     anchors { top: parent.top; left: parent.left; bottom: parent.bottom; right: parent.right; rightMargin: 20*shellScaleFactor }
                     enabled: (root.state == "homeScreen") 
                     onClicked: {
-                        tabListView.currentIndex = index;
                         root.state = "appScreen";
+                        appScreen.shellSurface = modelData;
+                        appScreen.shellSurfaceIdx = index;
                     }
                 }
 
@@ -47,18 +48,17 @@ Rectangle {
                     height: 20 * shellScaleFactor
                     color: "transparent"
                     anchors { right: parent.right; top: parent.top}
-                    Text { 
-                        visible: tabListView.currentIndex === index
+                    Text {
                         anchors { top: parent.top; right: parent.right; margins: drawerMargin }
                         text: "\uF057"
                         font.family: icon.name
-                        font.pointSize: 3 * shellScaleFactor
+                        font.pixelSize: 14 * shellScaleFactor
                         color: "gray"
 
                         MouseArea { 
                             anchors.fill: parent; anchors.margins: -shellScaleFactor 
                             onClicked: {
-                                modelData.surface.client.close()
+                                modelData.toplevel.sendClose();
                             }
                         }
                     }
@@ -73,35 +73,13 @@ Rectangle {
         anchors.fill: parent
         anchors.topMargin: 20 * shellScaleFactor
 
-        onCurrentIndexChanged: {
-             if (currentIndex < 0) {
-                appScreen.shellSurface = null;
-                appScreen.shellSurfaceIdx = -1;
-            } else {
-                appScreen.shellSurface = shellSurfaces.get(currentIndex).shellSurface;
-                appScreen.shellSurfaceIdx = currentIndex;
-            }
-        }
-
         model: shellSurfaces
         delegate: tabDelegate 
-        highlight: Rectangle { 
-            width: view.width; height: view.height
-            gradient: Gradient {
-                GradientStop { position: 0.1; color: "#1F1F23" }
-                GradientStop { position: 0.5; color: "#28282F" }
-                GradientStop { position: 0.8; color: "#2A2B31" }
-                GradientStop { position: 1.0; color: "#25252A" }
-
-            }
-        }
         add: Transition {
             NumberAnimation { property: "opacity"; from: 0; to: 1.0; duration: 400 }
         }
         displaced: Transition {
             NumberAnimation { properties: "x,y"; duration: 400; easing.type: Easing.OutBounce }
         }
-        highlightMoveDuration: 2
-        highlightFollowsCurrentItem: true 
     }
 }
