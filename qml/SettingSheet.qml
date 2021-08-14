@@ -62,7 +62,7 @@ Rectangle {
 
     FastBlur {
         anchors.fill: parent
-        source: wallpaper
+        source: realWallpaper
         anchors.rightMargin: 0
         anchors.bottomMargin: 0
         anchors.leftMargin: 0
@@ -163,17 +163,29 @@ Rectangle {
 
                     Text {
                         anchors.centerIn: parent
-                        color: (variant == "dark") ? "#ffffff" : "#000000"
                         text: name
                         font.pixelSize: 9 * shellScaleFactor
                         font.bold: false
+                        color: (variant == "dark") ? "#FFFFFF" : "#000000"
                     }
 
                     MouseArea{
                         anchors.fill: parent
                         onClicked:{
-                            atmospherePath = path
                             atmosphereVariant = variant
+                            nextWallpaper.state = "changing"
+                            atmospherePath = path
+                            nextWallpaper.state = "normal"
+                            atmosphereTimer.start();
+                        }
+                    }
+
+                    Timer {
+                        id: atmosphereTimer
+                        interval: 500
+                        repeat: false
+                        onTriggered: {
+                            nextAtmospherePath = atmospherePath;
                         }
                     }
                 }
@@ -339,8 +351,21 @@ Rectangle {
                     id: maskRect1
                     width: parent.height
                     height: width
-                    color: (atmosphereVariant == "dark") ? "#ffffff" : "#000000"
                     visible: false
+                    state: atmosphereVariant
+                    states: [
+                        State {
+                            name: "dark"
+                            PropertyChanges { target: maskRect1; color: "#ffffff" }
+                        },
+                        State {
+                            name: "light"
+                            PropertyChanges { target: maskRect1; color: "#000000" }
+                        }
+                    ]
+                    transitions: Transition {
+                        ColorAnimation { properties: "color"; duration: 500; easing.type: Easing.InOutQuad }
+                    }
                 }
 
                 Image {
@@ -384,13 +409,26 @@ Rectangle {
                 Rectangle {
                     id: volumeBarTrack1
                     height: shellScaleFactor
-                    color: (atmosphereVariant == "dark") ? "#ffffff" : "#444444"
                     radius: 1
                     anchors.verticalCenter: parent.verticalCenter
                     anchors.left: volumeMuted1.right
                     anchors.right: volumeHigh1.left
                     anchors.rightMargin: 5 * shellScaleFactor
                     anchors.leftMargin: 5 * shellScaleFactor
+                    state: atmosphereVariant
+                    states: [
+                        State {
+                            name: "dark"
+                            PropertyChanges { target: volumeBarTrack1; color: "#ffffff" }
+                        },
+                        State {
+                            name: "light"
+                            PropertyChanges { target: volumeBarTrack1; color: "#444444" }
+                        }
+                    ]
+                    transitions: Transition {
+                        ColorAnimation { properties: "color"; duration: 500; easing.type: Easing.InOutQuad }
+                    }
                 }
 
                 Rectangle {
@@ -400,7 +438,6 @@ Rectangle {
                     width: parent.height
                     height: width
                     radius: width / 2
-                    color: (atmosphereVariant == "dark") ? "#ffffff" : "#444444"
                     MouseArea {
                         anchors.fill: parent
                         drag.axis: Drag.XAxis
@@ -414,6 +451,20 @@ Rectangle {
                         if (screenLockState.state != "closed") {
                             settings.SetBrightness(settings.GetMaxBrightness() * vol / 100);
                         } 
+                    }
+                    state: atmosphereVariant
+                    states: [
+                        State {
+                            name: "dark"
+                            PropertyChanges { target: volumeBarThumb1; color: "#ffffff" }
+                        },
+                        State {
+                            name: "light"
+                            PropertyChanges { target: volumeBarThumb1; color: "#444444" }
+                        }
+                    ]
+                    transitions: Transition {
+                        ColorAnimation { properties: "color"; duration: 500; easing.type: Easing.InOutQuad }
                     }
                 }
             }

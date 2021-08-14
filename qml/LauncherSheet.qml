@@ -61,7 +61,7 @@ Rectangle {
 
     FastBlur {
         anchors.fill: parent
-        source: wallpaper
+        source: realWallpaper
         anchors.rightMargin: 0
         anchors.bottomMargin: 0
         anchors.leftMargin: 0

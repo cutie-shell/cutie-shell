@@ -24,7 +24,9 @@ WaylandOutput {
 
     property int drawerMargin: 5*shellScaleFactor
     property string atmospherePath: "file://usr/share/atmospheres/city/"
+    property string nextAtmospherePath: "file://usr/share/atmospheres/city/"
     property string atmosphereVariant: "dark"
+    property color atmosphereForeground: "#ffffff"
 
     function handleShellSurface(shellSurface, toplevel) {
         shellSurfaces.insert(0, {shellSurface: shellSurface});
@@ -197,12 +199,48 @@ WaylandOutput {
 
                 property real keyboardHeight: 0
 
-                Image {
-                    z: 100
-                    id: wallpaper
+                Item {
+                    id: realWallpaper
                     anchors.fill: parent
-                    source: atmospherePath + "wallpaper.jpg"
-                    fillMode: Image.PreserveAspectCrop
+                    z: 100
+                    Image {
+                        z: 100
+                        id: wallpaper
+                        anchors.fill: parent
+                        source: atmospherePath + "wallpaper.jpg"
+                        fillMode: Image.PreserveAspectCrop
+                    }
+
+                    Image {
+                        z: 101
+                        id: nextWallpaper
+                        anchors.fill: parent
+                        source: nextAtmospherePath + "wallpaper.jpg"
+                        fillMode: Image.PreserveAspectCrop
+                        opacity: 0
+                        state: "normal"
+                        states: [
+                            State {
+                                name: "changing"
+                                PropertyChanges { target: nextWallpaper; opacity: 1 }
+                            },
+                            State {
+                                name: "normal"
+                                PropertyChanges { target: nextWallpaper; opacity: 0 }
+                            }
+                        ]
+
+                        transitions: Transition {
+                            to: "normal"
+
+                            NumberAnimation {
+                                target: nextWallpaper
+                                properties: "opacity"
+                                easing.type: Easing.InOutQuad
+                                duration: 500
+                            }
+                        }
+                    }
                 }
 
                 AppScreen { id: appScreen; focus: true }
