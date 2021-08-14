@@ -140,7 +140,7 @@ Rectangle {
                         font.family: "Lato"
                         font.weight: Font.Light
                         clip: true
-                        color: "white"
+                        color: (atmosphereVariant == "dark") ? "#ffffff" : "#000000"
                     }
                 }
             }
