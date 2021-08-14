@@ -21,6 +21,14 @@ import QtWayland.Compositor 1.14
 WaylandCompositor {
     Screen { id: screen }
 
+    function addApp(name, exec, icon) {
+        launcherApps.append({
+                        appName: name,
+                        appExec: exec,
+                        appIcon: icon
+                    })
+    }
+
     function lock() {
         screen.lock();
     }
@@ -32,5 +40,7 @@ WaylandCompositor {
     }
 
     ListModel { id: shellSurfaces }
+    ListModel { id: launcherApps }
+    
     TextInputManager {}
 }
