@@ -70,7 +70,7 @@ Rectangle {
 
         Rectangle {
             anchors.fill: parent
-            color: "#80000000"
+            color: (atmosphereVariant == "dark") ? "#80000000" : "#80ffffff"
         }
 
         Item {
@@ -109,7 +109,7 @@ Rectangle {
                 id: text2
                 x: 25  * shellScaleFactor
                 y: 25  * shellScaleFactor
-                color: "#ffffff"
+                color: (atmosphereVariant == "dark") ? "#ffffff" : "#000000"
                 text: qsTr("Atmosphere:")
                 font.pixelSize: 14 * shellScaleFactor
                 font.bold: false
@@ -120,22 +120,27 @@ Rectangle {
                 id: atmospheresModel
                 ListElement {
                     name: "City"
+                    variant: "dark"
                     path: "file://usr/share/atmospheres/city/"
                 }
                 ListElement {
                     name: "Aurora"
+                    variant: "dark"
                     path: "file://usr/share/atmospheres/aurora/"
                 }
                 ListElement {
                     name: "Night"
+                    variant: "dark"
                     path: "file://usr/share/atmospheres/night/"
                 }
                 ListElement {
                     name: "Air"
+                    variant: "light"
                     path: "file://usr/share/atmospheres/air/"
                 }
                 ListElement {
                     name: "Airy"
+                    variant: "light"
                     path: "file://usr/share/atmospheres/airy/"
                 }
             }
@@ -157,7 +162,7 @@ Rectangle {
 
                     Text {
                         anchors.centerIn: parent
-                        color: "#ffffff"
+                        color: (variant == "dark") ? "#ffffff" : "#000000"
                         text: name
                         font.pixelSize: 9 * shellScaleFactor
                         font.bold: false
@@ -167,6 +172,7 @@ Rectangle {
                         anchors.fill: parent
                         onClicked:{
                             atmospherePath = path
+                            atmosphereVariant = variant
                         }
                     }
                 }
@@ -180,7 +186,7 @@ Rectangle {
                 y: 135 * shellScaleFactor
                 width: view.width / 2 - 37 * shellScaleFactor
                 height: view.width / 2 - 37 * shellScaleFactor
-                color: "#2fffffff"
+                color: (atmosphereVariant == "dark") ? "#2fffffff" : "#4f000000"
                 radius: 10 * shellScaleFactor
 
                 Text {
@@ -212,7 +218,7 @@ Rectangle {
                 y: 135 * shellScaleFactor
                 width: view.width / 2 - 37 * shellScaleFactor
                 height: view.width / 2 - 37 * shellScaleFactor
-                color: "#2fffffff"
+                color: (atmosphereVariant == "dark") ? "#2fffffff" : "#4f000000"
                 radius: 10 * shellScaleFactor
 
                 Text {
@@ -245,7 +251,7 @@ Rectangle {
                 y: 120 * shellScaleFactor + view.width / 2
                 width: view.width / 2 - 37 * shellScaleFactor
                 height: view.width / 2 - 37 * shellScaleFactor
-                color: "#2fffffff"
+                color: (atmosphereVariant == "dark") ? "#2fffffff" : "#4f000000"
                 radius: 10 * shellScaleFactor
 
                 Text {
@@ -277,7 +283,7 @@ Rectangle {
                 y: 120 * shellScaleFactor + view.width / 2
                 width: view.width / 2 - 37 * shellScaleFactor
                 height: view.width / 2 - 37 * shellScaleFactor
-                color: "#2fffffff"
+                color: (atmosphereVariant == "dark") ? "#2fffffff" : "#4f000000"
                 radius: 10 * shellScaleFactor
 
                 Text {
@@ -326,6 +332,16 @@ Rectangle {
                 anchors.rightMargin: 0
                 anchors.leftMargin: 0
                 anchors.bottomMargin: 10 * shellScaleFactor
+
+                Rectangle
+                {
+                    id: maskRect1
+                    width: parent.height
+                    height: width
+                    color: (atmosphereVariant == "dark") ? "#ffffff" : "#000000"
+                    visible: false
+                }
+
                 Image {
                     id: volumeMuted1
                     width: parent.height
@@ -336,6 +352,13 @@ Rectangle {
                     anchors.leftMargin: 5 * shellScaleFactor
                     sourceSize.height: height*2
                     sourceSize.width: width*2
+                    visible: false
+                }
+
+                OpacityMask {
+                    anchors.fill: volumeMuted1
+                    source: maskRect1
+                    maskSource: volumeMuted1
                 }
 
                 Image {
@@ -348,12 +371,19 @@ Rectangle {
                     anchors.rightMargin: 5 * shellScaleFactor
                     sourceSize.height: height*2
                     sourceSize.width: width*2
+                    visible: false
+                }
+
+                OpacityMask {
+                    anchors.fill: volumeHigh1
+                    source: maskRect1
+                    maskSource: volumeHigh1
                 }
 
                 Rectangle {
                     id: volumeBarTrack1
                     height: shellScaleFactor
-                    color: "#eceff4"
+                    color: (atmosphereVariant == "dark") ? "#ffffff" : "#444444"
                     radius: 1
                     anchors.verticalCenter: parent.verticalCenter
                     anchors.left: volumeMuted1.right
@@ -369,6 +399,7 @@ Rectangle {
                     width: parent.height
                     height: width
                     radius: width / 2
+                    color: (atmosphereVariant == "dark") ? "#ffffff" : "#444444"
                     MouseArea {
                         anchors.fill: parent
                         drag.axis: Drag.XAxis

@@ -24,6 +24,7 @@ WaylandOutput {
 
     property int drawerMargin: 5*shellScaleFactor
     property string atmospherePath: "file://usr/share/atmospheres/city/"
+    property string atmosphereVariant: "dark"
 
     function handleShellSurface(shellSurface, toplevel) {
         shellSurfaces.insert(0, {shellSurface: shellSurface});
