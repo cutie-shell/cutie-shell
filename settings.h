@@ -18,7 +18,9 @@ public:
     Q_INVOKABLE unsigned int GetMaxBrightness();
     Q_INVOKABLE unsigned int GetBrightness();
     Q_INVOKABLE void SetBrightness(unsigned int value);
+    Q_INVOKABLE void execApp(QString command);
     void refreshBatteryInfo();
+    void loadAppList();
 public Q_SLOTS:
     void onUPowerInfoChanged(QString interface, QVariantMap, QStringList);
 };

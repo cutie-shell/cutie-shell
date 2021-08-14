@@ -5,9 +5,11 @@
         <file>LockScreen.qml</file>
         <file>Screen.qml</file>
         <file>SettingSheet.qml</file>
+        <file>LauncherSheet.qml</file>
         <file>HomeScreen.qml</file>
         <file>AppScreen.qml</file>
         <file>StatusArea.qml</file>
+        <file>LauncherSwipe.qml</file>
         <file>WaylandChrome.qml</file>
     </qresource>
     <qresource prefix="/QtQuick/VirtualKeyboard/content/styles/cutie">

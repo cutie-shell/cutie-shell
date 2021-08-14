@@ -24,6 +24,7 @@ WaylandOutput {
 
     property int drawerMargin: 5*shellScaleFactor
     property string atmospherePath: "file://usr/share/atmospheres/city/"
+    property string atmosphereVariant: "dark"
 
     function handleShellSurface(shellSurface, toplevel) {
         shellSurfaces.insert(0, {shellSurface: shellSurface});
@@ -98,8 +99,38 @@ WaylandOutput {
     }
 
     Item {
+        id: launcherState
+        state: "closed" 
+        states: [
+            State {
+                name: "opened"
+                PropertyChanges { target: launcherSheet; y: 0; opacity: 1 }
+            },
+            State {
+                name: "closed"
+                PropertyChanges { target: launcherSheet; y: view.height; opacity: 0 }
+            },
+            State {
+                name: "opening"
+                PropertyChanges { target: launcherSheet; y: 0; opacity: 0 }
+            },
+            State {
+                name: "closing"
+                PropertyChanges { target: launcherSheet; y: 0; opacity: 1 }
+            }
+        ]
+
+        transitions: [
+           Transition {
+                to: "*"
+                NumberAnimation { target: launcherSheet; properties: "opacity"; duration: 300; easing.type: Easing.InOutQuad; }
+           }
+        ]
+    }
+
+    Item {
         id: settingsState
-        state: "normal" 
+        state: "closed" 
         states: [
             State {
                 name: "opened"
@@ -175,7 +206,11 @@ WaylandOutput {
                 HomeScreen { id: homeScreen }
 
                 SettingSheet { id: settingSheet } 
+                LauncherSheet { id: launcherSheet } 
+
                 StatusArea { id: setting }
+                LauncherSwipe { id: lSwipe }
+
                 LockScreen { id: lockscreen }
             }
         }

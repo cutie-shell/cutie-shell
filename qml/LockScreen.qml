@@ -6,9 +6,14 @@ Rectangle {
     z: 325
     x: 0; y: 0; width: parent.width; height: parent.height 
 
-    property alias lockscreenMosueArea: lockscreenMosueArea
+    property alias lockscreenMouseArea: lockscreenMouseArea
     property alias lockscreenTime: lockscreenTime
     property alias lockscreenDate: lockscreenDate 
+
+    function timeChanged() {
+        lockscreenTime.text = Qt.formatDateTime(new Date(), "HH:mm:ss");
+        lockscreenDate.text = Qt.formatDateTime(new Date(), "dddd, MMMM d");
+    }
 
     Image {
         id: lockscreenImage
@@ -33,8 +38,9 @@ Rectangle {
             width: parent.width
 
             MouseArea { 
-                id: lockscreenMosueArea
+                id: lockscreenMouseArea
                 drag.target: parent; drag.axis: Drag.YAxis; drag.minimumY: -view.height; drag.maximumY: 0
+                enabled: screenLockState.state == "locked";
                 anchors.fill: parent
                 onReleased: {
                     if (parent.y < -view.height / 2) { screenLockState.state = "opened";}
@@ -51,13 +57,20 @@ Rectangle {
 
         Text { 
             id: lockscreenTime
-            text: Qt.formatDateTime(new Date(), "HH:mm"); color: 'white'; font.pixelSize: 32 * shellScaleFactor; 
+            color: (atmosphereVariant == "dark") ? "#ffffff" : "#000000"
+            text: Qt.formatDateTime(new Date(), "HH:mm:ss"); font.pixelSize: 32 * shellScaleFactor; 
             anchors { left: parent.left; bottom: lockscreenDate.top; leftMargin: 15 * shellScaleFactor; bottomMargin: 3* shellScaleFactor }
         }
         Text { 
             id: lockscreenDate
-            text: Qt.formatDateTime(new Date(), "dddd, MMMM d"); color: 'white'; font.pixelSize: 14 * shellScaleFactor; 
+            color: (atmosphereVariant == "dark") ? "#ffffff" : "#000000"
+            text: Qt.formatDateTime(new Date(), "dddd, MMMM d"); font.pixelSize: 14 * shellScaleFactor; 
             anchors { left: parent.left; bottom: parent.bottom; margins: 15 * shellScaleFactor }
+        }
+
+        Timer {
+            interval: 100; running: true; repeat: true;
+            onTriggered: timeChanged()
         }
     }
 }
