@@ -127,7 +127,6 @@ Rectangle {
 
                         onClicked: {
                             settings.execApp(appExec);
-                            root.state = "appScreen"
                             launcherState.state = "closed"
                             launcherContainer.state = "closed"
                         }
@@ -140,7 +139,7 @@ Rectangle {
                         font.family: "Lato"
                         font.weight: Font.Light
                         clip: true
-                        color: "white"
+                        color: (atmosphereVariant == "dark") ? "#ffffff" : "#000000"
                     }
                 }
             }
