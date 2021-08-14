@@ -39,8 +39,8 @@ sudo reboot
 Please connected to device.   ssh droidian@10.15.19.82
 
 ```
-sudo systemctl stop phosh
-sudo -s
+sudo -i
+systemctl stop phosh
 cd /usr/share/CutiePi-shell-phone-components/settings-daemon/
 qmake
 make
