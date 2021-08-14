@@ -31,6 +31,7 @@ Rectangle {
             enabled: settingsState.state != "closed"
             drag.target: parent; drag.axis: Drag.YAxis; drag.minimumY: - 5 * shellScaleFactor; drag.maximumY: view.height - 5 * shellScaleFactor
             anchors.fill: parent
+            z: 425
 
             onReleased: {
                 if (parent.y > view.height / 2) { 
