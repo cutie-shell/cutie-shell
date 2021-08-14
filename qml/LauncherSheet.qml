@@ -127,7 +127,6 @@ Rectangle {
 
                         onClicked: {
                             settings.execApp(appExec);
-                            root.state = "appScreen"
                             launcherState.state = "closed"
                             launcherContainer.state = "closed"
                         }
