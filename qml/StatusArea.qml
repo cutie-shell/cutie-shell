@@ -46,7 +46,7 @@ Rectangle {
 
     Image {
         id: image3
-        anchors.left: text15.right
+        anchors.left: clockText.right
         anchors.leftMargin: 4 * shellScaleFactor
         anchors.verticalCenter: parent.verticalCenter
         width: 15 * shellScaleFactor
@@ -74,14 +74,24 @@ Rectangle {
     }
 
     Text {
-        id: text15
+        id: clockText
         anchors.left: parent.left
         anchors.leftMargin: 12 * shellScaleFactor
         anchors.verticalCenter: parent.verticalCenter
+        width: 25 * shellScaleFactor
         color: "#ffffff"
-        text: qsTr("17:46")
+        text: Qt.formatDateTime(new Date(), "HH:mm")
         font.pixelSize: 9 * shellScaleFactor
         font.bold: false
+    }
+
+    function timeChanged() {
+        clockText.text = Qt.formatDateTime(new Date(), "HH:mm");
+    }
+
+    Timer {
+        interval: 100; running: true; repeat: true;
+        onTriggered: timeChanged()
     }
 
     Item {

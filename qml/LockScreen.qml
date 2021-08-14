@@ -10,6 +10,11 @@ Rectangle {
     property alias lockscreenTime: lockscreenTime
     property alias lockscreenDate: lockscreenDate 
 
+    function timeChanged() {
+        lockscreenTime.text = Qt.formatDateTime(new Date(), "HH:mm:ss");
+        lockscreenDate.text = Qt.formatDateTime(new Date(), "dddd, MMMM d");
+    }
+
     Image {
         id: lockscreenImage
         source: atmospherePath + "wallpaper.jpg"
@@ -51,13 +56,18 @@ Rectangle {
 
         Text { 
             id: lockscreenTime
-            text: Qt.formatDateTime(new Date(), "HH:mm"); color: 'white'; font.pixelSize: 32 * shellScaleFactor; 
+            text: Qt.formatDateTime(new Date(), "HH:mm:ss"); color: 'white'; font.pixelSize: 32 * shellScaleFactor; 
             anchors { left: parent.left; bottom: lockscreenDate.top; leftMargin: 15 * shellScaleFactor; bottomMargin: 3* shellScaleFactor }
         }
         Text { 
             id: lockscreenDate
             text: Qt.formatDateTime(new Date(), "dddd, MMMM d"); color: 'white'; font.pixelSize: 14 * shellScaleFactor; 
             anchors { left: parent.left; bottom: parent.bottom; margins: 15 * shellScaleFactor }
+        }
+
+        Timer {
+            interval: 100; running: true; repeat: true;
+            onTriggered: timeChanged()
         }
     }
 }
