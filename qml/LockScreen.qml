@@ -56,12 +56,14 @@ Rectangle {
 
         Text { 
             id: lockscreenTime
-            text: Qt.formatDateTime(new Date(), "HH:mm:ss"); color: 'white'; font.pixelSize: 32 * shellScaleFactor; 
+            color: (atmosphereVariant == "dark") ? "#ffffff" : "#000000"
+            text: Qt.formatDateTime(new Date(), "HH:mm:ss"); font.pixelSize: 32 * shellScaleFactor; 
             anchors { left: parent.left; bottom: lockscreenDate.top; leftMargin: 15 * shellScaleFactor; bottomMargin: 3* shellScaleFactor }
         }
         Text { 
             id: lockscreenDate
-            text: Qt.formatDateTime(new Date(), "dddd, MMMM d"); color: 'white'; font.pixelSize: 14 * shellScaleFactor; 
+            color: (atmosphereVariant == "dark") ? "#ffffff" : "#000000"
+            text: Qt.formatDateTime(new Date(), "dddd, MMMM d"); font.pixelSize: 14 * shellScaleFactor; 
             anchors { left: parent.left; bottom: parent.bottom; margins: 15 * shellScaleFactor }
         }
 
