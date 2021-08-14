@@ -13,8 +13,21 @@ Rectangle {
         id: maskRect2
         width: 15 * shellScaleFactor
         height: 15 * shellScaleFactor
-        color: (atmosphereVariant == "dark") ? "#ffffff" : "#000000"
         visible: false
+        state: atmosphereVariant
+        states: [
+            State {
+                name: "dark"
+                PropertyChanges { target: maskRect2; color: "#ffffff" }
+            },
+            State {
+                name: "light"
+                PropertyChanges { target: maskRect2; color: "#000000" }
+            }
+        ]
+        transitions: Transition {
+            ColorAnimation { properties: "color"; duration: 500; easing.type: Easing.InOutQuad }
+        }
     }
 
     Image {
@@ -98,10 +111,23 @@ Rectangle {
         anchors.left: image3.right
         anchors.leftMargin: 4 * shellScaleFactor
         anchors.verticalCenter: parent.verticalCenter
-        color: (atmosphereVariant == "dark") ? "#ffffff" : "#000000"
         text: batteryStatus.Percentage.toString() + " %"
         font.pixelSize: 9 * shellScaleFactor
         font.bold: false
+        state: atmosphereVariant
+        states: [
+            State {
+                name: "dark"
+                PropertyChanges { target: text14; color: "#ffffff" }
+            },
+            State {
+                name: "light"
+                PropertyChanges { target: text14; color: "#000000" }
+            }
+        ]
+        transitions: Transition {
+            ColorAnimation { properties: "color"; duration: 500; easing.type: Easing.InOutQuad }
+        }
     }
 
     Text {
@@ -110,10 +136,23 @@ Rectangle {
         anchors.leftMargin: 12 * shellScaleFactor
         anchors.verticalCenter: parent.verticalCenter
         width: 25 * shellScaleFactor
-        color: (atmosphereVariant == "dark") ? "#ffffff" : "#000000"
         text: Qt.formatDateTime(new Date(), "HH:mm")
         font.pixelSize: 9 * shellScaleFactor
         font.bold: false
+        state: atmosphereVariant
+        states: [
+            State {
+                name: "dark"
+                PropertyChanges { target: clockText; color: "#ffffff" }
+            },
+            State {
+                name: "light"
+                PropertyChanges { target: clockText; color: "#000000" }
+            }
+        ]
+        transitions: Transition {
+            ColorAnimation { properties: "color"; duration: 500; easing.type: Easing.InOutQuad }
+        }
     }
 
     function timeChanged() {
