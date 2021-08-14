@@ -1,4 +1,5 @@
 import QtQuick 2.14
+import QtGraphicalEffects 1.0
 
 Rectangle {
     width: parent.width
@@ -6,6 +7,15 @@ Rectangle {
     z: 400
     anchors.top: parent.top
     color: "transparent"
+
+    Rectangle
+    {
+        id: maskRect2
+        width: 15 * shellScaleFactor
+        height: 15 * shellScaleFactor
+        color: (atmosphereVariant == "dark") ? "#ffffff" : "#000000"
+        visible: false
+    }
 
     Image {
         id: image1
@@ -18,6 +28,13 @@ Rectangle {
         sourceSize.height: 400
         sourceSize.width: 400
         fillMode: Image.PreserveAspectFit
+        visible: false
+    }
+
+    OpacityMask {
+        anchors.fill: image1
+        source: maskRect2
+        maskSource: image1
     }
 
     Image {
@@ -31,6 +48,13 @@ Rectangle {
         sourceSize.height: 128
         sourceSize.width: 128
         fillMode: Image.PreserveAspectFit
+        visible: false
+    }
+
+    OpacityMask {
+        anchors.fill: image2
+        source: maskRect2
+        maskSource: image2
     }
 
     Text {
@@ -38,7 +62,7 @@ Rectangle {
         anchors.right: image2.left
         anchors.rightMargin: 4 * shellScaleFactor
         anchors.verticalCenter: parent.verticalCenter
-        color: "#ffffff"
+        color: (atmosphereVariant == "dark") ? "#ffffff" : "#000000"
         text: qsTr("4G")
         font.pixelSize: 9 * shellScaleFactor
         font.bold: false
@@ -60,6 +84,13 @@ Rectangle {
         sourceSize.height: 128
         sourceSize.width: 128
         fillMode: Image.PreserveAspectFit
+        visible: false
+    }
+
+    OpacityMask {
+        anchors.fill: image3
+        source: maskRect2
+        maskSource: image3
     }
 
     Text {
@@ -67,7 +98,7 @@ Rectangle {
         anchors.left: image3.right
         anchors.leftMargin: 4 * shellScaleFactor
         anchors.verticalCenter: parent.verticalCenter
-        color: "#ffffff"
+        color: (atmosphereVariant == "dark") ? "#ffffff" : "#000000"
         text: batteryStatus.Percentage.toString() + " %"
         font.pixelSize: 9 * shellScaleFactor
         font.bold: false
@@ -79,7 +110,7 @@ Rectangle {
         anchors.leftMargin: 12 * shellScaleFactor
         anchors.verticalCenter: parent.verticalCenter
         width: 25 * shellScaleFactor
-        color: "#ffffff"
+        color: (atmosphereVariant == "dark") ? "#ffffff" : "#000000"
         text: Qt.formatDateTime(new Date(), "HH:mm")
         font.pixelSize: 9 * shellScaleFactor
         font.bold: false
