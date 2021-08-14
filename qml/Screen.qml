@@ -119,14 +119,14 @@ WaylandOutput {
             },
             State {
                 name: "closing"
-                PropertyChanges { target: launcherSheet; y: 0; opacity: 1 }
+                PropertyChanges { target: launcherSheet; y: 0; opacity: 0.5 }
             }
         ]
 
         transitions: [
            Transition {
                 to: "*"
-                NumberAnimation { target: launcherSheet; properties: "opacity"; duration: 300; easing.type: Easing.InOutQuad; }
+                NumberAnimation { target: launcherSheet; properties: "opacity"; duration: 600; easing.type: Easing.InOutQuad; }
            }
         ]
     }
@@ -152,7 +152,7 @@ WaylandOutput {
             },
             State {
                 name: "closing"
-                PropertyChanges { target: settingSheet; y: 0; opacity: 1 }
+                PropertyChanges { target: settingSheet; y: 0; opacity: 0.5 }
                 PropertyChanges { target: setting; opacity: 0 }
             }
         ]
@@ -160,8 +160,8 @@ WaylandOutput {
         transitions: [
            Transition {
                 to: "*"
-                NumberAnimation { target: settingSheet; properties: "opacity"; duration: 300; easing.type: Easing.InOutQuad; }
-                NumberAnimation { target: setting; properties: "opacity"; duration: 300; easing.type: Easing.InOutQuad; }
+                NumberAnimation { target: settingSheet; properties: "opacity"; duration: 600; easing.type: Easing.InOutQuad; }
+                NumberAnimation { target: setting; properties: "opacity"; duration: 600; easing.type: Easing.InOutQuad; }
            }
         ]
     }

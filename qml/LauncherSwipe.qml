@@ -32,7 +32,7 @@ Item {
 
         onPositionChanged: {
             if (drag.active) {
-                launcherSheet.opacity = 1 - parent.y / view.height;
+                launcherSheet.opacity = 1/2 - parent.y / view.height / 2;
                 launcherSheet.setLauncherContainerY(parent.y);
             }
         }
