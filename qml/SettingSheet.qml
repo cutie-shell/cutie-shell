@@ -111,7 +111,7 @@ Rectangle {
                 x: 25  * shellScaleFactor
                 y: 25  * shellScaleFactor
                 color: (atmosphereVariant == "dark") ? "#ffffff" : "#000000"
-                text: qsTr("Atmosphere:")
+                text: qsTr("Accent")
                 font.pixelSize: 14 * shellScaleFactor
                 font.bold: false
             }
