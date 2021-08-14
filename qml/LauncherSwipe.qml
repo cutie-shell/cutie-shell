@@ -9,7 +9,7 @@ Item {
     z: 400
 
     MouseArea { 
-        enabled: (launcherState.state != "opened") && (screenLockState.state == "opened")
+        enabled: (launcherState.state != "opened") && (screenLockState.state == "opened") && (settingsState.state == "closed")
         drag.target: parent; drag.axis: Drag.YAxis; drag.minimumY: 0; drag.maximumY: view.height
         anchors.fill: parent
 
