@@ -1,0 +1,28 @@
+[Unit]
+Description=CutiePiShellCommunityProject settings Daemon
+
+# Make sure we are started after logins are permitted.
+After=systemd-user-sessions.service
+# If Plymouth is used, we want to start when it is on its way out.
+After=plymouth-quit-wait.service
+
+Wants=dbus.socket
+After=dbus.socket
+
+After=session-c1.scope
+
+After=lxc@android.service
+
+Before=cutie-ui-io.service
+Before=graphical.target
+
+[Service]
+Environment=LANG=C.UTF-8
+ExecStartPre=/usr/bin/waitforservice init.svc.vendor.hwcomposer-*
+ExecStart=/usr/bin/cutie-settings-daemon
+TimeoutStartSec=30
+Restart=always
+RestartSec=5s
+
+[Install]
+WantedBy=graphical.target
