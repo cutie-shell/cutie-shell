@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   height="16"
+   width="16"
+   version="1.1"
+   id="svg8"
+   sodipodi:docname="system-shutdown-symbolic.svg"
+   inkscape:version="1.1 (c68e22c387, 2021-05-23)"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <defs
+     id="defs12" />
+  <sodipodi:namedview
+     id="namedview10"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     showgrid="false"
+     inkscape:zoom="48.5"
+     inkscape:cx="3.9278351"
+     inkscape:cy="8"
+     inkscape:window-width="1920"
+     inkscape:window-height="1011"
+     inkscape:window-x="0"
+     inkscape:window-y="0"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="svg8" />
+  <g
+     transform="translate(-32 -868.36)"
+     fill="#aaaaaa"
+     id="g6"
+     style="fill:#dfdfdf;fill-opacity:1">
+    <rect
+       height="7.003"
+       rx="1"
+       ry="1"
+       width="2"
+       x="39"
+       y="869.361"
+       color="#bebebe"
+       id="rect2"
+       style="fill:#dfdfdf;fill-opacity:1" />
+    <path
+       d="M42.94 871.352a1 1 0 0 0-.544 1.808 3.993 3.993 0 0 1 1.405 4.451 3.993 3.993 0 0 1-3.77 2.752 3.994 3.994 0 0 1-3.812-2.693 3.991 3.991 0 0 1 1.336-4.47 1 1 0 1 0-1.223-1.585 6.008 6.008 0 0 0-2.002 6.71 6.006 6.006 0 0 0 5.717 4.038 6.006 6.006 0 0 0 5.654-4.127 6.01 6.01 0 0 0-2.107-6.677 1 1 0 0 0-.655-.207z"
+       style="line-height:normal;text-indent:0;text-align:start;text-decoration-line:none;text-decoration-style:solid;text-decoration-color:#000;text-transform:none;block-progression:tb;white-space:normal;isolation:auto;mix-blend-mode:normal;solid-color:#000;solid-opacity:1;fill:#dfdfdf;fill-opacity:1"
+       color="#000"
+       font-weight="400"
+       font-family="sans-serif"
+       overflow="visible"
+       stroke-width="2"
+       stroke-linecap="round"
+       stroke-linejoin="round"
+       id="path4" />
+  </g>
+</svg>
