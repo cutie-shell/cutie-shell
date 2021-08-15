@@ -119,11 +119,11 @@ Rectangle {
                 states: [
                     State {
                         name: "dark"
-                        PropertyChanges { target: clockText; color: "#ffffff" }
+                        PropertyChanges { target: text2; color: "#ffffff" }
                     },
                     State {
                         name: "light"
-                        PropertyChanges { target: clockText; color: "#000000" }
+                        PropertyChanges { target: text2; color: "#000000" }
                     }
                 ]
                 transitions: Transition {
