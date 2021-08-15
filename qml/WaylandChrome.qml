@@ -8,7 +8,6 @@ ShellSurfaceItem {
     autoCreatePopupItems: true
 
     onSurfaceDestroyed: {
-        shellSurfaces.remove(parent.shellSurfaceIdx);
         root.state = "homeScreen";
         parent.shellSurfaceIdx=-1
     }
