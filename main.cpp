@@ -22,9 +22,6 @@ int main(int argc, char *argv[])
     Settings *settings = new Settings(&engine);
     settings->refreshBatteryInfo();
 
-    HWButtons *btns = new HWButtons(&engine);
-    app.installEventFilter(btns);
-
     engine.rootContext()->setContextProperty("shellScaleFactor", shellScaleFactor);
     engine.rootContext()->setContextProperty("settings", settings);
     const QUrl url(QStringLiteral("qrc:/compositor.qml"));
@@ -37,6 +34,9 @@ int main(int argc, char *argv[])
 
     settings->loadAppList();
     settings->autostart();
+
+    HWButtons *btns = new HWButtons(&engine);
+    app.installEventFilter(btns);
 
     return app.exec();
 }

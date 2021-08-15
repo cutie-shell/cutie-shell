@@ -8,10 +8,12 @@ CONFIG += c++11
 
 SOURCES += \
         backlight.cpp \
+        atmosphere.cpp \
         main.cpp
 
 HEADERS += \
-        backlight.h
+        backlight.h \
+        atmosphere.h 
 
 LIBS += -ludev
 
@@ -26,10 +28,11 @@ qnx: target.path = /tmp/$${TARGET}/bin
 else: unix:!android: target.path = /usr/bin
 !isEmpty(target.path): INSTALLS += target
 
-backlight.files = ../com.github.CutiePiShellCommunityProject.xml
-backlight.source_flags = -l Backlight
-backlight.header_flags = -l Backlight -i backlight.h
+dbusdaemon.files = ../com.github.CutiePiShellCommunityProject.xml
+dbusdaemon.header_flags = -i backlight.h -i atmosphere.h 
 
-DBUS_ADAPTORS += backlight
+DBUS_ADAPTORS += \
+        dbusdaemon 
+
 DBUS_INTERFACES += \
-        backlight
+        dbusdaemon 

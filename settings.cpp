@@ -6,12 +6,19 @@
 Settings::Settings(QObject *parent) : QObject(parent) {
 
     this->backlight = new com::github::CutiePiShellCommunityProject::SettingsDaemon::Backlight(
-        "com.github.CutiePiShellCommunityProject.SettingsDaemon", "/com/github/CutiePiShellCommunityProject",
+        "com.github.CutiePiShellCommunityProject.SettingsDaemon", "/com/github/CutiePiShellCommunityProject/backlight",
+        QDBusConnection::systemBus());
+    this->atmosphere = new com::github::CutiePiShellCommunityProject::SettingsDaemon::Atmosphere(
+        "com.github.CutiePiShellCommunityProject.SettingsDaemon", "/com/github/CutiePiShellCommunityProject/atmosphere",
         QDBusConnection::systemBus());
     this->battery = new org::freedesktop::DBus::Properties(
         "org.freedesktop.UPower", "/org/freedesktop/UPower/devices/DisplayDevice",
         QDBusConnection::systemBus());    
     connect(this->battery, SIGNAL(PropertiesChanged(QString, QVariantMap, QStringList)), this, SLOT(onUPowerInfoChanged(QString, QVariantMap, QStringList)));
+    connect(this->atmosphere, SIGNAL(PathChanged()), this, SLOT(onAtmospherePathChanged()));
+    connect(this->atmosphere, SIGNAL(VariantChanged()), this, SLOT(onAtmosphereVariantChanged()));
+    onAtmospherePathChanged();
+    onAtmosphereVariantChanged();
 }
 
 unsigned int Settings::GetMaxBrightness() {
@@ -116,4 +123,22 @@ void Settings::autostart() {
         }
         delete curAppDir;
     }
+}
+
+void Settings::onAtmospherePathChanged() {
+    QString apath = this->atmosphere->GetPath();
+    ((QQmlApplicationEngine *)parent())->rootContext()->setContextProperty("atmospherePath", apath);
+}
+
+void Settings::onAtmosphereVariantChanged() {
+    QString avar = this->atmosphere->GetVariant();
+    ((QQmlApplicationEngine *)parent())->rootContext()->setContextProperty("atmosphereVariant", avar);
+}
+
+void Settings::setAtmospherePath(QString path) {
+    this->atmosphere->SetPath(path);
+}
+
+void Settings::setAtmosphereVariant(QString variant) {
+    this->atmosphere->SetVariant(variant);
 }

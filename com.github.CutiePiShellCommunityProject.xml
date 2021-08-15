@@ -12,4 +12,22 @@
       <arg name="brightness" type="u" direction="in"/>
     </method>
   </interface>
+  <interface name="com.github.CutiePiShellCommunityProject.SettingsDaemon.Atmosphere">
+    <method name="GetPath">
+      <arg name="path" type="s" direction="out"/>
+    </method>
+    <method name="GetVariant">
+      <arg name="variant" type="s" direction="out"/>
+    </method>
+    <method name="SetPath">
+      <arg name="path" type="s" direction="in"/>
+    </method>
+    <method name="SetVariant">
+      <arg name="variant" type="s" direction="in"/>
+    </method>
+    <signal name="PathChanged">
+    </signal>
+    <signal name="VariantChanged">
+    </signal>
+  </interface>
 </node>
