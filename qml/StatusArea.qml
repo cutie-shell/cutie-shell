@@ -79,6 +79,21 @@ Rectangle {
         text: qsTr("4G")
         font.pixelSize: 9 * shellScaleFactor
         font.bold: false
+        state: atmosphereVariant
+        states: [
+            State {
+                name: "dark"
+                PropertyChanges { target: clockText; color: "#ffffff" }
+            },
+            State {
+                name: "light"
+                PropertyChanges { target: clockText; color: "#000000" }
+            }
+        ]
+        transitions: Transition {
+            ColorAnimation { properties: "color"; duration: 500; easing.type: Easing.InOutQuad }
+        }
+        font.family: mainFont.name
     }
 
     Image {
@@ -128,6 +143,7 @@ Rectangle {
         transitions: Transition {
             ColorAnimation { properties: "color"; duration: 500; easing.type: Easing.InOutQuad }
         }
+        font.family: mainFont.name
     }
 
     Text {
@@ -153,6 +169,7 @@ Rectangle {
         transitions: Transition {
             ColorAnimation { properties: "color"; duration: 500; easing.type: Easing.InOutQuad }
         }
+        font.family: mainFont.name
     }
 
     function timeChanged() {
