@@ -209,7 +209,92 @@ Rectangle {
             //End atmospheres
 
 
-            Rectangle {
+            ListModel {
+                id: settingsModel
+
+                ListElement {
+                    bText: "Wi-Fi"
+                    tText: ""
+                    icon: "icons/network-wireless-signal-good-symbolic.svg"
+                }
+                ListElement {
+                    bText: "Cellular"
+                    tText: ""
+                    icon: "icons/network-cellular-signal-ok.svg"
+                }
+                ListElement {
+                    bText: "Airplane"
+                    tText: ""
+                    icon: "icons/airplane-mode.svg"
+                }
+                ListElement {
+                    bText: "-1 °C"
+                    tText: "Snow"
+                    icon: "icons/weather/graphic-weather-n322-light.png"
+                }
+                ListElement {
+                    bText: "Power Off"
+                    tText: ""
+                    icon: "icons/system-shutdown-symbolic.svg"
+                }
+            }
+
+            GridView {
+                anchors.fill: parent
+                anchors.topMargin: 135 * shellScaleFactor
+                anchors.bottomMargin: 40 * shellScaleFactor
+                model: settingsModel
+                cellWidth: view.width / 3 - 5 * shellScaleFactor
+                cellHeight: view.width / 3 - 5 * shellScaleFactor
+                clip: true
+
+                delegate: Item {
+                    width: view.width / 3 - 15 * shellScaleFactor
+                    height: view.width / 3 - 15 * shellScaleFactor
+                    Rectangle {
+                        width: view.width / 3 - 10 * shellScaleFactor
+                        height: view.width / 3 - 10 * shellScaleFactor
+                        x: 10 * shellScaleFactor
+                        color: (atmosphereVariant == "dark") ? "#2fffffff" : "#4f000000"
+                        radius: 10 * shellScaleFactor
+
+                        Text {
+                            anchors.horizontalCenter: parent.horizontalCenter
+                            anchors.top: parent.top
+                            anchors.topMargin: 7 * shellScaleFactor
+                            color: "#ffffff"
+                            text: tText
+                            font.pixelSize: 9 * shellScaleFactor
+                            horizontalAlignment: Text.AlignHCenter
+                            font.family: mainFont.name
+                            font.bold: false
+                        }
+
+                        Text {
+                            anchors.horizontalCenter: parent.horizontalCenter
+                            anchors.bottom: parent.bottom
+                            anchors.bottomMargin: 7 * shellScaleFactor
+                            color: "#ffffff"
+                            text: bText
+                            font.pixelSize: 9 * shellScaleFactor
+                            horizontalAlignment: Text.AlignHCenter
+                            font.family: mainFont.name
+                            font.bold: false
+                        }
+                        
+                        Image {
+                            anchors.fill: parent
+                            anchors.margins: parent.width / 3
+                            source: icon
+                            sourceSize.height: 128
+                            sourceSize.width: 128
+                            fillMode: Image.PreserveAspectFit
+                        }
+                    }
+                }
+            }
+
+            /*Rectangle {
                 id: rectangle
                 x: 25 * shellScaleFactor
                 y: 135 * shellScaleFactor
@@ -353,7 +438,7 @@ Rectangle {
                     sourceSize.width: 128
                     fillMode: Image.PreserveAspectFit
                 }
-            }
+            }*/
 
             Rectangle {
                 id: brightness
