@@ -52,7 +52,7 @@ Rectangle {
 
             onPositionChanged: {
                 if (drag.active) {
-                    launcherSheet.opacity = 1/2 - parent.y / view.height / 2
+                    launcherSheet.opacity = 1 - parent.y / view.height / 2
                     launcherContainer.y = parent.y
                 }
             }

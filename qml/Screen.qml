@@ -117,11 +117,11 @@ WaylandOutput {
             },
             State {
                 name: "opening"
-                PropertyChanges { target: launcherSheet; y: 0; opacity: 0 }
+                PropertyChanges { target: launcherSheet; y: 0 }
             },
             State {
                 name: "closing"
-                PropertyChanges { target: launcherSheet; y: 0; opacity: 0.5 }
+                PropertyChanges { target: launcherSheet; y: 0 }
             }
         ]
 
@@ -149,12 +149,12 @@ WaylandOutput {
             },
             State {
                 name: "opening"
-                PropertyChanges { target: settingSheet; y: 0; opacity: 0 }
+                PropertyChanges { target: settingSheet; y: 0 }
                 PropertyChanges { target: setting; opacity: 0 }
             },
             State {
                 name: "closing"
-                PropertyChanges { target: settingSheet; y: 0; opacity: 0.5 }
+                PropertyChanges { target: settingSheet; y: 0 }
                 PropertyChanges { target: setting; opacity: 0 }
             }
         ]
