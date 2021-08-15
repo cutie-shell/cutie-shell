@@ -5,9 +5,8 @@ import QtGraphicalEffects 1.12
 
 Window {
     title: webview.title
-    width: 480
-    height: 800
     visible: true
+    color: "transparent"
 
     function fixUrl(url) {
         url = url.replace( /^\s+/, "").replace( /\s+$/, ""); // remove white space
@@ -26,28 +25,6 @@ Window {
         else { return url;}
     }
 
-    Image {
-        id: bug
-        anchors.left: parent.left
-        anchors.right: parent.right
-        anchors.top: parent.top
-        anchors.bottom: parent.bottom
-        source: "wallpaper.jpg"
-        sourceSize.height: 800
-        sourceSize.width: 2000
-        anchors.leftMargin: 0
-        anchors.topMargin: 0
-        anchors.bottomMargin: 0
-        anchors.rightMargin: 0
-        fillMode: Image.PreserveAspectCrop
-    }
-    FastBlur {
-            anchors.fill: bug
-            source: bug
-            radius: 65
-
-        }
-
     FontLoader {
         id: icon
         source: "qrc:/Font Awesome 5 Free-Solid-900.otf"
@@ -56,26 +33,24 @@ Window {
     Rectangle { 
         id: headerBar  
         width: parent.width
-        height: 50
+        height: 25
         anchors { top: parent.top; left: parent.left }
-        color: "#00ffffff"
+        color: "transparent"
         anchors.leftMargin: 0
         anchors.topMargin: 0
 
         Item {
             id: backButton
-            width: 30; height: 30; anchors { left: headerBar.left; leftMargin: 8; margins: 20; top: parent.top; topMargin: 10 }
+            width: 20; height: 20; anchors { left: headerBar.left; leftMargin: 2; margins: 2; top: parent.top; topMargin: 4 }
             Text {
                 id: backButtonIcon
-                x: 7
-                y: -3
-                color: "#30ffffff"
+                color: (atmosphereVariant == "dark") ? "#ffffff" : "#000000"
                 text: "\uF053"
-                font { family: icon.name; pointSize: 28 }
+                font { family: icon.name; pixelSize: 18 }
             }
 
             MouseArea { 
-                anchors.fill: parent; anchors.margins: -5; 
+                anchors.fill: parent; anchors.margins: -1; 
                 enabled: webview.canGoBack 
              //   onPressed: backButtonIcon.color = "#bf616a";
                 onClicked: { webview.goBack() }
@@ -83,28 +58,52 @@ Window {
             }
         }
 
+        Item {
+            id: forwardButton
+            width: 20
+            height: 20
+            anchors.left: backButton.right
+            anchors.top: parent.top
+            anchors.topMargin: 4
+            Text {
+                id: backButtonIcon1
+                color: (atmosphereVariant == "dark") ? "#ffffff" : "#000000"
+                text: "\uf054"
+                font.pixelSize: 18
+                font.family: icon.name
+            }
+
+            MouseArea {
+                anchors.fill: parent
+                anchors.margins: -1
+             //   onPressed: backButtonIcon1.color = "#bf616a"
+                enabled: webview.canGoForward
+                onClicked: { webview.goForward() }
+               // onReleased: backButtonIcon1.color = "#434C5E"
+            }
+        }
+
         Rectangle {
             id: urlBar
-            width: 293
-            height: 34
-            color: "#30ffffff"; border.width: 0; border.color: "#2E3440";
+            height: 20
+            color: (atmosphereVariant == "dark") ? "#ffffff" : "#000000"
+            border.width: 0; border.color: "#2E3440";
             visible: true
             anchors {
                 top: parent.top
-                left: parent.left
-                margins: 20; topMargin: 8; leftMargin: 119
+                left: forwardButton.right
+                right: hamburger.left
+                margins: 2; topMargin: 3;
             }
-            radius: 26
+            radius: 5
+            clip: true
 
             TextInput { 
                 id: urlText
-                width: 272
-                height: 26
                 text: ""
-                anchors.leftMargin: 13
-                anchors.topMargin: 4
-                font.pointSize: 16; color: "#2E3440"; selectionColor: "#434C5E"
-                anchors { left: parent.left; top: parent.top; right: stopButton.left; margins: 11; }
+                anchors.verticalCenter: parent.verticalCenter
+                anchors.left: parent.left
+                font.pointSize: 15 ; color: "#2E3440"; selectionColor: "#434C5E"
                 inputMethodHints: Qt.ImhNoAutoUppercase // url hint 
                 clip: true
                 
@@ -129,7 +128,7 @@ Window {
         }
         Rectangle {
             id: urlProgressBar
-            height: 4
+            height: 1
             visible: webview.loadProgress < 100
             width: parent.width * (webview.loadProgress/100)
             anchors { bottom: headerBar.bottom; left: parent.left }
@@ -137,57 +136,22 @@ Window {
         }
 
         Item {
-            id: forwardButton
-            x: 44
-            width: 30
-            height: 30
-            anchors.left: headerBar.left
-            anchors.top: parent.top
-            anchors.margins: 20
-            rotation: 180
-            anchors.topMargin: 12
-            anchors.leftMargin: 60
-            Text {
-                id: backButtonIcon1
-                x: 7
-                y: -3
-                color: "#30ffffff"
-                text: "\uf053"
-                font.pointSize: 28
-                font.family: icon.name
-            }
-            //
-
-            MouseArea {
-                anchors.fill: parent
-                anchors.margins: -5
-             //   onPressed: backButtonIcon1.color = "#bf616a"
-                enabled: webview.canGoForward
-                onClicked: { webview.goForward() }
-               // onReleased: backButtonIcon1.color = "#434C5E"
-            }
-        }
-
-        Item {
             id: hamburger
-            x: 442
-            width: 36
-            height: 30
-            anchors.left: headerBar.left
+            width: 20
+            height: 20
+            anchors.right: headerBar.right
             anchors.top: parent.top
-            anchors.margins: 20
-            anchors.topMargin: 10
-            anchors.leftMargin: 436
+            anchors.topMargin: 4
+            anchors.rightMargin: 2
             rotation: 180
             Text {
                 id: iconham
-                x: 8
                 y: 0
-                width: 32
-                height: 35
-                color: "#30ffffff"
+                width: 20
+                height: 20
+                color: (atmosphereVariant == "dark") ? "#ffffff" : "#000000"
                 text: "\uf0c9"
-                font.pointSize: 24
+                font.pointSize: 18
                 font.family: icon.name
             }
 
