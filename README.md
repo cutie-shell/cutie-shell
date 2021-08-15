@@ -19,54 +19,49 @@ qt5-welcome-app
 
 ## Building and Running on halium9 devices (powered by droidian)
 Status: WIP 
-tested on: VollaPhone, Xiaomi Redmi 7
 
-1)Please installing droidian phosh and devtools on your device.                                                                 
-2)Connected device to pc linux via rndis ssh.     ssh droidian@10.15.19.82                                                        
+Tested on: Volla Phone, Xiaomi Redmi 7
+
+* Install droidian phosh and devtools on your device.  
+* Connected the device to a PC running Linux: `ssh droidian@10.15.19.82`    
+
 ```
-sudo apt update && sudo apt install git qtcreator qml qtbase5-gles-dev qt5-qpa-hwcomposer-plugin g++ make libudev-dev qml-module-qtquick2 qml-module-qtquick-controls qml-module-qtwayland-compositor qml-module-qtquick-virtualkeyboard
-cd /usr/share/
-sudo git clone https://github.com/Cutie-Pi-Shell-community-project/atmospheres.git
-sudo git clone https://github.com/Cutie-Pi-Shell-community-project/CutiePi-shell-phone-components.git
+sudo apt update && sudo apt install git qtcreator qml qtbase5-gles-dev qt5-qpa-hwcomposer-plugin g++ make libudev-dev qml-module-qtquick2 qml-module-qtquick-controls qml-module-qtwayland-compositor qml-module-qtquick-virtualkeyboard polkit-kde-agent-1 libqt5dbus5
+cd ~
+sudo git clone https://github.com/Cutie-Pi-Shell-community-project/atmospheres.git /usr/share/atmospheres
+git clone https://github.com/Cutie-Pi-Shell-community-project/CutiePi-shell-phone-components.git
 cd CutiePi-shell-phone-components 
 sudo cp -R com.github.CutiePiShellCommunityProject.SettingsDaemon.conf /usr/share/dbus-1/system.d/com.github.CutiePiShellCommunityProject.SettingsDaemon.conf
-cd /etc/systemd
-mkdir logind.conf.d
-cd /usr/share/CutiePi-shell-phone-components/
+mkdir -p /etc/systemd/logind.conf.d
 sudo cp -R logind.conf.d/10-cutie.conf /etc/systemd/logind.conf.d/10-cutie.conf
-sudo reboot
-```
-Please connected to device.   ssh droidian@10.15.19.82
-
-```
-sudo -i
-systemctl stop phosh
-cd /usr/share/CutiePi-shell-phone-components/settings-daemon/
+cd settings-daemon
 qmake
 make
-sudo ./cutie-settings-daemon
+sudo make install
+sudo cp settings-daemon/cutie-settings-daemon.service /usr/lib/systemd/system/cutie-settings-daemon.service
 cd ..
 qmake
 make
-exit
-
-!!Start shell only not sudo!!
-
-sh start-halium.sh
+sudo make install
+sudo cp cutie-ui-io.service /usr/lib/systemd/system/cutie-ui-io.service
+sudo systemctl daemon-reload
+sudo systemctl disable phosh
+sudo systemctl enable cutie-settings-daemon
+sudo systemctl enable cutie-ui-io
+sudo reboot
 ```
 
-Fix isues scale shell:
-```
-cd /usr/share/CutiePi-shell-phone-components/
-sudo nano start-halium.sh
+### To fix isues on scaling
 
-There is a line in the script (export QT_SCALE_FACTOR= "4"). By default, the scale is 4, but if you have too large, you can make it less than 2.
+```
+sudo nano /usr/lib/systemd/system/cutie-ui-io.service
+
+There is this line in the service file: Environment=QT_SCALE_FACTOR= "4". By default, the scale is 4, but if you have it too large, you can make it less (for example 2).
 
 ctrl x
 y
 enter
 ```
-
 
 # Status
 https://github.com/Cutie-Pi-Shell-community-project/development-status
