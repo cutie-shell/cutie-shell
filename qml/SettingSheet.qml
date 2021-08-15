@@ -12,6 +12,25 @@ Rectangle {
     color: "transparent"
     y: -view.height
 
+    property bool isPoweroffPressed: false
+
+    onOpacityChanged: {
+        isPoweroffPressed = false;
+    }
+
+    onIsPoweroffPressedChanged: {
+        for (let i = 0; i < settingsModel.count; i++) {
+            let btn = settingsModel.get(i)
+            if (btn.bText == "Power Off") {
+                if (isPoweroffPressed) {
+                    btn.tText = "Tap Again";
+                } else {
+                    btn.tText = "";
+                }
+            }
+        }
+    }
+
     function setSettingContainerY(y) {
         settingContainer.y = y;
     }
@@ -236,6 +255,12 @@ Rectangle {
                     bText: "Power Off"
                     tText: ""
                     icon: "icons/system-shutdown-symbolic.svg"
+                    clickHandler: function (self) {
+                        if (isPoweroffPressed) {
+                            settings.execApp("systemctl poweroff");
+                        }
+                        isPoweroffPressed = !isPoweroffPressed
+                    }
                 }
             }
 
@@ -252,6 +277,7 @@ Rectangle {
                     width: view.width / 3 - 15 * shellScaleFactor
                     height: view.width / 3 - 15 * shellScaleFactor
                     Rectangle {
+                        id: settingBg
                         width: view.width / 3 - 10 * shellScaleFactor
                         height: view.width / 3 - 10 * shellScaleFactor
                         x: 10 * shellScaleFactor
@@ -290,155 +316,14 @@ Rectangle {
                             sourceSize.width: 128
                             fillMode: Image.PreserveAspectFit
                         }
+
+                        MouseArea {
+                            anchors.fill: parent
+                            onClicked: clickHandler(this)
+                        }
                     }
                 }
             }
-
-            /*Rectangle {
-                id: rectangle
-                x: 25 * shellScaleFactor
-                y: 135 * shellScaleFactor
-                width: view.width / 2 - 37 * shellScaleFactor
-                height: view.width / 2 - 37 * shellScaleFactor
-                color: (atmosphereVariant == "dark") ? "#2fffffff" : "#4f000000"
-                radius: 10 * shellScaleFactor
-
-                Text {
-                    id: text3
-                    anchors.horizontalCenter: parent.horizontalCenter
-                    anchors.bottom: parent.bottom
-                    anchors.bottomMargin: 7 * shellScaleFactor
-                    color: "#ffffff"
-                    text: qsTr("Wi-Fi")
-                    font.pixelSize: 9 * shellScaleFactor
-                    horizontalAlignment: Text.AlignHCenter
-                    font.bold: false
-                    font.family: mainFont.name
-                }
-
-                Image {
-                    id: image4
-                    anchors.fill: parent
-                    anchors.margins: parent.width / 3
-                    source: "icons/network-wireless-signal-good-symbolic.svg"
-                    sourceSize.height: 128
-                    sourceSize.width: 128
-                    fillMode: Image.PreserveAspectFit
-                }
-            }
-
-            Rectangle {
-                id: rectangle1
-                x: view.width / 2 + 12 * shellScaleFactor
-                y: 135 * shellScaleFactor
-                width: view.width / 2 - 37 * shellScaleFactor
-                height: view.width / 2 - 37 * shellScaleFactor
-                color: (atmosphereVariant == "dark") ? "#2fffffff" : "#4f000000"
-                radius: 10 * shellScaleFactor
-
-                Text {
-                    id: text4
-                    anchors.horizontalCenter: parent.horizontalCenter
-                    anchors.bottom: parent.bottom
-                    anchors.bottomMargin: 7 * shellScaleFactor
-                    color: "#ffffff"
-                    text: qsTr("Modem")
-                    font.pixelSize: 9 * shellScaleFactor
-                    horizontalAlignment: Text.AlignHCenter
-                    font.bold: false
-                    font.family: mainFont.name
-                }
-
-                Image {
-                    id: image5
-                    anchors.fill: parent
-                    anchors.margins: parent.width / 3
-                    source: "icons/network-cellular-signal-ok.svg"
-                    sourceSize.height: 128
-                    sourceSize.width: 128
-                    fillMode: Image.PreserveAspectFit
-                }
-            }
-
-            
-            Rectangle {
-                id: rectangle2
-                x: 25 * shellScaleFactor
-                y: 120 * shellScaleFactor + view.width / 2
-                width: view.width / 2 - 37 * shellScaleFactor
-                height: view.width / 2 - 37 * shellScaleFactor
-                color: (atmosphereVariant == "dark") ? "#2fffffff" : "#4f000000"
-                radius: 10 * shellScaleFactor
-
-                Text {
-                    id: text7
-                    anchors.horizontalCenter: parent.horizontalCenter
-                    anchors.bottom: parent.bottom
-                    anchors.bottomMargin: 7 * shellScaleFactor
-                    color: "#ffffff"
-                    text: qsTr("Airplane Mode")
-                    font.pixelSize: 9 * shellScaleFactor
-                    horizontalAlignment: Text.AlignHCenter
-                    font.bold: false
-                    font.family: mainFont.name
-                }
-                
-                Image {
-                    id: image6
-                    anchors.fill: parent
-                    anchors.margins: parent.width / 3
-                    source: "icons/airplane-mode.svg"
-                    sourceSize.height: 128
-                    sourceSize.width: 128
-                    fillMode: Image.PreserveAspectFit
-                }
-            }
-
-            Rectangle {
-                id: rectangle3
-                x: view.width / 2 + 12 * shellScaleFactor
-                y: 120 * shellScaleFactor + view.width / 2
-                width: view.width / 2 - 37 * shellScaleFactor
-                height: view.width / 2 - 37 * shellScaleFactor
-                color: (atmosphereVariant == "dark") ? "#2fffffff" : "#4f000000"
-                radius: 10 * shellScaleFactor
-
-                Text {
-                    id: text5
-                    anchors.horizontalCenter: parent.horizontalCenter
-                    anchors.top: parent.top
-                    anchors.topMargin: 7 * shellScaleFactor
-                    color: "#ffffff"
-                    text: qsTr("Snow")
-                    font.pixelSize: 9 * shellScaleFactor
-                    horizontalAlignment: Text.AlignHCenter
-                    font.family: mainFont.name
-                    font.bold: false
-                }
-
-                Text {
-                    id: text6
-                    anchors.horizontalCenter: parent.horizontalCenter
-                    anchors.bottom: parent.bottom
-                    anchors.bottomMargin: 7 * shellScaleFactor
-                    color: "#ffffff"
-                    text: qsTr("-1")
-                    font.pixelSize: 9 * shellScaleFactor
-                    horizontalAlignment: Text.AlignHCenter
-                    font.family: mainFont.name
-                    font.bold: false
-                }
-                
-                Image {
-                    id: image7
-                    anchors.fill: parent
-                    anchors.margins: parent.width / 3
-                    source: "icons/weather/graphic-weather-n322-light.png"
-                    sourceSize.height: 128
-                    sourceSize.width: 128
-                    fillMode: Image.PreserveAspectFit
-                }
-            }*/
 
             Rectangle {
                 id: brightness
