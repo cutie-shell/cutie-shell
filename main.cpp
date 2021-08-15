@@ -36,6 +36,7 @@ int main(int argc, char *argv[])
     engine.load(url);
 
     settings->loadAppList();
+    settings->autostart();
 
     return app.exec();
 }
