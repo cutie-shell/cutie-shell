@@ -35,7 +35,7 @@ Environment=QT_AUTO_SCREEN_SCALE_FACTOR=0
 Environment=QT_SCALE_FACTOR="4"
 Environment=QT_VIRTUALKEYBOARD_STYLE=cutie
 ExecStartPre=/usr/bin/waitforservice init.svc.vendor.hwcomposer-*
-ExecStart=/usr/bin/cutie-ui-io
+ExecStart=/usr/bin/cutie-ui-io -plugin libinput
 TimeoutStartSec=30
 User=32011
 PAMName=login
