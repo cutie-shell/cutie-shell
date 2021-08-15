@@ -112,6 +112,37 @@ Rectangle {
                 model: launcherApps
                 cellWidth: view.width / 4
                 cellHeight: view.width / 4
+
+                property real tempContentY: 0
+                property bool refreshing: false
+
+
+                onAtYBeginningChanged: {
+                    if(atYBeginning){
+                        tempContentY = contentY
+                    }
+                }
+
+                onContentYChanged: {
+                    if(atYBeginning){
+                        if(Math.abs(tempContentY - contentY) > 40 * shellScaleFactor){
+                            if(refreshing){
+                                return;
+                            } else {
+                                refreshing = true               
+                            }
+                        }
+                    }
+                }
+
+                onMovementEnded: {
+                    if (refreshing) {
+                        launcherApps.clear();
+                        settings.loadAppList();
+                        refreshing = false     
+                    }
+                }
+
                 delegate: Item {
                     Button {
                         id: appIconButton
