@@ -113,7 +113,22 @@ Rectangle {
                 color: (atmosphereVariant == "dark") ? "#ffffff" : "#000000"
                 text: qsTr("Accent")
                 font.pixelSize: 14 * shellScaleFactor
-                font.bold: false
+                font.family: mainFont.name
+                font.weight: Font.Black
+                state: atmosphereVariant
+                states: [
+                    State {
+                        name: "dark"
+                        PropertyChanges { target: clockText; color: "#ffffff" }
+                    },
+                    State {
+                        name: "light"
+                        PropertyChanges { target: clockText; color: "#000000" }
+                    }
+                ]
+                transitions: Transition {
+                    ColorAnimation { properties: "color"; duration: 500; easing.type: Easing.InOutQuad }
+                }
             }
 
             //Armospheres ui block
@@ -167,6 +182,7 @@ Rectangle {
                         font.pixelSize: 9 * shellScaleFactor
                         font.bold: false
                         color: (variant == "dark") ? "#FFFFFF" : "#000000"
+                        font.family: mainFont.name
                     }
 
                     MouseArea{
@@ -212,6 +228,7 @@ Rectangle {
                     font.pixelSize: 9 * shellScaleFactor
                     horizontalAlignment: Text.AlignHCenter
                     font.bold: false
+                    font.family: mainFont.name
                 }
 
                 Image {
@@ -244,6 +261,7 @@ Rectangle {
                     font.pixelSize: 9 * shellScaleFactor
                     horizontalAlignment: Text.AlignHCenter
                     font.bold: false
+                    font.family: mainFont.name
                 }
 
                 Image {
@@ -277,6 +295,7 @@ Rectangle {
                     font.pixelSize: 9 * shellScaleFactor
                     horizontalAlignment: Text.AlignHCenter
                     font.bold: false
+                    font.family: mainFont.name
                 }
                 
                 Image {
@@ -308,6 +327,7 @@ Rectangle {
                     text: qsTr("Snow")
                     font.pixelSize: 9 * shellScaleFactor
                     horizontalAlignment: Text.AlignHCenter
+                    font.family: mainFont.name
                     font.bold: false
                 }
 
@@ -320,6 +340,7 @@ Rectangle {
                     text: qsTr("-1")
                     font.pixelSize: 9 * shellScaleFactor
                     horizontalAlignment: Text.AlignHCenter
+                    font.family: mainFont.name
                     font.bold: false
                 }
                 

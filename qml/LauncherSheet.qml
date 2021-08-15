@@ -136,9 +136,8 @@ Rectangle {
                         anchors.horizontalCenter: appIconButton.horizontalCenter
                         text: appName
                         font.pixelSize: 7 * shellScaleFactor
-                        font.family: "Lato"
-                        font.weight: Font.Light
                         clip: true
+                        font.family: mainFont.name
                         color: (atmosphereVariant == "dark") ? "#ffffff" : "#000000"
                     }
                 }

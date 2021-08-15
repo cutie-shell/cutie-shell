@@ -31,6 +31,7 @@ Rectangle {
                     font.pixelSize: 14* shellScaleFactor
                     anchors { left: parent.left; margins: drawerMargin; verticalCenter: parent.verticalCenter
                         leftMargin: drawerMargin+15*shellScaleFactor; right: parent.right; rightMargin: 18*shellScaleFactor } 
+                    font.family: mainFont.name
                     elide: Text.ElideRight 
                 }
                 MouseArea { 
