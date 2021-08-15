@@ -91,3 +91,30 @@ void Settings::loadAppList() {
         delete curAppDir;
     }
 }
+
+void Settings::autostart() {
+    QString xdgDataDirs = QTextCodec::codecForMib(106)->toUnicode(qgetenv("XDG_CONFIG_DIRS"));
+    QStringList dataDirList = xdgDataDirs.split(':');
+    for (int dirI = 0; dirI < dataDirList.count(); dirI++) {
+        QDir *curAppDir = new QDir(dataDirList.at(dirI) + "/autostart");
+        if (curAppDir->exists()) {
+            QStringList entryFiles = curAppDir->entryList(QDir::Files);
+            for (int fileI = 0; fileI < entryFiles.count(); fileI++) {
+                QString curEntryFileName = entryFiles.at(fileI);
+                QSettings *curEntryFile = new QSettings(dataDirList.at(dirI) + "/applications/" + curEntryFileName, QSettings::IniFormat);
+                QString desktopType = curEntryFile->value("Desktop Entry/Type").toString();
+                if (desktopType == "Application") {
+                    QString appName = curEntryFile->value("Desktop Entry/Name").toString();
+                    QString appHidden = curEntryFile->value("Desktop Entry/Hidden").toString();
+                    QString appNoDisplay = curEntryFile->value("Desktop Entry/NoDisplay").toString();
+                    QString appExec = curEntryFile->value("Desktop Entry/Exec").toString();
+                    QString appIcon = curEntryFile->value("Desktop Entry/Icon").toString();
+                    if (appName != "" && appExec != "")
+                        execApp(appExec);
+                }
+                delete curEntryFile;
+            }
+        }
+        delete curAppDir;
+    }
+}

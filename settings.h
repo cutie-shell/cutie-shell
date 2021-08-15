@@ -20,6 +20,7 @@ public:
     Q_INVOKABLE void SetBrightness(unsigned int value);
     Q_INVOKABLE void execApp(QString command);
     void refreshBatteryInfo();
+    void autostart();
     Q_INVOKABLE void loadAppList();
 public Q_SLOTS:
     void onUPowerInfoChanged(QString interface, QVariantMap, QStringList);
