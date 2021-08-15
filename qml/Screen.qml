@@ -23,9 +23,7 @@ WaylandOutput {
     property real unlockBrightness: 0.5
 
     property int drawerMargin: 5*shellScaleFactor
-    property string atmospherePath: "file://usr/share/atmospheres/city/"
     property string nextAtmospherePath: "file://usr/share/atmospheres/city/"
-    property string atmosphereVariant: "dark"
     property color atmosphereForeground: "#ffffff"
 
     function handleShellSurface(shellSurface, toplevel) {

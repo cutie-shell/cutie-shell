@@ -207,11 +207,12 @@ Rectangle {
                     MouseArea{
                         anchors.fill: parent
                         onClicked:{
-                            atmosphereVariant = variant
+                            settings.setAtmosphereVariant(variant);
                             nextWallpaper.state = "changing"
-                            atmospherePath = path
+                            settings.setAtmospherePath(path);
                             nextWallpaper.state = "normal"
                             atmosphereTimer.start();
+                            //settings.onAtmosphereVariantChanged()
                         }
                     }
 
