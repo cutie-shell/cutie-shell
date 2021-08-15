@@ -470,7 +470,8 @@ Rectangle {
                         var fullrange = volumeBarTrack1.width - volumeBarThumb1.width;
                         var vol = 100*(volumeBarThumb1.x - volumeBarTrack1.x)/fullrange;
                         if (screenLockState.state != "closed") {
-                            settings.SetBrightness(settings.GetMaxBrightness() * vol / 100);
+                            let maxB = settings.GetMaxBrightness();
+                            settings.SetBrightness(maxB / 6 + maxB * vol / 120);
                         } 
                     }
                     state: atmosphereVariant
