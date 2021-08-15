@@ -53,7 +53,7 @@ Rectangle {
 
             onPositionChanged: {
                 if (drag.active) {
-                    settingSheet.opacity = parent.y / view.height / 2
+                    settingSheet.opacity = 1/2 + parent.y / view.height / 2
                     settingContainer.y = parent.y - view.height
                 }
             }
