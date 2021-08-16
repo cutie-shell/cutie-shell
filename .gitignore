@@ -10,3 +10,5 @@ cutie-settings-daemon
 *interface.h
 *adaptor.cpp
 *adaptor.h
+*.so
+apps/browser-qt5/browser-qt5
