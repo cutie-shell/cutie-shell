@@ -425,7 +425,7 @@ Rectangle {
 
                 Rectangle {
                     id: volumeBarThumb1
-                    x: volumeBarTrack1.x + volumeBarTrack1.width/2
+                    x: (screenBrightness * (volumeBarTrack1.width - volumeBarThumb1.width) / 100) + volumeBarTrack1.x
                     y: volumeBarTrack1.y - height/2
                     width: parent.height
                     height: width
@@ -440,6 +440,7 @@ Rectangle {
                     onXChanged: {
                         var fullrange = volumeBarTrack1.width - volumeBarThumb1.width;
                         var vol = 100*(volumeBarThumb1.x - volumeBarTrack1.x)/fullrange;
+                        settings.StoreBrightness(vol);
                         if (screenLockState.state != "closed") {
                             let maxB = settings.GetMaxBrightness();
                             settings.SetBrightness(maxB / 6 + maxB * vol / 120);
