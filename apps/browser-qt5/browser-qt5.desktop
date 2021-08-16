@@ -1,9 +1,0 @@
-[Desktop Entry]
-Version=1.0
-Type=Application
-Name=Browser
-Exec=env EGL_PLATFORM=hwcomposer browser-qt5
-TryExec=browser-qt5
-Icon=browser-qt5
-Terminal=false
-StartupNotify=false
