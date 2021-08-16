@@ -17,6 +17,8 @@ Settings::Settings(QObject *parent) : QObject(parent) {
     connect(this->battery, SIGNAL(PropertiesChanged(QString, QVariantMap, QStringList)), this, SLOT(onUPowerInfoChanged(QString, QVariantMap, QStringList)));
     connect(this->atmosphere, SIGNAL(PathChanged()), this, SLOT(onAtmospherePathChanged()));
     connect(this->atmosphere, SIGNAL(VariantChanged()), this, SLOT(onAtmosphereVariantChanged()));
+    setAtmospherePath(this->settingsStore->value("atmospherePath", "file://usr/share/atmospheres/city/").toString());
+    setAtmosphereVariant(this->settingsStore->value("atmosphereVariant", "dark").toString());
     onAtmospherePathChanged();
     onAtmosphereVariantChanged();
     ((QQmlApplicationEngine *)parent)->rootContext()->setContextProperty("screenBrightness", this->settingsStore->value("screenBrightness", 100));
@@ -134,17 +136,25 @@ void Settings::autostart() {
 void Settings::onAtmospherePathChanged() {
     QString apath = this->atmosphere->GetPath();
     ((QQmlApplicationEngine *)parent())->rootContext()->setContextProperty("atmospherePath", apath);
+    settingsStore->setValue("atmospherePath", apath);
+    settingsStore->sync();
 }
 
 void Settings::onAtmosphereVariantChanged() {
     QString avar = this->atmosphere->GetVariant();
     ((QQmlApplicationEngine *)parent())->rootContext()->setContextProperty("atmosphereVariant", avar);
+    settingsStore->setValue("atmosphereVariant", avar);
+    settingsStore->sync();
 }
 
 void Settings::setAtmospherePath(QString path) {
     this->atmosphere->SetPath(path);
+    settingsStore->setValue("atmospherePath", path);
+    settingsStore->sync();
 }
 
 void Settings::setAtmosphereVariant(QString variant) {
     this->atmosphere->SetVariant(variant);
+    settingsStore->setValue("atmosphereVariant", variant);
+    settingsStore->sync();
 }
