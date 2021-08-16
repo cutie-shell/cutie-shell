@@ -30,18 +30,23 @@ sudo apt update && sudo apt install git qtdeclarative5-dev qdbus qtcreator qml q
 cd ~
 sudo git clone https://github.com/Cutie-Pi-Shell-community-project/atmospheres.git /usr/share/atmospheres
 git clone https://github.com/Cutie-Pi-Shell-community-project/CutiePi-shell-phone-components.git
-cd CutiePi-shell-phone-components 
-sudo cp -R com.github.CutiePiShellCommunityProject.SettingsDaemon.conf /usr/share/dbus-1/system.d/com.github.CutiePiShellCommunityProject.SettingsDaemon.conf
+git clone https://github.com/Cutie-Pi-Shell-community-project/cutie-settings-daemon.git
+git clone https://github.com/Cutie-Pi-Shell-community-project/qml-module-cutie.
+
+cd cutie-settings-daemon
+qmake
+make 
+sudo make install
+cd ../qml-module-cutie
+qmake
+make
+sudo make install
+cd ../CutiePi-shell-phone-components
 mkdir -p /etc/systemd/logind.conf.d
 sudo cp -R logind.conf.d/10-cutie.conf /etc/systemd/logind.conf.d/10-cutie.conf
-cd settings-daemon
-sudo qmake
-sudo make
-sudo make install
-sudo cp settings-daemon/cutie-settings-daemon.service /usr/lib/systemd/system/cutie-settings-daemon.service
-cd ..
-sudo qmake
-sudo make
+
+qmake
+make
 sudo make install
 sudo cp cutie-ui-io.service /usr/lib/systemd/system/cutie-ui-io.service
 sudo systemctl daemon-reload
@@ -63,5 +68,6 @@ y
 enter
 ```
 
-# Status
+## Status
+
 https://github.com/Cutie-Pi-Shell-community-project/development-status
