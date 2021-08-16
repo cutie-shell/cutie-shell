@@ -1,4 +1,4 @@
-QT += quick dbus
+QT += quick
 
 CONFIG += c++11
 
@@ -7,11 +7,7 @@ CONFIG += c++11
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
-        main.cpp \
-        atmospheres_handler.cpp
-
-HEADERS += \
-        atmospheres_handler.h
+        main.cpp
 
 RESOURCES += qml.qrc
 
@@ -26,5 +22,3 @@ qnx: target.path = /tmp/$${TARGET}/bin
 else: unix:!android: target.path = /usr/bin
 !isEmpty(target.path): INSTALLS += target
 
-DBUS_INTERFACES += \
-        ../../com.github.CutiePiShellCommunityProject.xml

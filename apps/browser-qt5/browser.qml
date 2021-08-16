@@ -115,7 +115,6 @@ Window {
                 
                 onAccepted: { 
                     webview.url = fixUrl(urlText.text);
-                    webview.zoomFactor = 0.5;
                 }
                 onActiveFocusChanged: { 
                     if (urlText.activeFocus) {
@@ -205,7 +204,6 @@ Window {
         anchors.bottomMargin: 0
         anchors.leftMargin: 0
         anchors.topMargin: 1
-        zoomFactor: 0.5
         anchors { top: headerBar.bottom; left: parent.left; right: parent.right; bottom: parent.bottom }
         url: "https://duckduckgo.com"
         profile: WebEngineProfile {
