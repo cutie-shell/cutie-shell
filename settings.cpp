@@ -63,7 +63,7 @@ void Settings::execApp(QString command)
     qputenv("EGL_PLATFORM", QByteArray("wayland"));
     qunsetenv("QT_IM_MODULE");
     qunsetenv("QT_QPA_GENERIC_PLUGINS");
-    qputenv("QT_SCALE_FACTOR", ((QQmlApplicationEngine *)parent())->rootContext()->contextProperty("shellScaleFactor").toString().toUtf8());
+    qputenv("QT_SCALE_FACTOR", QString::number(((QQmlApplicationEngine *)parent())->rootContext()->contextProperty("shellScaleFactor").toDouble() * 3 / 4).toUtf8());
     qputenv("WAYLAND_DISPLAY", ((QQmlApplicationEngine *)parent())->rootObjects()[0]->property("socketName").toString().toUtf8());
     QStringList args = QStringList();
     args.append("-c");
