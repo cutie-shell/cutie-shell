@@ -108,17 +108,19 @@ Window {
                 text: ""
                 anchors.verticalCenter: parent.verticalCenter
                 anchors.left: parent.left
-                font.pointSize: 15 ; selectionColor: "#434C5E"
+                font.pointSize: 10 ; selectionColor: "#434C5E"
                 color: (atmospheresHandler.variant == "dark") ? "#000000" : "#ffffff"
                 inputMethodHints: Qt.ImhNoAutoUppercase // url hint 
                 clip: true
                 
                 onAccepted: { 
-                    webview.url = fixUrl(urlText.text)
+                    webview.url = fixUrl(urlText.text);
+                    webview.zoomFactor = 0.5;
                 }
                 onActiveFocusChanged: { 
                     if (urlText.activeFocus) {
                         urlText.selectAll();
+                        Qt.inputMethod.show();
                     } else {
                         parent.border.color = "#2E3440"; parent.border.width = 0;
                     }
@@ -193,7 +195,7 @@ Window {
         settings.javascriptCanAccessClipboard: true
         settings.localStorageEnabled: true
         settings.pluginsEnabled: true
-        settings.showScrollBars: true
+        settings.showScrollBars: false
         settings.webGLEnabled: true
         settings.fullScreenSupportEnabled: true
         settings.javascriptEnabled: true
