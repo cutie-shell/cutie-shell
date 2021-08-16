@@ -2,6 +2,7 @@ import QtQuick 2.14
 import QtWebEngine 1.7
 import QtQuick.Window 2.2
 import QtGraphicalEffects 1.12
+import Cutie 1.0
 
 Window {
     title: webview.title
@@ -25,6 +26,10 @@ Window {
         else { return url;}
     }
 
+    Atmosphere {
+        id: atmospheresHandler
+    }
+
     FontLoader {
         id: icon
         source: "qrc:/Font Awesome 5 Free-Solid-900.otf"
@@ -44,7 +49,7 @@ Window {
             width: 20; height: 20; anchors { left: headerBar.left; leftMargin: 2; margins: 2; top: parent.top; topMargin: 4 }
             Text {
                 id: backButtonIcon
-                color: (atmosphereVariant == "dark") ? "#ffffff" : "#000000"
+                color: (atmospheresHandler.variant == "dark") ? "#ffffff" : "#000000"
                 text: "\uF053"
                 font { family: icon.name; pixelSize: 18 }
             }
@@ -67,7 +72,7 @@ Window {
             anchors.topMargin: 4
             Text {
                 id: backButtonIcon1
-                color: (atmosphereVariant == "dark") ? "#ffffff" : "#000000"
+                color: (atmospheresHandler.variant == "dark") ? "#ffffff" : "#000000"
                 text: "\uf054"
                 font.pixelSize: 18
                 font.family: icon.name
@@ -86,7 +91,7 @@ Window {
         Rectangle {
             id: urlBar
             height: 20
-            color: (atmosphereVariant == "dark") ? "#ffffff" : "#000000"
+            color: (atmospheresHandler.variant == "dark") ? "#ffffff" : "#000000"
             border.width: 0; border.color: "#2E3440";
             visible: true
             anchors {
@@ -103,7 +108,8 @@ Window {
                 text: ""
                 anchors.verticalCenter: parent.verticalCenter
                 anchors.left: parent.left
-                font.pointSize: 15 ; color: "#2E3440"; selectionColor: "#434C5E"
+                font.pointSize: 15 ; selectionColor: "#434C5E"
+                color: (atmospheresHandler.variant == "dark") ? "#000000" : "#ffffff"
                 inputMethodHints: Qt.ImhNoAutoUppercase // url hint 
                 clip: true
                 
@@ -149,7 +155,7 @@ Window {
                 y: 0
                 width: 20
                 height: 20
-                color: (atmosphereVariant == "dark") ? "#ffffff" : "#000000"
+                color: (atmospheresHandler.variant == "dark") ? "#ffffff" : "#000000"
                 text: "\uf0c9"
                 font.pointSize: 18
                 font.family: icon.name
@@ -199,6 +205,7 @@ Window {
         anchors.bottomMargin: 0
         anchors.leftMargin: 0
         anchors.topMargin: 1
+        zoomFactor: 0.5
         anchors { top: headerBar.bottom; left: parent.left; right: parent.right; bottom: parent.bottom }
         url: "https://duckduckgo.com"
         profile: WebEngineProfile {
