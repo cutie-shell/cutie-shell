@@ -15,6 +15,9 @@ int main(int argc, char *argv[])
     QCoreApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
 #endif
 
+    QCoreApplication::setOrganizationName("Cutie Community Project");
+    QCoreApplication::setApplicationName("Cutie Shell");
+
     QGuiApplication app(argc, argv);
 
     QQmlApplicationEngine engine;

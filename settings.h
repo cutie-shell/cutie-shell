@@ -13,12 +13,14 @@ private:
     com::github::CutiePiShellCommunityProject::SettingsDaemon::Backlight *backlight;
     com::github::CutiePiShellCommunityProject::SettingsDaemon::Atmosphere *atmosphere;
     org::freedesktop::DBus::Properties *battery;
+    QSettings *settingsStore;
     
 public:
     Settings(QObject* parent = 0);
     Q_INVOKABLE unsigned int GetMaxBrightness();
     Q_INVOKABLE unsigned int GetBrightness();
     Q_INVOKABLE void SetBrightness(unsigned int value);
+    Q_INVOKABLE void StoreBrightness(unsigned int value);
     Q_INVOKABLE void execApp(QString command);
     Q_INVOKABLE void setAtmospherePath(QString path);
     Q_INVOKABLE void setAtmosphereVariant(QString variant);

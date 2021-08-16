@@ -4,7 +4,7 @@
 #include "settings.h"
 
 Settings::Settings(QObject *parent) : QObject(parent) {
-
+    this->settingsStore = new QSettings("Cutie Community Project", "Cutie Shell");
     this->backlight = new com::github::CutiePiShellCommunityProject::SettingsDaemon::Backlight(
         "com.github.CutiePiShellCommunityProject.SettingsDaemon", "/com/github/CutiePiShellCommunityProject/backlight",
         QDBusConnection::systemBus());
@@ -19,6 +19,7 @@ Settings::Settings(QObject *parent) : QObject(parent) {
     connect(this->atmosphere, SIGNAL(VariantChanged()), this, SLOT(onAtmosphereVariantChanged()));
     onAtmospherePathChanged();
     onAtmosphereVariantChanged();
+    ((QQmlApplicationEngine *)parent)->rootContext()->setContextProperty("screenBrightness", this->settingsStore->value("screenBrightness", 100));
 }
 
 unsigned int Settings::GetMaxBrightness() {
@@ -44,6 +45,11 @@ unsigned int Settings::GetBrightness() {
 
 void Settings::SetBrightness(unsigned int value) {
     backlight->SetBrightness(value);
+}
+
+void Settings::StoreBrightness(unsigned int value) {
+    settingsStore->setValue("screenBrightness", value);
+    settingsStore->sync();
 }
 
 void Settings::onUPowerInfoChanged(QString interface, QVariantMap, QStringList) {
