@@ -117,10 +117,8 @@ Window {
                     webview.url = fixUrl(urlText.text)
                 }
                 onActiveFocusChanged: { 
-                    if (urlText.activeFocus) { 
-                        webview.stop();
+                    if (urlText.activeFocus) {
                         urlText.selectAll();
-                        Qt.inputMethod.show();
                     } else {
                         parent.border.color = "#2E3440"; parent.border.width = 0;
                     }
@@ -212,7 +210,9 @@ Window {
             offTheRecord: true
         }
         onLoadingChanged: {
-            urlText.text = webview.url;
+            if (!urlText.activeFocus) {
+                urlText.text = webview.url;
+            }
         }
     }
 
