@@ -35,13 +35,13 @@ sudo cp -R com.github.CutiePiShellCommunityProject.SettingsDaemon.conf /usr/shar
 mkdir -p /etc/systemd/logind.conf.d
 sudo cp -R logind.conf.d/10-cutie.conf /etc/systemd/logind.conf.d/10-cutie.conf
 cd settings-daemon
-qmake
-make
+sudo qmake
+sudo make
 sudo make install
 sudo cp settings-daemon/cutie-settings-daemon.service /usr/lib/systemd/system/cutie-settings-daemon.service
 cd ..
-qmake
-make
+sudo qmake
+sudo make
 sudo make install
 sudo cp cutie-ui-io.service /usr/lib/systemd/system/cutie-ui-io.service
 sudo systemctl daemon-reload
