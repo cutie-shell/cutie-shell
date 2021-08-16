@@ -26,7 +26,7 @@ Tested on: Volla Phone, Xiaomi Redmi 7
 * Connected the device to a PC running Linux: `ssh droidian@10.15.19.82`    
 
 ```
-sudo apt update && sudo apt install git qtcreator qml qtbase5-gles-dev qt5-qpa-hwcomposer-plugin g++ make libudev-dev qml-module-qtquick2 qml-module-qtquick-controls qml-module-qtwayland-compositor qml-module-qtquick-virtualkeyboard polkit-kde-agent-1 libqt5dbus5
+sudo apt update && sudo apt install git qtdeclarative5-dev qtcreator qml qtbase5-gles-dev qt5-qpa-hwcomposer-plugin g++ make libudev-dev qml-module-qtquick2 qml-module-qtquick-controls qml-module-qtwayland-compositor qml-module-qtquick-virtualkeyboard polkit-kde-agent-1 libqt5dbus5
 cd ~
 sudo git clone https://github.com/Cutie-Pi-Shell-community-project/atmospheres.git /usr/share/atmospheres
 git clone https://github.com/Cutie-Pi-Shell-community-project/CutiePi-shell-phone-components.git
