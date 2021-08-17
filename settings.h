@@ -33,6 +33,7 @@ public Q_SLOTS:
     void onUPowerInfoChanged(QString interface, QVariantMap, QStringList);
     void onAtmospherePathChanged();
     Q_INVOKABLE void onAtmosphereVariantChanged();
+    void onNetNameChanged(QString name);
 };
 
 #endif // BACKLIGHT_H

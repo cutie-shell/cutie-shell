@@ -19,7 +19,7 @@ Settings::Settings(QObject *parent) : QObject(parent) {
     QDBusPendingReply<QString> netReply = modem->GetNetName();
     netReply.waitForFinished();
     if (netReply.isValid()) {
-        qDebug << netReply.value();
+        qDebug() << netReply.value();
     }
     this->battery = new org::freedesktop::DBus::Properties(
         "org.freedesktop.UPower", "/org/freedesktop/UPower/devices/DisplayDevice",
@@ -27,6 +27,7 @@ Settings::Settings(QObject *parent) : QObject(parent) {
     connect(this->battery, SIGNAL(PropertiesChanged(QString, QVariantMap, QStringList)), this, SLOT(onUPowerInfoChanged(QString, QVariantMap, QStringList)));
     connect(this->atmosphere, SIGNAL(PathChanged()), this, SLOT(onAtmospherePathChanged()));
     connect(this->atmosphere, SIGNAL(VariantChanged()), this, SLOT(onAtmosphereVariantChanged()));
+    connect(this->modem, SIGNAL(NetNameChanged(QString)), this, SLOT(onNetNameChanged(QString)));
     setAtmospherePath(this->settingsStore->value("atmospherePath", "file://usr/share/atmospheres/city/").toString());
     setAtmosphereVariant(this->settingsStore->value("atmosphereVariant", "dark").toString());
     onAtmospherePathChanged();
@@ -155,6 +156,11 @@ void Settings::onAtmosphereVariantChanged() {
     ((QQmlApplicationEngine *)parent())->rootContext()->setContextProperty("atmosphereVariant", avar);
     settingsStore->setValue("atmosphereVariant", avar);
     settingsStore->sync();
+}
+
+void Settings::onNetNameChanged(QString name) {
+    ((QQmlApplicationEngine *)parent())->rootContext()->setContextProperty("operatorName", name);
+    qDebug() << name;         
 }
 
 void Settings::setAtmospherePath(QString path) {
