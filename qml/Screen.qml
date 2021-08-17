@@ -166,8 +166,47 @@ WaylandOutput {
         transitions: [
            Transition {
                 to: "*"
-                NumberAnimation { target: settingSheet; properties: "opacity"; duration: 600; easing.type: Easing.InOutQuad; }
-                NumberAnimation { target: setting; properties: "opacity"; duration: 600; easing.type: Easing.InOutQuad; }
+                NumberAnimation { target: settingSheet; properties: "opacity"; duration: 800; easing.type: Easing.InOutQuad; }
+           },
+           Transition {
+                to: "opening"
+                ParallelAnimation {
+                    NumberAnimation { target: setting; properties: "opacity"; duration: 800; easing.type: Easing.InOutQuad; }
+                    SequentialAnimation {
+                        NumberAnimation { target: setting; properties: "anchors.topMargin"; duration: 300; easing.type: Easing.InOutQuad; to: 10 * shellScaleFactor }
+                        NumberAnimation { target: setting; properties: "anchors.topMargin"; duration: 300; easing.type: Easing.InOutQuad; to: -10 * shellScaleFactor }
+                    }
+                }
+           },
+           Transition {
+                to: "closing"
+                ParallelAnimation {
+                    NumberAnimation { target: setting; properties: "opacity"; duration: 800; easing.type: Easing.InOutQuad; }
+                    SequentialAnimation {
+                        NumberAnimation { target: setting; properties: "anchors.topMargin"; duration: 300; easing.type: Easing.InOutQuad; to: -10 * shellScaleFactor }
+                        NumberAnimation { target: setting; properties: "anchors.topMargin"; duration: 300; easing.type: Easing.InOutQuad; to: 10 * shellScaleFactor }
+                    }
+                }
+           },
+           Transition {
+                to: "opened"
+                ParallelAnimation {
+                    NumberAnimation { target: setting; properties: "opacity"; duration: 800; easing.type: Easing.InOutQuad; }
+                    SequentialAnimation {
+                        NumberAnimation { target: setting; properties: "anchors.topMargin"; duration: 0; easing.type: Easing.InOutQuad; to: -10 * shellScaleFactor }
+                        NumberAnimation { target: setting; properties: "anchors.topMargin"; duration: 600; easing.type: Easing.InOutQuad; to: 0 }
+                    }
+                }
+           },
+           Transition {
+                to: "closed"
+                ParallelAnimation {
+                    NumberAnimation { target: setting; properties: "opacity"; duration: 800; easing.type: Easing.InOutQuad; }
+                    SequentialAnimation {
+                        NumberAnimation { target: setting; properties: "anchors.topMargin"; duration: 0; easing.type: Easing.InOutQuad; to: 10 * shellScaleFactor }
+                        NumberAnimation { target: setting; properties: "anchors.topMargin"; duration: 600; easing.type: Easing.InOutQuad; to: 0 }
+                    }
+                }
            }
         ]
     }
