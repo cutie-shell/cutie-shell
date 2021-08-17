@@ -12,6 +12,8 @@ class Settings : public QObject
 private:
     com::github::CutiePiShellCommunityProject::SettingsDaemon::Backlight *backlight;
     com::github::CutiePiShellCommunityProject::SettingsDaemon::Atmosphere *atmosphere;
+    com::github::CutiePiShellCommunityProject::SettingsDaemon::Ofono *ofono;
+    com::github::CutiePiShellCommunityProject::SettingsDaemon::Modem *modem;
     org::freedesktop::DBus::Properties *battery;
     QSettings *settingsStore;
     
@@ -26,11 +28,13 @@ public:
     Q_INVOKABLE void setAtmosphereVariant(QString variant);
     void refreshBatteryInfo();
     void autostart();
+    void initCellular();
     Q_INVOKABLE void loadAppList();
 public Q_SLOTS:
     void onUPowerInfoChanged(QString interface, QVariantMap, QStringList);
     void onAtmospherePathChanged();
     Q_INVOKABLE void onAtmosphereVariantChanged();
+    void onNetNameChanged(QString name);
 };
 
 #endif // BACKLIGHT_H
