@@ -28,7 +28,7 @@ WaylandOutput {
 
     function handleShellSurface(shellSurface, toplevel) {
         shellSurfaces.insert(0, {shellSurface: shellSurface});
-        toplevel.sendFullscreen(Qt.size(view.width, view.height - 20 * shellScaleFactor));
+        toplevel.sendResizing(Qt.size(view.width, view.height - 20 * shellScaleFactor));
         appScreen.shellSurface = shellSurface;
         appScreen.shellSurfaceIdx = 0;
         root.state = "appScreen";
