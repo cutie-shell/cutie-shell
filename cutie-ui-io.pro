@@ -9,11 +9,13 @@ CONFIG += c++11
 SOURCES += \
         main.cpp \
         settings.cpp \
-        hwbuttons.cpp
+        hwbuttons.cpp \
+        notifications.cpp
 
 HEADERS += \
         settings.h \
-        hwbuttons.h
+        hwbuttons.h \
+        notifications.h
 
 RESOURCES += \
         qml/qml.qrc \
@@ -31,6 +33,13 @@ qnx: target.path = /tmp/$${TARGET}/bin
 else: unix:!android: target.path = /usr/bin
 !isEmpty(target.path): INSTALLS += target
 
+notifications.files = org.freedesktop.Notifications.xml
+notifications.source_flags = -l Notifications
+notifications.header_flags = -l Notifications -i notifications.h
+
+DBUS_ADAPTORS += notifications
+
 DBUS_INTERFACES += \
         org.freedesktop.DBus.xml \
+        org.freedesktop.Notifications.xml \
         com.github.CutiePiShellCommunityProject.xml

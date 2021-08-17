@@ -29,6 +29,17 @@ WaylandCompositor {
                     })
     }
 
+    function addNotification(title, body, id) {
+        notifications.append({title: title, body: body, id: id});
+    }
+
+    function delNotification(id) {
+        for (let c_i = 0; c_i < notifications.count; c_i++){
+            if (notifications.get(c_i).id === id)
+                notifications.remove(c_i);
+        }
+    }
+
     function lock() {
         screen.lock();
     }
@@ -40,6 +51,7 @@ WaylandCompositor {
     }
 
     ListModel { id: shellSurfaces }
+    ListModel { id: notifications }
     ListModel { id: launcherApps }
     
     TextInputManager {}
