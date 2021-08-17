@@ -2,8 +2,10 @@
 #include <QQmlApplicationEngine>
 #include <QQmlContext>
 #include <QDBusPendingReply>
+#include <notifications_adaptor.h>
 #include "settings.h"
 #include "hwbuttons.h"
+#include "notifications.h"
 
 int main(int argc, char *argv[])
 {
@@ -34,6 +36,11 @@ int main(int argc, char *argv[])
             QCoreApplication::exit(-1);
     }, Qt::QueuedConnection);
     engine.load(url);
+
+    Notifications *notifications = new Notifications(&engine);
+    new NotificationsAdaptor(notifications);
+    QDBusConnection::sessionBus().registerObject("/org/freedesktop/Notifications", notifications);
+    QDBusConnection::sessionBus().registerService("org.freedesktop.Notifications");
 
     settings->loadAppList();
     settings->autostart();
