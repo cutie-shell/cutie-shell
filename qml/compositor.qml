@@ -49,7 +49,9 @@ WaylandCompositor {
             screen.handleShellSurface(xdgSurface, toplevel)
         }
     }
-
+	XdgDecorationManagerV1 {
+		preferredMode: XdgToplevel.ServerSideDecoration
+	}
     ListModel { id: shellSurfaces }
     ListModel { id: notifications }
     ListModel { id: launcherApps }

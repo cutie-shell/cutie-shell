@@ -27,6 +27,7 @@ echo -e  "\e[32m[X] Installing cutie-shell"
 cd ../cutie-shell
 sudo mkdir -p /etc/systemd/logind.conf.d/
 sudo cp -R logind.conf.d/10-cutie.conf /etc/systemd/logind.conf.d/10-cutie.conf
+cp gtk.css ~/.config/gtk-3.0/gtk.css
 qmake
 make -j$(nproc)
 sudo make install
