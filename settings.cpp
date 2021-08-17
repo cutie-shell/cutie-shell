@@ -104,6 +104,9 @@ void Settings::loadAppList() {
                 QString desktopType = curEntryFile->value("Desktop Entry/Type").toString();
                 if (desktopType == "Application") {
                     QString appName = curEntryFile->value("Desktop Entry/Name").toString();
+		    if(appName.length() > 14) {
+			appName = appName.mid(0,14).append("...");
+		    }
                     QString appHidden = curEntryFile->value("Desktop Entry/Hidden").toString();
                     QString appNoDisplay = curEntryFile->value("Desktop Entry/NoDisplay").toString();
                     QString appExec = curEntryFile->value("Desktop Entry/Exec").toString();
