@@ -45,6 +45,11 @@ WaylandOutput {
         }
     }
 
+    function setCellularName(name) {
+        settingSheet.setCellularName(name);
+    }
+    
+
     Item {
         id: root
         state: "homeScreen" 

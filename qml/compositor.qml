@@ -43,6 +43,10 @@ WaylandCompositor {
     function lock() {
         screen.lock();
     }
+
+    function setCellularName(name) {
+        screen.setCellularName(name);
+    }
     
     XdgShell {
         onToplevelCreated: {
