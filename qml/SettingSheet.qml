@@ -39,6 +39,15 @@ Rectangle {
         settingContainer.state = state;
     }
 
+    function setCellularName(name) {
+        for (let i = 0; i < settingsModel.count; i++) {
+            let btn = settingsModel.get(i)
+            if (btn.tText == "Cellular") {
+                btn.bText = name
+            }
+        }
+    }
+
     Item {
         x: 0
         y: parent.height - 5 * shellScaleFactor
@@ -237,8 +246,8 @@ Rectangle {
                     icon: "icons/network-wireless-signal-good-symbolic.svg"
                 }
                 ListElement {
-                    bText: "Cellular"
-                    tText: ""
+                    bText: ""
+                    tText: "Cellular"
                     icon: "icons/network-cellular-signal-ok.svg"
                 }
                 ListElement {

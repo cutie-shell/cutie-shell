@@ -16,11 +16,6 @@ Settings::Settings(QObject *parent) : QObject(parent) {
         QDBusConnection::systemBus());
     this->modem->PowerModem(true);
     this->modem->OnlineModem(true);
-    QDBusPendingReply<QString> netReply = modem->GetNetName();
-    netReply.waitForFinished();
-    if (netReply.isValid()) {
-        qDebug() << netReply.value();
-    }
     this->battery = new org::freedesktop::DBus::Properties(
         "org.freedesktop.UPower", "/org/freedesktop/UPower/devices/DisplayDevice",
         QDBusConnection::systemBus());    
@@ -33,6 +28,14 @@ Settings::Settings(QObject *parent) : QObject(parent) {
     onAtmospherePathChanged();
     onAtmosphereVariantChanged();
     ((QQmlApplicationEngine *)parent)->rootContext()->setContextProperty("screenBrightness", this->settingsStore->value("screenBrightness", 100));
+}
+
+void Settings::initCellular() {
+    QDBusPendingReply<QString> netReply = modem->GetNetName();
+    netReply.waitForFinished();
+    if (netReply.isValid()) {
+        QMetaObject::invokeMethod(((QQmlApplicationEngine *)parent())->rootObjects()[0], "setCellularName", Q_ARG(QVariant, netReply.value()));
+    }
 }
 
 unsigned int Settings::GetMaxBrightness() {
@@ -165,8 +168,7 @@ void Settings::onAtmosphereVariantChanged() {
 }
 
 void Settings::onNetNameChanged(QString name) {
-    ((QQmlApplicationEngine *)parent())->rootContext()->setContextProperty("operatorName", name);
-    qDebug() << name;         
+    QMetaObject::invokeMethod(((QQmlApplicationEngine *)parent())->rootObjects()[0], "setCellularName", Q_ARG(QVariant, name));      
 }
 
 void Settings::setAtmospherePath(QString path) {
