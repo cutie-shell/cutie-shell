@@ -12,6 +12,8 @@ class Settings : public QObject
 private:
     com::github::CutiePiShellCommunityProject::SettingsDaemon::Backlight *backlight;
     com::github::CutiePiShellCommunityProject::SettingsDaemon::Atmosphere *atmosphere;
+    com::github::CutiePiShellCommunityProject::SettingsDaemon::Ofono *ofono;
+    com::github::CutiePiShellCommunityProject::SettingsDaemon::Modem *modem;
     org::freedesktop::DBus::Properties *battery;
     QSettings *settingsStore;
     

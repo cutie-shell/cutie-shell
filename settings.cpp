@@ -11,6 +11,16 @@ Settings::Settings(QObject *parent) : QObject(parent) {
     this->atmosphere = new com::github::CutiePiShellCommunityProject::SettingsDaemon::Atmosphere(
         "com.github.CutiePiShellCommunityProject.SettingsDaemon", "/com/github/CutiePiShellCommunityProject/atmosphere",
         QDBusConnection::systemBus());
+    this->modem = new com::github::CutiePiShellCommunityProject::SettingsDaemon::Modem(
+        "com.github.CutiePiShellCommunityProject.SettingsDaemon", "/com/github/CutiePiShellCommunityProject/modem/0",
+        QDBusConnection::systemBus());
+    this->modem->PowerModem(true);
+    this->modem->OnlineModem(true);
+    QDBusPendingReply<QString> netReply = modem->GetNetName();
+    netReply.waitForFinished();
+    if (netReply.isValid()) {
+        qDebug << netReply.value();
+    }
     this->battery = new org::freedesktop::DBus::Properties(
         "org.freedesktop.UPower", "/org/freedesktop/UPower/devices/DisplayDevice",
         QDBusConnection::systemBus());    
