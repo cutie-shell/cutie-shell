@@ -8,21 +8,34 @@ Rectangle {
     z: 150
     color: "transparent"
 
-    property ShellSurface shellSurface
-    property int shellSurfaceIdx
-
-    onShellSurfaceChanged: {
-        visibleClient.shellSurface = shellSurface;
-    }
-
     FastBlur {
         anchors.fill: parent
         source: realWallpaper
         radius: 70
     }
 
-    WaylandChrome {
-        id: visibleClient
+    Text {
+        id: notificationHeader
+        x: 20  * shellScaleFactor
+        y: 30  * shellScaleFactor
+        text: qsTr("Notifications")
+        font.pixelSize: 14 * shellScaleFactor
+        font.family: mainFont.name
+        font.weight: Font.Black
+        state: atmosphereVariant
+        states: [
+            State {
+                name: "dark"
+                PropertyChanges { target: notificationHeader; color: "#ffffff" }
+            },
+            State {
+                name: "light"
+                PropertyChanges { target: notificationHeader; color: "#000000" }
+            }
+        ]
+        transitions: Transition {
+            ColorAnimation { properties: "color"; duration: 500; easing.type: Easing.InOutQuad }
+        }
     }
 
     Item {
@@ -33,7 +46,7 @@ Rectangle {
         width: 5 * shellScaleFactor
 
         MouseArea { 
-            enabled: root.state == "appScreen"
+            enabled: root.state == "notificationScreen"
             drag.target: parent; drag.axis: Drag.XAxis; drag.minimumX: 0; drag.maximumX: view.width
             anchors.fill: parent
             onReleased: {
@@ -44,7 +57,7 @@ Rectangle {
             onPositionChanged: {
                 if (drag.active) {
                     parent.parent.opacity = 1 - parent.x / view.width 
-                    homeScreen.opacity = parent.x / view.width
+                    homeScreen.opacity = parent.x / view.width 
                 }
             }
         }
@@ -58,18 +71,18 @@ Rectangle {
         width: 5 * shellScaleFactor
 
         MouseArea { 
-            enabled: root.state == "appScreen"
+            enabled: root.state == "notificationScreen"
             drag.target: parent; drag.axis: Drag.XAxis; drag.minimumX: -5 * shellScaleFactor; drag.maximumX: view.width - 5* shellScaleFactor
             anchors.fill: parent
             onReleased: {
-                if (parent.x < view.width / 2) { root.state = "notificationScreen" }
+                if (parent.x < view.width / 2) { root.state = "homeScreen" }
                 else { parent.parent.opacity = 1 }
                 parent.x = view.width - 5 * shellScaleFactor
             }
             onPositionChanged: {
                 if (drag.active) {
                     parent.parent.opacity = parent.x / view.width 
-                    notificationScreen.opacity = 1 - parent.x / view.width
+                    homeScreen.opacity = 1 - parent.x / view.width 
                 }
             }
         }

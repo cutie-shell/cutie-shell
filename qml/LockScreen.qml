@@ -5,6 +5,7 @@ Rectangle {
     id: lockscreen 
     z: 325
     x: 0; y: 0; width: parent.width; height: parent.height 
+    color: "transparent"
 
     property alias lockscreenMouseArea: lockscreenMouseArea
     property alias lockscreenTime: lockscreenTime

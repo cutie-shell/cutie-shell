@@ -51,24 +51,30 @@ WaylandOutput {
         states: [
             State{
                 name: "homeScreen"
-                PropertyChanges { target: settingSheet; y: -view.height }
                 PropertyChanges { target: homeScreen; opacity: 1 }
                 PropertyChanges { target: appScreen; opacity: 0 }
+                PropertyChanges { target: notificationScreen; opacity: 0 }
             },
             State {
                 name: "appScreen"
-                PropertyChanges { target: settingSheet; y: -view.height }
                 PropertyChanges { target: homeScreen; opacity: 0 }
                 PropertyChanges { target: appScreen; opacity: 1 }
+                PropertyChanges { target: notificationScreen; opacity: 0 }
+            },
+            State {
+                name: "notificationScreen"
+                PropertyChanges { target: homeScreen; opacity: 0 }
+                PropertyChanges { target: appScreen; opacity: 0 }
+                PropertyChanges { target: notificationScreen; opacity: 1 }
             }
         ]
 
         transitions: [
            Transition {
                 to: "*"
-                NumberAnimation { target: settingSheet; properties: "y"; duration: 400; easing.type: Easing.InOutQuad; }
-                NumberAnimation { target: homeScreen; properties: "opacity"; duration: 200; easing.type: Easing.InOutQuad; }
-                NumberAnimation { target: appScreen; properties: "opacity"; duration: 200; easing.type: Easing.InOutQuad; }
+                NumberAnimation { target: notificationScreen; properties: "opacity"; duration: 300; easing.type: Easing.InOutQuad; }
+                NumberAnimation { target: homeScreen; properties: "opacity"; duration: 300; easing.type: Easing.InOutQuad; }
+                NumberAnimation { target: appScreen; properties: "opacity"; duration: 300; easing.type: Easing.InOutQuad; }
            }
 
         ]
@@ -258,6 +264,7 @@ WaylandOutput {
 
                 AppScreen { id: appScreen; focus: true }
                 HomeScreen { id: homeScreen }
+                NotificationScreen { id: notificationScreen }
 
                 SettingSheet { id: settingSheet } 
                 LauncherSheet { id: launcherSheet } 
