@@ -8,6 +8,7 @@
         <file>LauncherSheet.qml</file>
         <file>HomeScreen.qml</file>
         <file>AppScreen.qml</file>
+        <file>NotificationScreen.qml</file>
         <file>StatusArea.qml</file>
         <file>LauncherSwipe.qml</file>
         <file>WaylandChrome.qml</file>
