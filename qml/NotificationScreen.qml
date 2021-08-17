@@ -142,7 +142,7 @@ Rectangle {
             anchors.fill: parent
             onReleased: {
                 if (parent.x > view.width / 2) { root.state = "homeScreen" }
-                else { parent.parent.opacity = 1 }
+                else { parent.parent.opacity = 1; homeScreen.opacity = 0 }
                 parent.x = 0
             }
             onPositionChanged: {
@@ -167,7 +167,7 @@ Rectangle {
             anchors.fill: parent
             onReleased: {
                 if (parent.x < view.width / 2) { root.state = "homeScreen" }
-                else { parent.parent.opacity = 1 }
+                else { parent.parent.opacity = 1; homeScreen.opacity = 0 }
                 parent.x = view.width - 5 * shellScaleFactor
             }
             onPositionChanged: {
