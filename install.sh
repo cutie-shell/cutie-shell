@@ -6,10 +6,10 @@ sudo apt upgrade -y
 sudo apt install git qtdeclarative5-dev qdbus qtcreator qml qtbase5-gles-dev qt5-qpa-hwcomposer-plugin g++ make libudev-dev qml-module-qtquick2 qml-module-qtquick-controls qml-module-qtquick-controls2 qml-module-qtsensors qml-module-qtwayland-compositor qml-module-qtquick-virtualkeyboard polkit-kde-agent-1 libqt5dbus5 libqt5waylandclient5 libqt5waylandclient5-dev qtwayland5 qtvirtualkeyboard-plugin qml-module-qt-labs-folderlistmodel -y
 cd ~
 echo -e  "\e[32m[X] Cloning repositories"
-sudo git clone https://github.com/Cutie-Pi-Shell-community-project/atmospheres.git /usr/share/atmospheres
-git clone https://github.com/Cutie-Pi-Shell-community-project/cutie-shell
-git clone https://github.com/Cutie-Pi-Shell-community-project/cutie-settings-daemon.git
-git clone https://github.com/Cutie-Pi-Shell-community-project/qml-module-cutie.git
+sudo git clone https://github.com/cutie-shell/atmospheres.git /usr/share/atmospheres
+git clone https://github.com/cutie-shell/cutie-shell
+git clone https://github.com/cutie-shell/cutie-settings-daemon.git
+git clone https://github.com/cutie-shell/qml-module-cutie.git
 
 echo -e  "\e[32m[X] Installing cutie-shell-daemon"
 cd cutie-settings-daemon
