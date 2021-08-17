@@ -30,4 +30,35 @@
     <signal name="VariantChanged">
     </signal>
   </interface>
+  <interface name="com.github.CutiePiShellCommunityProject.SettingsDaemon.Ofono">
+    <method name="ModemCount">
+      <arg name="count" type="u" direction="out"/>
+    </method>
+  </interface>
+  <interface name="com.github.CutiePiShellCommunityProject.SettingsDaemon.Modem">
+    <method name="GetOnline">
+      <arg name="online" type="b" direction="out"/>
+    </method>
+    <method name="OnlineModem">
+      <arg name="online" type="b" direction="in"/>
+    </method>
+    <signal name="OnlineChanged">
+      <arg name="online" type="b" direction="out"/>
+    </signal>
+    <method name="GetPower">
+      <arg name="power" type="b" direction="out"/>
+    </method>
+    <method name="PowerModem">
+      <arg name="power" type="b" direction="in"/>
+    </method>
+    <signal name="PowerChanged">
+      <arg name="power" type="b" direction="out"/>
+    </signal>
+    <method name="GetNetName">
+      <arg name="name" type="s" direction="out"/>
+    </method>
+    <signal name="NetNameChanged">
+      <arg name="name" type="s" direction="out"/>
+    </signal>
+  </interface>
 </node>
