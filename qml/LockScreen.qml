@@ -43,11 +43,14 @@ Rectangle {
                 drag.target: parent; drag.axis: Drag.YAxis; drag.minimumY: -view.height; drag.maximumY: 0
                 enabled: screenLockState.state == "locked";
                 anchors.fill: parent
+                propagateComposedEvents: true
+
                 onReleased: {
-                    if (parent.y < -view.height / 2) { screenLockState.state = "opened";}
-                    else { lockscreen.opacity = 1 }
+                    if (parent.y < - 20 * shellScaleFactor) { screenLockState.state = "opened" }
+                    else { lockscreen.opacity = 1}
                     parent.y = 0
                 }
+
                 onPositionChanged: {
                     if (drag.active) {
                         lockscreen.opacity = 1 + parent.y / view.height 

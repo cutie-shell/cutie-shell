@@ -23,9 +23,9 @@ Rectangle {
     Item {
         x: 0
         y: 0
-        height: 5 * shellScaleFactor
-        width: parent.width
         z: 100
+        height: 10 * shellScaleFactor
+        width: parent.width
 
         MouseArea { 
             enabled: launcherState.state != "closed"
@@ -33,21 +33,15 @@ Rectangle {
             anchors.fill: parent
 
             onReleased: {
-                if (parent.y < view.height / 2) { 
-                    launcherState.state = "opened"
-                    launcherContainer.state = "opened"
-                }
-                else { 
+                if (parent.y > parent.height) { 
                     launcherState.state = "closed"
                     launcherContainer.state = "closed"
                 }
+                else { 
+                    launcherState.state = "opened"
+                    launcherContainer.state = "opened"
+                }
                 parent.y = 0
-            }
-
-            onPressed: {
-                launcherState.state = "closing";
-                launcherContainer.state = "closing";
-                launcherContainer.y = 0;
             }
 
             onPositionChanged: {
@@ -55,6 +49,12 @@ Rectangle {
                     launcherSheet.opacity = 1 - parent.y / view.height / 2
                     launcherContainer.y = parent.y
                 }
+            }
+
+            onPressed: {
+                launcherState.state = "closing";
+                launcherContainer.state = "closing";
+                launcherContainer.y = 0;
             }
         }
     }
