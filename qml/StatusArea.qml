@@ -184,9 +184,9 @@ Rectangle {
     Item {
         x: 0
         y: 0
+        z: 100
         height: parent.height
         width: parent.width
-        z: 100
 
         MouseArea { 
             enabled: (settingsState.state != "opened") && (screenLockState.state == "opened")
@@ -194,7 +194,7 @@ Rectangle {
             anchors.fill: parent
 
             onReleased: {
-                if (parent.y > view.height / 2) { 
+                if (parent.y > parent.height) { 
                     settingsState.state = "opened"
                     settingSheet.setSettingContainerState("opened");
                 }
@@ -204,17 +204,17 @@ Rectangle {
                 }
                 parent.y = 0
             }
-
-            onPressed: {
-                settingsState.state = "opening";
-                settingSheet.setSettingContainerState("opening");
-            }
-
+            
             onPositionChanged: {
                 if (drag.active) {
                     settingSheet.opacity = parent.y / view.height / 2;
                     settingSheet.setSettingContainerY(parent.y - view.height);
                 }
+            }
+
+            onPressed: {
+                settingsState.state = "opening";
+                settingSheet.setSettingContainerState("opening");
             }
         }
     }
