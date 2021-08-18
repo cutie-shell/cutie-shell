@@ -1,4 +1,3 @@
-# CutiePi-shell-phone-components source
 ![alt text](https://github.com/cutie-shell/cutie-shell/blob/qtwayland-phone-tablet/icons/cutie.png)                          
       A mobile QtWayland compositor and shell and for smartphones and tablets.                                                             
 
