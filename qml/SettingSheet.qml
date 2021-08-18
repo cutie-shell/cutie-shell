@@ -50,33 +50,34 @@ Rectangle {
 
     Item {
         x: 0
-        y: parent.height - 5 * shellScaleFactor
-        height: 5 * shellScaleFactor
+        y: parent.height - 10 * shellScaleFactor
+        height: 10 * shellScaleFactor
         width: parent.width
         z: 100
 
         MouseArea { 
+            drag.target: parent; drag.axis: Drag.YAxis; drag.minimumY: - 10 * shellScaleFactor; drag.maximumY: view.height - 10 * shellScaleFactor
             enabled: settingsState.state != "closed"
-            drag.target: parent; drag.axis: Drag.YAxis; drag.minimumY: - 5 * shellScaleFactor; drag.maximumY: view.height - 5 * shellScaleFactor
             anchors.fill: parent
+            propagateComposedEvents: true
             z: 425
-
-            onReleased: {
-                if (parent.y > view.height / 2) { 
-                    settingsState.state = "opened"
-                    settingContainer.state = "opened"
-                }
-                else { 
-                    settingsState.state = "closed"
-                    settingContainer.state = "closed"
-                }
-                parent.y = parent.parent.height - 5 * shellScaleFactor
-            }
 
             onPressed: {
                 settingsState.state = "closing";
                 settingContainer.state = "closing";
                 settingContainer.y = 0;
+            }
+
+            onReleased: {
+                if (parent.y < view.height - 2 * parent.height) { 
+                    settingsState.state = "closed"
+                    settingContainer.state = "closed"
+                }
+                else { 
+                    settingsState.state = "opened"
+                    settingContainer.state = "opened"
+                }
+                parent.y = parent.parent.height - 10 * shellScaleFactor
             }
 
             onPositionChanged: {
