@@ -82,15 +82,39 @@ Rectangle {
                     }
 
                     onPressAndHold: {
-                        appScreen.shellSurface = modelData;
-                        appScreen.shellSurfaceIdx = index;
+                        if (appScreen.shellSurfaceIdx == index){
+                            if (shellSurfaces.count != 1) {
+                                if (index == shellSurfaces.count - 1) {
+                                    appScreen.shellSurface = shellSurfaces.get(index - 1).shellSurface;
+                                    appScreen.shellSurfaceIdx = index - 1;
+                                } else {
+                                    appScreen.shellSurface = shellSurfaces.get(index + 1).shellSurface;
+                                    appScreen.shellSurfaceIdx = index + 1;
+                                }
+                            } else {
+                                appScreen.shellSurface = null;
+                                appScreen.shellSurfaceIdx = -1;
+                            }
+                        }
                         modelData.toplevel.sendClose();
                     }
 
                     onReleased: {
                         if (Math.abs(parent.x - 10 * shellScaleFactor) > parent.width / 3) {
-                            appScreen.shellSurface = modelData;
-                            appScreen.shellSurfaceIdx = index;
+                            if (appScreen.shellSurfaceIdx == index){
+                                if (shellSurfaces.count != 1) {
+                                    if (index == shellSurfaces.count - 1) {
+                                        appScreen.shellSurface = shellSurfaces.get(index - 1).shellSurface;
+                                        appScreen.shellSurfaceIdx = index - 1;
+                                    } else {
+                                        appScreen.shellSurface = shellSurfaces.get(index + 1).shellSurface;
+                                        appScreen.shellSurfaceIdx = index + 1;
+                                    }
+                                } else {
+                                    appScreen.shellSurface = null;
+                                    appScreen.shellSurfaceIdx = -1;
+                                }
+                            }
                             modelData.toplevel.sendClose();
                         }
                         else { 
@@ -123,14 +147,20 @@ Rectangle {
 
             onReleased: {
                 var velocityThreshold = 0.001 * shellScaleFactor;
-                if (parent.x > parent.width) { root.state = "notificationScreen" }
+                if (parent.x > parent.width) { 
+                    root.state = (appScreen.shellSurfaceIdx == -1) ? "notificationScreen" : "appScreen";
+                }
                 else { parent.parent.opacity = 1; notificationScreen.opacity = 0 }
                 parent.x = 0
             }
             onPositionChanged: {
                 if (drag.active) {
                     parent.parent.opacity = 1 - parent.x / view.width 
-                    notificationScreen.opacity = parent.x / view.width
+                    if (appScreen.shellSurfaceIdx == -1) {
+                        notificationScreen.opacity = parent.x / view.width
+                    } else {
+                        appScreen.opacity = parent.x / view.width
+                    }
                 }
             }
         }
