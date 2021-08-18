@@ -34,6 +34,9 @@
     <method name="ModemCount">
       <arg name="count" type="u" direction="out"/>
     </method>
+    <signal name="ModemAdded">
+      <arg name="path" type="o" direction="out"/>
+    </signal>
   </interface>
   <interface name="com.github.CutiePiShellCommunityProject.SettingsDaemon.Modem">
     <method name="GetOnline">

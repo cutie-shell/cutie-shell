@@ -11,18 +11,30 @@ Settings::Settings(QObject *parent) : QObject(parent) {
     this->atmosphere = new com::github::CutiePiShellCommunityProject::SettingsDaemon::Atmosphere(
         "com.github.CutiePiShellCommunityProject.SettingsDaemon", "/com/github/CutiePiShellCommunityProject/atmosphere",
         QDBusConnection::systemBus());
-    this->modem = new com::github::CutiePiShellCommunityProject::SettingsDaemon::Modem(
-        "com.github.CutiePiShellCommunityProject.SettingsDaemon", "/com/github/CutiePiShellCommunityProject/modem/0",
+    this->ofono = new com::github::CutiePiShellCommunityProject::SettingsDaemon::Ofono(
+        "com.github.CutiePiShellCommunityProject.SettingsDaemon", "/com/github/CutiePiShellCommunityProject/modem",
         QDBusConnection::systemBus());
-    this->modem->PowerModem(true);
-    this->modem->OnlineModem(true);
+    this->modems = new QList<com::github::CutiePiShellCommunityProject::SettingsDaemon::Modem *>();
+    QDBusPendingReply<unsigned int> countReply = ofono->ModemCount();
+    countReply.waitForFinished();
+    if (countReply.isValid()) {
+        for (unsigned int i = 0; i < countReply.value(); i++) {
+            com::github::CutiePiShellCommunityProject::SettingsDaemon::Modem *modem = 
+                new com::github::CutiePiShellCommunityProject::SettingsDaemon::Modem(
+                "com.github.CutiePiShellCommunityProject.SettingsDaemon", QString("/com/github/CutiePiShellCommunityProject/modem/").append(QString::number(i)),
+                QDBusConnection::systemBus());
+            modem->PowerModem(true);
+            modem->OnlineModem(true);
+            modems->append(modem);
+        }
+    }
     this->battery = new org::freedesktop::DBus::Properties(
         "org.freedesktop.UPower", "/org/freedesktop/UPower/devices/DisplayDevice",
         QDBusConnection::systemBus());    
     connect(this->battery, SIGNAL(PropertiesChanged(QString, QVariantMap, QStringList)), this, SLOT(onUPowerInfoChanged(QString, QVariantMap, QStringList)));
     connect(this->atmosphere, SIGNAL(PathChanged()), this, SLOT(onAtmospherePathChanged()));
     connect(this->atmosphere, SIGNAL(VariantChanged()), this, SLOT(onAtmosphereVariantChanged()));
-    connect(this->modem, SIGNAL(NetNameChanged(QString)), this, SLOT(onNetNameChanged(QString)));
+    connect(this->ofono, SIGNAL(ModemAdded(QDBusObjectPath)), this, SLOT(onModemAdded(QDBusObjectPath)));
     setAtmospherePath(this->settingsStore->value("atmospherePath", "file://usr/share/atmospheres/city/").toString());
     setAtmosphereVariant(this->settingsStore->value("atmosphereVariant", "dark").toString());
     onAtmospherePathChanged();
@@ -31,11 +43,18 @@ Settings::Settings(QObject *parent) : QObject(parent) {
 }
 
 void Settings::initCellular() {
+    com::github::CutiePiShellCommunityProject::SettingsDaemon::Modem *modem = 0;
+    if (modems->count() > 0) {
+        modem = modems->at(0);
+    } else {
+        return;
+    }
     QDBusPendingReply<QString> netReply = modem->GetNetName();
     netReply.waitForFinished();
     if (netReply.isValid()) {
         QMetaObject::invokeMethod(((QQmlApplicationEngine *)parent())->rootObjects()[0], "setCellularName", Q_ARG(QVariant, netReply.value()));
     }
+    connect(modem, SIGNAL(NetNameChanged(QString)), this, SLOT(onNetNameChanged(QString)));
 }
 
 unsigned int Settings::GetMaxBrightness() {
@@ -181,4 +200,17 @@ void Settings::setAtmosphereVariant(QString variant) {
     this->atmosphere->SetVariant(variant);
     settingsStore->setValue("atmosphereVariant", variant);
     settingsStore->sync();
+}
+
+void Settings::onModemAdded(QDBusObjectPath path) {
+    com::github::CutiePiShellCommunityProject::SettingsDaemon::Modem *modem = 
+        new com::github::CutiePiShellCommunityProject::SettingsDaemon::Modem(
+        "com.github.CutiePiShellCommunityProject.SettingsDaemon", path.path(),
+        QDBusConnection::systemBus());
+    modem->PowerModem(true);
+    modem->OnlineModem(true);
+    modems->append(modem);
+    if (modems->count() == 1) {
+        this->initCellular();
+    }
 }
