@@ -19,10 +19,20 @@ qt5-welcome-app
 
 ## Building and Running on halium9 devices (powered by droidian)
 Status: WIP 
-
 Tested on: Volla Phone, Xiaomi Redmi 7
 
-* Manual building instructions:
+
+
+## Auto Bash script
+* Install droidian phosh and devtools on your device.  
+* Connected the device to a PC running Linux: `ssh droidian@10.15.19.82`  
+
+```
+wget -O - https://raw.githubusercontent.com/Cutie-Pi-Shell-community-project/cutie-shell/qtwayland-phone-tablet/install.sh | bash
+```
+
+
+### Manual building
 * Install droidian phosh and devtools on your device.  
 * Connected the device to a PC running Linux: `ssh droidian@10.15.19.82`    
 
@@ -56,6 +66,7 @@ sudo systemctl enable cutie-settings-daemon
 sudo systemctl enable cutie-ui-io
 sudo reboot
 ```
+
 
 ### To fix isues on scaling
 
