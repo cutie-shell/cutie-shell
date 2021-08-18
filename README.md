@@ -22,6 +22,7 @@ Status: WIP
 
 Tested on: Volla Phone, Xiaomi Redmi 7
 
+* Manual building instructions:
 * Install droidian phosh and devtools on your device.  
 * Connected the device to a PC running Linux: `ssh droidian@10.15.19.82`    
 
