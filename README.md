@@ -18,8 +18,8 @@ qt5-weather-app
 qt5-welcome-app                                                                      
 
 ## Building and Running on halium9 devices (powered by droidian)
-Status: Beta project                                                                                          
-Tested on: Volla Phone, Xiaomi Redmi 7                                                          
+Status: Beta project OTA-1.0.24                                                                                       
+Tested on: Volla Phone, Xiaomi Redmi 7, OnePlus 6t                                                          
                       
                                            
                                         
@@ -69,11 +69,12 @@ sudo reboot
 
 
 ### To fix isues on scaling
+* Connected the device to a PC running Linux: `ssh droidian@10.15.19.82` 
 
 ```
 sudo nano /usr/lib/systemd/system/cutie-ui-io.service
 
-There is this line in the service file: Environment=QT_SCALE_FACTOR= "4". By default, the scale is 4, but if you have it too large, you can make it less (for example 2).
+There is this line in the service file: Environment=QT_SCALE_FACTOR= "4". By default, the scale is 4 like vollaPhone display 1080x2340, but if you have it too large, you can make it less (for example 2 like Redmi 7 display 720x1520).
 
 ctrl x
 y
