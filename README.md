@@ -18,7 +18,7 @@ qt5-weather-app
 qt5-welcome-app                                                                      
 
 ## Building and Running on halium9 devices (powered by droidian)
-![alt text](https://github.com/Cutie-Pi-Shell-community-project/CutiePi-shell-phone-components/blob/main/screenshots/photo5226690739709261655.jpg) 
+![alt text](https://github.com/cutie-shell/cutie-shell/blob/qtwayland-phone-tablet/icons/cutie.png) 
 Status: Beta project OTA-1.0.24                                                                                       
 Tested on: Volla Phone, Xiaomi Redmi 7, OnePlus 6t                                                          
                       
