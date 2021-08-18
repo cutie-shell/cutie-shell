@@ -13,7 +13,7 @@ private:
     com::github::CutiePiShellCommunityProject::SettingsDaemon::Backlight *backlight;
     com::github::CutiePiShellCommunityProject::SettingsDaemon::Atmosphere *atmosphere;
     com::github::CutiePiShellCommunityProject::SettingsDaemon::Ofono *ofono;
-    com::github::CutiePiShellCommunityProject::SettingsDaemon::Modem *modem;
+    QList<com::github::CutiePiShellCommunityProject::SettingsDaemon::Modem *> *modems;
     org::freedesktop::DBus::Properties *battery;
     QSettings *settingsStore;
     
@@ -35,6 +35,7 @@ public Q_SLOTS:
     void onAtmospherePathChanged();
     Q_INVOKABLE void onAtmosphereVariantChanged();
     void onNetNameChanged(QString name);
+    void onModemAdded(QDBusObjectPath path);
 };
 
 #endif // BACKLIGHT_H
