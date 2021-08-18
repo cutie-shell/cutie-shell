@@ -9,7 +9,7 @@ Rectangle {
     color: "transparent"
 
     property ShellSurface shellSurface
-    property int shellSurfaceIdx
+    property int shellSurfaceIdx: -1
 
     onShellSurfaceChanged: {
         visibleClient.shellSurface = shellSurface;

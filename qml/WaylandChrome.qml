@@ -8,7 +8,17 @@ ShellSurfaceItem {
     autoCreatePopupItems: true
 
     onSurfaceDestroyed: {
-        root.state = "homeScreen";
-        parent.shellSurfaceIdx=-1
+        if (shellSurfaces.count != 0) {
+            if (parent.shellSurfaceIdx == shellSurfaces.count) {
+                parent.shellSurface = shellSurfaces.get(parent.shellSurfaceIdx - 1).shellSurface;
+                parent.shellSurfaceIdx -= 1;
+            } else {
+                parent.shellSurface = shellSurfaces.get(parent.shellSurfaceIdx + 1).shellSurface;
+            }
+        } else {
+            parent.shellSurface = null;
+            parent.shellSurfaceIdx = -1;
+            root.state = "homeScreen";
+        }
     }
 }
