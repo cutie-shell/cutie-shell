@@ -18,11 +18,11 @@ qt5-weather-app
 qt5-welcome-app                                                                      
 
 ## Building and Running on halium9 devices (powered by droidian)
-Status: WIP 
-Tested on: Volla Phone, Xiaomi Redmi 7
-
-
-
+Status: Beta project                                                                                          
+Tested on: Volla Phone, Xiaomi Redmi 7                                                          
+                      
+                                           
+                                        
 ## Auto Bash script
 * Install droidian phosh and devtools on your device.  
 * Connected the device to a PC running Linux: `ssh droidian@10.15.19.82`  
