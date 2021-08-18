@@ -74,6 +74,7 @@ Rectangle {
 
                 MouseArea {
                     anchors.fill: parent
+                    drag.target: parent; drag.axis: Drag.XAxis; drag.minimumX: -parent.width; drag.maximumX: parent.width
                     onClicked: {
                         root.state = "appScreen";
                         appScreen.shellSurface = modelData;
@@ -85,6 +86,23 @@ Rectangle {
                         appScreen.shellSurfaceIdx = index;
                         modelData.toplevel.sendClose();
                     }
+
+                    onReleased: {
+                        if (Math.abs(parent.x - 10 * shellScaleFactor) > parent.width / 3) {
+                            appScreen.shellSurface = modelData;
+                            appScreen.shellSurfaceIdx = index;
+                            modelData.toplevel.sendClose();
+                        }
+                        else { 
+                            parent.opacity = 1;
+                        }
+                        parent.x = 10 * shellScaleFactor;
+                    }
+                    onPositionChanged: {
+                        if (drag.active) {
+                            parent.opacity = 1 - Math.abs(parent.x - 10 * shellScaleFactor) / parent.width 
+                        }
+                    }
                 }
             }
         }
@@ -95,14 +113,17 @@ Rectangle {
         y: 0
         z: 300
         height: parent.height
-        width: 5 * shellScaleFactor
+        width: 10 * shellScaleFactor
 
         MouseArea { 
             enabled: root.state == "homeScreen"
             drag.target: parent; drag.axis: Drag.XAxis; drag.minimumX: 0; drag.maximumX: view.width
             anchors.fill: parent
+
+
             onReleased: {
-                if (parent.x > view.width / 2) { root.state = "notificationScreen" }
+                var velocityThreshold = 0.001 * shellScaleFactor;
+                if (parent.x > parent.width) { root.state = "notificationScreen" }
                 else { parent.parent.opacity = 1; notificationScreen.opacity = 0 }
                 parent.x = 0
             }
@@ -116,20 +137,22 @@ Rectangle {
     }
 
     Item {
-        x: view.width - 5 * shellScaleFactor
+        x: view.width - 10 * shellScaleFactor
         y: 0
         z: 300
         height: parent.height
-        width: 5 * shellScaleFactor
+        width: 10 * shellScaleFactor
 
         MouseArea { 
             enabled: root.state == "homeScreen"
             drag.target: parent; drag.axis: Drag.XAxis; drag.minimumX: -5 * shellScaleFactor; drag.maximumX: view.width - 5* shellScaleFactor
             anchors.fill: parent
+
             onReleased: {
-                if (parent.x < view.width / 2) { root.state = "notificationScreen" }
+                var velocityThreshold = 0.001 * shellScaleFactor;
+                if (parent.x < parent.parent.width - 2 * parent.width) { root.state = "notificationScreen" }
                 else { parent.parent.opacity = 1; notificationScreen.opacity = 0 }
-                parent.x = view.width - 5 * shellScaleFactor
+                parent.x = view.width - 10 * shellScaleFactor
             }
             onPositionChanged: {
                 if (drag.active) {
