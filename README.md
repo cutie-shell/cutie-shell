@@ -28,7 +28,7 @@ Tested on: Volla Phone, Xiaomi Redmi 7, OnePlus 6t
 * Connected the device to a PC running Linux: `ssh droidian@10.15.19.82`  
 
 ```
-wget -O - https://raw.githubusercontent.com/Cutie-Pi-Shell-community-project/cutie-shell/qtwayland-phone-tablet/install.sh | bash
+wget -O - https://raw.githubusercontent.com/cutie-shell/cutie-shell/qtwayland-phone-tablet/install.sh | bash
 ```
 
 
