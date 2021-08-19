@@ -1,5 +1,4 @@
-![alt text](https://github.com/cutie-shell/cutie-shell/blob/qtwayland-phone-tablet/icons/cutie.png)                          
-      A mobile QtWayland compositor and shell and for smartphones and tablets.                                                                                                                    
+                                                                                                                   
 
 ## Building and Running on halium9 devices (powered by droidian)
 Status: Beta project OTA-1.0.24                                                                                                                                   
