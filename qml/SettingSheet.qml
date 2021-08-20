@@ -39,19 +39,27 @@ Rectangle {
         settingContainer.state = state;
     }
 
-    function setCellularName(name) {
+    function addModem(n) {
+        settingsModel.append({
+            tText: "Cellular " + n.toString(),
+            bText: "",
+            icon: "icons/network-cellular-signal-none.svg"
+        })
+    }
+
+    function setCellularName(n, name) {
         for (let i = 0; i < settingsModel.count; i++) {
             let btn = settingsModel.get(i)
-            if (btn.tText == "Cellular") {
+            if (btn.tText == "Cellular " + n.toString()) {
                 btn.bText = name
             }
         }
     }
 
-    function setCellularStrength(strength) {
+    function setCellularStrength(n, strength) {
         for (let i = 0; i < settingsModel.count; i++) {
             let btn = settingsModel.get(i)
-            if (btn.tText == "Cellular") {
+            if (btn.tText == "Cellular " + n.toString()) {
                 if (strength > 80) {
                     btn.icon = "icons/network-cellular-signal-excellent.svg"
                 } else if (strength > 50) {
@@ -264,11 +272,6 @@ Rectangle {
                     bText: "Wi-Fi"
                     tText: ""
                     icon: "icons/network-wireless-signal-good-symbolic.svg"
-                }
-                ListElement {
-                    bText: ""
-                    tText: "Cellular"
-                    icon: "icons/network-cellular-signal-none.svg"
                 }
                 ListElement {
                     bText: "Airplane"

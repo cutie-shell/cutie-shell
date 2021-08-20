@@ -45,13 +45,19 @@ WaylandOutput {
         }
     }
 
-    function setCellularName(name) {
-        settingSheet.setCellularName(name);
+    function addModem(n) {
+        settingSheet.addModem(n);
     }
 
-    function setCellularStrength(strength) {
-        settingSheet.setCellularStrength(strength);
-        setting.setCellularStrength(strength);
+    function setCellularName(n, name) {
+        settingSheet.setCellularName(n, name);
+    }
+
+    function setCellularStrength(n, strength) {
+        settingSheet.setCellularStrength(n, strength);
+        if (n == 1) { 
+            setting.setCellularStrength(strength);
+        }
     }   
 
     Item {

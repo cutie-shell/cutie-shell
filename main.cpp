@@ -44,7 +44,7 @@ int main(int argc, char *argv[])
 
     settings->loadAppList();
     settings->autostart();
-    settings->initCellular();
+    settings->initCellularFull();
 
     HWButtons *btns = new HWButtons(&engine);
     app.installEventFilter(btns);
