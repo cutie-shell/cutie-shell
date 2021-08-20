@@ -168,7 +168,7 @@ Rectangle {
                         text: appName
                         font.pixelSize: 7 * shellScaleFactor
                         clip: true
-                        font.family: mainFont.name
+                        font.family: "Lato"
                         color: (atmosphereVariant == "dark") ? "#ffffff" : "#000000"
                     }
                 }

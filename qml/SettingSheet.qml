@@ -168,7 +168,7 @@ Rectangle {
                 y: 25  * shellScaleFactor
                 text: qsTr("Accent")
                 font.pixelSize: 14 * shellScaleFactor
-                font.family: mainFont.name
+                font.family: "Lato"
                 font.weight: Font.Black
                 state: atmosphereVariant
                 states: [
@@ -237,7 +237,7 @@ Rectangle {
                         font.pixelSize: 9 * shellScaleFactor
                         font.bold: false
                         color: (variant == "dark") ? "#FFFFFF" : "#000000"
-                        font.family: mainFont.name
+                        font.family: "Lato"
                     }
 
                     MouseArea{
@@ -324,7 +324,7 @@ Rectangle {
                             text: tText
                             font.pixelSize: 9 * shellScaleFactor
                             horizontalAlignment: Text.AlignHCenter
-                            font.family: mainFont.name
+                            font.family: "Lato"
                             font.bold: false
                         }
 
@@ -336,7 +336,7 @@ Rectangle {
                             text: bText
                             font.pixelSize: 9 * shellScaleFactor
                             horizontalAlignment: Text.AlignHCenter
-                            font.family: mainFont.name
+                            font.family: "Lato"
                             font.bold: false
                         }
                         

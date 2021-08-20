@@ -21,7 +21,7 @@ Rectangle {
         y: 30  * shellScaleFactor
         text: qsTr("Notifications")
         font.pixelSize: 14 * shellScaleFactor
-        font.family: mainFont.name
+        font.family: "Lato"
         font.weight: Font.Black
         state: atmosphereVariant
         states: [
@@ -79,7 +79,7 @@ Rectangle {
                 anchors.top: parent.top
                 anchors.topMargin: 10 * shellScaleFactor * (1 - Math.abs(parent.x/parent.width))
                 font.pixelSize: 10 * shellScaleFactor * (1 - Math.abs(parent.x/parent.width))
-                font.family: mainFont.name
+                font.family: "Lato"
                 font.weight: Font.Black
                 wrapMode: Text.Wrap
                 state: atmosphereVariant
@@ -108,7 +108,7 @@ Rectangle {
                 anchors.top: titleText.bottom
                 anchors.topMargin: 10 * shellScaleFactor * (1 - Math.abs(parent.x/parent.width))
                 font.pixelSize: 10 * shellScaleFactor * (1 - Math.abs(parent.x/parent.width))
-                font.family: mainFont.name
+                font.family: "Lato"
                 font.bold: false
                 wrapMode: Text.Wrap
                 state: atmosphereVariant

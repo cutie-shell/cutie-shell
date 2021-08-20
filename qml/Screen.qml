@@ -251,21 +251,6 @@ WaylandOutput {
                 source: "qrc:/fonts/Font Awesome 5 Free-Solid-900.otf"
             }
 
-            FontLoader {
-                id: mainFont
-                source: "qrc:/fonts/Raleway-Regular.ttf"
-            }
-
-            FontLoader {
-                id: lightFont
-                source: "qrc:/fonts/Raleway-ExtraLight.ttf"
-            }
-
-            FontLoader {
-                id: boldFont
-                source: "qrc:/fonts/Raleway-Black.ttf"
-            }
-
             Rectangle {
                 id: content 
                 anchors.fill: parent
