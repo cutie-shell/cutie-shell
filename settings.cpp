@@ -54,11 +54,12 @@ void Settings::initCellular() {
     if (netReply.isValid()) {
         QMetaObject::invokeMethod(((QQmlApplicationEngine *)parent())->rootObjects()[0], "setCellularName", Q_ARG(QVariant, netReply.value()));
     }
-    netReply = modem->GetNetStrength();
-    netReply.waitForFinished();
-    if (netReply.isValid()) {
-        QMetaObject::invokeMethod(((QQmlApplicationEngine *)parent())->rootObjects()[0], "setCellularStrength", Q_ARG(QVariant, netReply.value()));
+    QDBusPendingReply<uchar> netReply2 = modem->GetNetStrength();
+    netReply2.waitForFinished();
+    if (netReply2.isValid()) {
+        QMetaObject::invokeMethod(((QQmlApplicationEngine *)parent())->rootObjects()[0], "setCellularStrength", Q_ARG(QVariant, netReply2.value()));
     }
+    
     connect(modem, SIGNAL(NetNameChanged(QString)), this, SLOT(onNetNameChanged(QString)));
     connect(modem, SIGNAL(NetStrengthChanged(uchar)), this, SLOT(onNetStrengthChanged(uchar)));
 }
