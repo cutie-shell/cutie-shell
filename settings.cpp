@@ -42,26 +42,36 @@ Settings::Settings(QObject *parent) : QObject(parent) {
     ((QQmlApplicationEngine *)parent)->rootContext()->setContextProperty("screenBrightness", this->settingsStore->value("screenBrightness", 100));
 }
 
-void Settings::initCellular() {
+void Settings::initCellular(int i) {
     com::github::CutiePiShellCommunityProject::SettingsDaemon::Modem *modem = 0;
-    if (modems->count() > 0) {
-        modem = modems->at(0);
+    if (modems->count() >= i) {
+        modem = modems->at(i - 1);
     } else {
         return;
     }
+
+    QMetaObject::invokeMethod(((QQmlApplicationEngine *)parent())->rootObjects()[0], "addModem", Q_ARG(QVariant, i));   
+
     QDBusPendingReply<QString> netReply = modem->GetNetName();
     netReply.waitForFinished();
     if (netReply.isValid()) {
-        QMetaObject::invokeMethod(((QQmlApplicationEngine *)parent())->rootObjects()[0], "setCellularName", Q_ARG(QVariant, netReply.value()));
+        QMetaObject::invokeMethod(((QQmlApplicationEngine *)parent())->rootObjects()[0], "setCellularName", Q_ARG(QVariant, i), Q_ARG(QVariant, netReply.value()));
     }
+
     QDBusPendingReply<uchar> netReply2 = modem->GetNetStrength();
     netReply2.waitForFinished();
     if (netReply2.isValid()) {
-        QMetaObject::invokeMethod(((QQmlApplicationEngine *)parent())->rootObjects()[0], "setCellularStrength", Q_ARG(QVariant, netReply2.value()));
+        QMetaObject::invokeMethod(((QQmlApplicationEngine *)parent())->rootObjects()[0], "setCellularStrength", Q_ARG(QVariant, i), Q_ARG(QVariant, netReply2.value()));
     }
-    
+
     connect(modem, SIGNAL(NetNameChanged(QString)), this, SLOT(onNetNameChanged(QString)));
-    connect(modem, SIGNAL(NetStrengthChanged(uchar)), this, SLOT(onNetStrengthChanged(uchar)));
+    connect(modem, SIGNAL(NetStrengthChanged(uchar)), this, SLOT(onNetStrengthChanged(uchar)));   
+}
+
+void Settings::initCellularFull() {
+    for(int i = 0; i < modems->count(); i++) {
+        initCellular(i + 1);
+    }
 }
 
 unsigned int Settings::GetMaxBrightness() {
@@ -194,11 +204,15 @@ void Settings::onAtmosphereVariantChanged() {
 }
 
 void Settings::onNetNameChanged(QString name) {
-    QMetaObject::invokeMethod(((QQmlApplicationEngine *)parent())->rootObjects()[0], "setCellularName", Q_ARG(QVariant, name));      
+    com::github::CutiePiShellCommunityProject::SettingsDaemon::Modem *modem = (com::github::CutiePiShellCommunityProject::SettingsDaemon::Modem *)sender();
+    int i = modems->lastIndexOf(modem);
+    QMetaObject::invokeMethod(((QQmlApplicationEngine *)parent())->rootObjects()[0], "setCellularName", Q_ARG(QVariant, i + 1), Q_ARG(QVariant, name));      
 }
 
 void Settings::onNetStrengthChanged(uchar strength) {
-    QMetaObject::invokeMethod(((QQmlApplicationEngine *)parent())->rootObjects()[0], "setCellularStrength", Q_ARG(QVariant, strength));      
+    com::github::CutiePiShellCommunityProject::SettingsDaemon::Modem *modem = (com::github::CutiePiShellCommunityProject::SettingsDaemon::Modem *)sender();
+    int i = modems->lastIndexOf(modem);
+    QMetaObject::invokeMethod(((QQmlApplicationEngine *)parent())->rootObjects()[0], "setCellularStrength", Q_ARG(QVariant, i + 1), Q_ARG(QVariant, strength));      
 }
 
 void Settings::setAtmospherePath(QString path) {
@@ -221,7 +235,5 @@ void Settings::onModemAdded(QDBusObjectPath path) {
     modem->PowerModem(true);
     modem->OnlineModem(true);
     modems->append(modem);
-    if (modems->count() == 1) {
-        this->initCellular();
-    }
+    this->initCellular(modems->count());
 }

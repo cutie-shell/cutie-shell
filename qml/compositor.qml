@@ -44,12 +44,16 @@ WaylandCompositor {
         screen.lock();
     }
 
-    function setCellularName(name) {
-        screen.setCellularName(name);
+    function addModem(n) {
+        screen.addModem(n);
     }
 
-    function setCellularStrength(strength) {
-        screen.setCellularStrength(strength);
+    function setCellularName(n, name) {
+        screen.setCellularName(n, name);
+    }
+
+    function setCellularStrength(n, strength) {
+        screen.setCellularStrength(n, strength);
     }
     
     XdgShell {
