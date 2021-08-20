@@ -48,6 +48,25 @@ Rectangle {
         }
     }
 
+    function setCellularStrength(strength) {
+        for (let i = 0; i < settingsModel.count; i++) {
+            let btn = settingsModel.get(i)
+            if (btn.tText == "Cellular") {
+                if (strength > 90) {
+                    btn.icon = "icons/network-cellular-signal-excellent.svg"
+                } else if (strength > 70) {
+                    btn.icon = "icons/network-cellular-signal-good.svg"
+                } else if (strength > 50) {
+                    btn.icon = "icons/network-cellular-signal-ok.svg"
+                } else if (strength > 30) {
+                    btn.icon = "icons/network-cellular-signal-low.svg"
+                } else if (strength > 10) {
+                    btn.icon = "icons/network-cellular-signal-none.svg"
+                }
+            }
+        }
+    }
+
     Item {
         x: 0
         y: parent.height - 10 * shellScaleFactor

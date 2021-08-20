@@ -35,6 +35,7 @@ public Q_SLOTS:
     void onAtmospherePathChanged();
     Q_INVOKABLE void onAtmosphereVariantChanged();
     void onNetNameChanged(QString name);
+    void onNetStrengthChanged(uchar strength);
     void onModemAdded(QDBusObjectPath path);
 };
 
