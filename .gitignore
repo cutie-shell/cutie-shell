@@ -12,3 +12,4 @@ cutie-settings-daemon
 *adaptor.h
 *.so
 apps/browser-qt5/browser-qt5
+*.user
