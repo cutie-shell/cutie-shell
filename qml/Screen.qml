@@ -51,6 +51,7 @@ WaylandOutput {
 
     function setCellularStrength(strength) {
         settingSheet.setCellularStrength(strength);
+        setting.setCellularStrength(strength);
     }   
 
     Item {

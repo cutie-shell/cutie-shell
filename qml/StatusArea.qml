@@ -8,6 +8,20 @@ Rectangle {
     anchors.top: parent.top
     color: "transparent"
 
+    function setCellularStrength(strength) {
+        if (strength > 80) {
+            image2.source = "icons/network-cellular-signal-excellent.svg"
+        } else if (strength > 50) {
+            image2.source = "icons/network-cellular-signal-good.svg"
+        } else if (strength > 30) {
+            image2.source = "icons/network-cellular-signal-ok.svg"
+        } else if (strength > 10) {
+            image2.source = "icons/network-cellular-signal-low.svg"
+        } else {
+            image2.source = "icons/network-cellular-signal-none.svg"
+        }
+    }
+
     Rectangle
     {
         id: maskRect2
