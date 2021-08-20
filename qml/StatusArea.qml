@@ -20,6 +20,7 @@ Rectangle {
         } else {
             image2.source = "icons/network-cellular-signal-none.svg"
         }
+        text13.text = strength.toString() + " %";
     }
 
     Rectangle
@@ -71,7 +72,7 @@ Rectangle {
         anchors.verticalCenter: parent.verticalCenter
         width: 15 * shellScaleFactor
         height: 15 * shellScaleFactor
-        source: "icons/network-cellular-signal-good.svg"
+        source: "icons/network-cellular-signal-none.svg"
         sourceSize.height: 128
         sourceSize.width: 128
         fillMode: Image.PreserveAspectFit
@@ -90,7 +91,7 @@ Rectangle {
         anchors.rightMargin: 4 * shellScaleFactor
         anchors.verticalCenter: parent.verticalCenter
         color: (atmosphereVariant == "dark") ? "#ffffff" : "#000000"
-        text: qsTr("4G")
+        text: "0 %"
         font.pixelSize: 9 * shellScaleFactor
         font.bold: false
         state: atmosphereVariant

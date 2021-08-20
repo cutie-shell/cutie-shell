@@ -268,7 +268,7 @@ Rectangle {
                 ListElement {
                     bText: ""
                     tText: "Cellular"
-                    icon: "icons/network-cellular-signal-ok.svg"
+                    icon: "icons/network-cellular-signal-none.svg"
                 }
                 ListElement {
                     bText: "Airplane"
