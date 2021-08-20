@@ -3,17 +3,17 @@
 
 #include <QDebug>
 
-#include "cutiepishellcommunityproject_interface.h"
+#include "cutie_shell_interface.h"
 #include "dbus_interface.h"
 
 class Settings : public QObject
 {
     Q_OBJECT
 private:
-    com::github::CutiePiShellCommunityProject::SettingsDaemon::Backlight *backlight;
-    com::github::CutiePiShellCommunityProject::SettingsDaemon::Atmosphere *atmosphere;
-    com::github::CutiePiShellCommunityProject::SettingsDaemon::Ofono *ofono;
-    QList<com::github::CutiePiShellCommunityProject::SettingsDaemon::Modem *> *modems;
+    org::cutie_shell::SettingsDaemon::Backlight *backlight;
+    org::cutie_shell::SettingsDaemon::Atmosphere *atmosphere;
+    org::cutie_shell::SettingsDaemon::Ofono *ofono;
+    QList<org::cutie_shell::SettingsDaemon::Modem *> *modems;
     org::freedesktop::DBus::Properties *battery;
     QSettings *settingsStore;
     
