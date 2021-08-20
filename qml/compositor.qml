@@ -47,6 +47,10 @@ WaylandCompositor {
     function setCellularName(name) {
         screen.setCellularName(name);
     }
+
+    function setCellularStrength(strength) {
+        screen.setCellularStrength(strength);
+    }
     
     XdgShell {
         onToplevelCreated: {

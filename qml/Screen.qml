@@ -48,7 +48,10 @@ WaylandOutput {
     function setCellularName(name) {
         settingSheet.setCellularName(name);
     }
-    
+
+    function setCellularStrength(strength) {
+        settingSheet.setCellularStrength(strength);
+    }   
 
     Item {
         id: root

@@ -63,5 +63,11 @@
     <signal name="NetNameChanged">
       <arg name="name" type="s" direction="out"/>
     </signal>
+    <method name="GetNetStrength">
+      <arg name="strength" type="y" direction="out"/>
+    </method>
+    <signal name="NetStrengthChanged">
+      <arg name="strength" type="y" direction="out"/>
+    </signal>
   </interface>
 </node>

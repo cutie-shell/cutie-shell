@@ -54,7 +54,13 @@ void Settings::initCellular() {
     if (netReply.isValid()) {
         QMetaObject::invokeMethod(((QQmlApplicationEngine *)parent())->rootObjects()[0], "setCellularName", Q_ARG(QVariant, netReply.value()));
     }
+    netReply = modem->GetNetStrength();
+    netReply.waitForFinished();
+    if (netReply.isValid()) {
+        QMetaObject::invokeMethod(((QQmlApplicationEngine *)parent())->rootObjects()[0], "setCellularStrength", Q_ARG(QVariant, netReply.value()));
+    }
     connect(modem, SIGNAL(NetNameChanged(QString)), this, SLOT(onNetNameChanged(QString)));
+    connect(modem, SIGNAL(NetStrengthChanged(uchar)), this, SLOT(onNetStrengthChanged(uchar)));
 }
 
 unsigned int Settings::GetMaxBrightness() {
@@ -188,6 +194,10 @@ void Settings::onAtmosphereVariantChanged() {
 
 void Settings::onNetNameChanged(QString name) {
     QMetaObject::invokeMethod(((QQmlApplicationEngine *)parent())->rootObjects()[0], "setCellularName", Q_ARG(QVariant, name));      
+}
+
+void Settings::onNetStrengthChanged(uchar strength) {
+    QMetaObject::invokeMethod(((QQmlApplicationEngine *)parent())->rootObjects()[0], "setCellularStrength", Q_ARG(QVariant, strength));      
 }
 
 void Settings::setAtmospherePath(QString path) {
