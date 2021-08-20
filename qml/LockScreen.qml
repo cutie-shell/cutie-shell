@@ -64,7 +64,7 @@ Rectangle {
             color: (atmosphereVariant == "dark") ? "#ffffff" : "#000000"
             text: Qt.formatDateTime(new Date(), "HH:mm:ss")
             font.pixelSize: 48 * shellScaleFactor
-            font.family: mainFont.name
+            font.family: "Lato"
             font.weight: Font.ExtraLight
             anchors { left: parent.left; bottom: lockscreenDate.top; leftMargin: 15 * shellScaleFactor; bottomMargin: 3* shellScaleFactor }
         }
@@ -74,7 +74,7 @@ Rectangle {
             color: (atmosphereVariant == "dark") ? "#ffffff" : "#000000"
             text: Qt.formatDateTime(new Date(), "dddd, MMMM d")
             font.pixelSize: 14 * shellScaleFactor
-            font.family: mainFont.name
+            font.family: "Lato"
             font.weight: Font.Black
             anchors { left: parent.left; bottom: parent.bottom; margins: 15 * shellScaleFactor }
         }

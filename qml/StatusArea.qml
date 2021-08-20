@@ -108,7 +108,7 @@ Rectangle {
         transitions: Transition {
             ColorAnimation { properties: "color"; duration: 500; easing.type: Easing.InOutQuad }
         }
-        font.family: mainFont.name
+        font.family: "Lato"
     }
 
     Image {
@@ -158,7 +158,7 @@ Rectangle {
         transitions: Transition {
             ColorAnimation { properties: "color"; duration: 500; easing.type: Easing.InOutQuad }
         }
-        font.family: mainFont.name
+        font.family: "Lato"
     }
 
     Text {
@@ -184,7 +184,7 @@ Rectangle {
         transitions: Transition {
             ColorAnimation { properties: "color"; duration: 500; easing.type: Easing.InOutQuad }
         }
-        font.family: mainFont.name
+        font.family: "Lato"
     }
 
     function timeChanged() {

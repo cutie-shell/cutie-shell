@@ -68,7 +68,7 @@ Rectangle {
                     text: modelData.toplevel.title
                     font.pixelSize: 9 * shellScaleFactor
                     horizontalAlignment: Text.AlignHCenter
-                    font.family: mainFont.name
+                    font.family: "Lato"
                     font.bold: false
                 }
 
