@@ -28,7 +28,8 @@ public:
     Q_INVOKABLE void setAtmosphereVariant(QString variant);
     void refreshBatteryInfo();
     void autostart();
-    void initCellular();
+    void initCellular(int i);
+    void initCellularFull();
     Q_INVOKABLE void loadAppList();
 public Q_SLOTS:
     void onUPowerInfoChanged(QString interface, QVariantMap, QStringList);
