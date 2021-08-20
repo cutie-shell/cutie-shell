@@ -42,4 +42,4 @@ DBUS_ADAPTORS += notifications
 DBUS_INTERFACES += \
         org.freedesktop.DBus.xml \
         org.freedesktop.Notifications.xml \
-        com.github.CutiePiShellCommunityProject.xml
+        org.cutie_shell.xml

@@ -5,23 +5,23 @@
 
 Settings::Settings(QObject *parent) : QObject(parent) {
     this->settingsStore = new QSettings("Cutie Community Project", "Cutie Shell");
-    this->backlight = new com::github::CutiePiShellCommunityProject::SettingsDaemon::Backlight(
-        "com.github.CutiePiShellCommunityProject.SettingsDaemon", "/com/github/CutiePiShellCommunityProject/backlight",
+    this->backlight = new org::cutie_shell::SettingsDaemon::Backlight(
+        "org.cutie_shell.SettingsDaemon", "/backlight",
         QDBusConnection::systemBus());
-    this->atmosphere = new com::github::CutiePiShellCommunityProject::SettingsDaemon::Atmosphere(
-        "com.github.CutiePiShellCommunityProject.SettingsDaemon", "/com/github/CutiePiShellCommunityProject/atmosphere",
+    this->atmosphere = new org::cutie_shell::SettingsDaemon::Atmosphere(
+        "org.cutie_shell.SettingsDaemon", "/atmosphere",
         QDBusConnection::systemBus());
-    this->ofono = new com::github::CutiePiShellCommunityProject::SettingsDaemon::Ofono(
-        "com.github.CutiePiShellCommunityProject.SettingsDaemon", "/com/github/CutiePiShellCommunityProject/modem",
+    this->ofono = new org::cutie_shell::SettingsDaemon::Ofono(
+        "org.cutie_shell.SettingsDaemon", "/modem",
         QDBusConnection::systemBus());
-    this->modems = new QList<com::github::CutiePiShellCommunityProject::SettingsDaemon::Modem *>();
+    this->modems = new QList<org::cutie_shell::SettingsDaemon::Modem *>();
     QDBusPendingReply<unsigned int> countReply = ofono->ModemCount();
     countReply.waitForFinished();
     if (countReply.isValid()) {
         for (unsigned int i = 0; i < countReply.value(); i++) {
-            com::github::CutiePiShellCommunityProject::SettingsDaemon::Modem *modem = 
-                new com::github::CutiePiShellCommunityProject::SettingsDaemon::Modem(
-                "com.github.CutiePiShellCommunityProject.SettingsDaemon", QString("/com/github/CutiePiShellCommunityProject/modem/").append(QString::number(i)),
+            org::cutie_shell::SettingsDaemon::Modem *modem = 
+                new org::cutie_shell::SettingsDaemon::Modem(
+                "org.cutie_shell.SettingsDaemon", QString("/modem/").append(QString::number(i)),
                 QDBusConnection::systemBus());
             modem->PowerModem(true);
             modem->OnlineModem(true);
@@ -43,7 +43,7 @@ Settings::Settings(QObject *parent) : QObject(parent) {
 }
 
 void Settings::initCellular(int i) {
-    com::github::CutiePiShellCommunityProject::SettingsDaemon::Modem *modem = 0;
+    org::cutie_shell::SettingsDaemon::Modem *modem = 0;
     if (modems->count() >= i) {
         modem = modems->at(i - 1);
     } else {
@@ -204,13 +204,13 @@ void Settings::onAtmosphereVariantChanged() {
 }
 
 void Settings::onNetNameChanged(QString name) {
-    com::github::CutiePiShellCommunityProject::SettingsDaemon::Modem *modem = (com::github::CutiePiShellCommunityProject::SettingsDaemon::Modem *)sender();
+    org::cutie_shell::SettingsDaemon::Modem *modem = (org::cutie_shell::SettingsDaemon::Modem *)sender();
     int i = modems->lastIndexOf(modem);
     QMetaObject::invokeMethod(((QQmlApplicationEngine *)parent())->rootObjects()[0], "setCellularName", Q_ARG(QVariant, i + 1), Q_ARG(QVariant, name));      
 }
 
 void Settings::onNetStrengthChanged(uchar strength) {
-    com::github::CutiePiShellCommunityProject::SettingsDaemon::Modem *modem = (com::github::CutiePiShellCommunityProject::SettingsDaemon::Modem *)sender();
+    org::cutie_shell::SettingsDaemon::Modem *modem = (org::cutie_shell::SettingsDaemon::Modem *)sender();
     int i = modems->lastIndexOf(modem);
     QMetaObject::invokeMethod(((QQmlApplicationEngine *)parent())->rootObjects()[0], "setCellularStrength", Q_ARG(QVariant, i + 1), Q_ARG(QVariant, strength));      
 }
@@ -228,9 +228,9 @@ void Settings::setAtmosphereVariant(QString variant) {
 }
 
 void Settings::onModemAdded(QDBusObjectPath path) {
-    com::github::CutiePiShellCommunityProject::SettingsDaemon::Modem *modem = 
-        new com::github::CutiePiShellCommunityProject::SettingsDaemon::Modem(
-        "com.github.CutiePiShellCommunityProject.SettingsDaemon", path.path(),
+    org::cutie_shell::SettingsDaemon::Modem *modem = 
+        new org::cutie_shell::SettingsDaemon::Modem(
+        "org.cutie_shell.SettingsDaemon", path.path(),
         QDBusConnection::systemBus());
     modem->PowerModem(true);
     modem->OnlineModem(true);
