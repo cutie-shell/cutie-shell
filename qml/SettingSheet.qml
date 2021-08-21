@@ -75,6 +75,34 @@ Rectangle {
         }
     }
 
+    function setWifiName(name) {
+        for (let i = 0; i < settingsModel.count; i++) {
+            let btn = settingsModel.get(i)
+            if (btn.tText == "WiFi") {
+                btn.bText = name
+            }
+        }
+    }
+
+    function setWifiStrength(strength) {
+        for (let i = 0; i < settingsModel.count; i++) {
+            let btn = settingsModel.get(i)
+            if (btn.tText == "WiFi") {
+                if (strength > 80) {
+                    btn.icon = "icons/network-wireless-signal-excellent-symbolic.svg"
+                } else if (strength > 50) {
+                    btn.icon = "icons/network-wireless-signal-good-symbolic.svg"
+                } else if (strength > 30) {
+                    btn.icon = "icons/network-wireless-signal-ok-symbolic.svg"
+                } else if (strength > 10) {
+                    btn.icon = "icons/network-wireless-signal-low-symbolic.svg"
+                } else {
+                    btn.icon = "icons/network-wireless-signal-none-symbolic.svg"
+                }
+            }
+        }
+    }
+
     Item {
         x: 0
         y: parent.height - 10 * shellScaleFactor
@@ -269,9 +297,9 @@ Rectangle {
                 id: settingsModel
 
                 ListElement {
-                    bText: "Wi-Fi"
-                    tText: ""
-                    icon: "icons/network-wireless-signal-good-symbolic.svg"
+                    bText: ""
+                    tText: "WiFi"
+                    icon: "icons/network-wireless-signal-none-symbolic.svg"
                 }
                 ListElement {
                     bText: "Airplane"
