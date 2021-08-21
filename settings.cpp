@@ -14,6 +14,9 @@ Settings::Settings(QObject *parent) : QObject(parent) {
     this->ofono = new org::cutie_shell::SettingsDaemon::Ofono(
         "org.cutie_shell.SettingsDaemon", "/modem",
         QDBusConnection::systemBus());
+    this->connmann = new org::cutie_shell::SettingsDaemon::Connman(
+        "org.cutie_shell.SettingsDaemon", "/connection",
+        QDBusConnection::systemBus());
     this->modems = new QList<org::cutie_shell::SettingsDaemon::Modem *>();
     QDBusPendingReply<unsigned int> countReply = ofono->ModemCount();
     countReply.waitForFinished();
@@ -66,6 +69,23 @@ void Settings::initCellular(int i) {
 
     connect(modem, SIGNAL(NetNameChanged(QString)), this, SLOT(onNetNameChanged(QString)));
     connect(modem, SIGNAL(NetStrengthChanged(uchar)), this, SLOT(onNetStrengthChanged(uchar)));   
+}
+
+void Settings::initWifi() {
+    QDBusPendingReply<QString> netReply = connmann->GetWifiName();
+    netReply.waitForFinished();
+    if (netReply.isValid()) {
+        QMetaObject::invokeMethod(((QQmlApplicationEngine *)parent())->rootObjects()[0], "setWifiName", Q_ARG(QVariant, netReply.value()));
+    }
+
+    QDBusPendingReply<uchar> netReply2 = connmann->GetWifiStrength();
+    netReply2.waitForFinished();
+    if (netReply2.isValid()) {
+        QMetaObject::invokeMethod(((QQmlApplicationEngine *)parent())->rootObjects()[0], "setWifiStrength", Q_ARG(QVariant, netReply2.value()));
+    }
+
+    connect(this->connmann, SIGNAL(WifiStrengthChanged(uchar)), this, SLOT(onWifiStrengthChanged(uchar)));
+    connect(this->connmann, SIGNAL(WifiNameChanged(QString)), this, SLOT(onWifiNameChanged(QString)));  
 }
 
 void Settings::initCellularFull() {
@@ -213,6 +233,14 @@ void Settings::onNetStrengthChanged(uchar strength) {
     org::cutie_shell::SettingsDaemon::Modem *modem = (org::cutie_shell::SettingsDaemon::Modem *)sender();
     int i = modems->lastIndexOf(modem);
     QMetaObject::invokeMethod(((QQmlApplicationEngine *)parent())->rootObjects()[0], "setCellularStrength", Q_ARG(QVariant, i + 1), Q_ARG(QVariant, strength));      
+}
+
+void Settings::onWifiNameChanged(QString name) {
+    QMetaObject::invokeMethod(((QQmlApplicationEngine *)parent())->rootObjects()[0], "setWifiName", Q_ARG(QVariant, name));      
+}
+
+void Settings::onWifiStrengthChanged(uchar strength) {
+    QMetaObject::invokeMethod(((QQmlApplicationEngine *)parent())->rootObjects()[0], "setWifiStrength",Q_ARG(QVariant, strength));      
 }
 
 void Settings::setAtmospherePath(QString path) {

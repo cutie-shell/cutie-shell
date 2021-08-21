@@ -58,6 +58,15 @@ WaylandOutput {
         if (n == 1) { 
             setting.setCellularStrength(strength);
         }
+    } 
+
+    function setWifiName(name) {
+        settingSheet.setWifiName(name);
+    }
+
+    function setWifiStrength(strength) {
+        settingSheet.setWifiStrength(strength);
+        setting.setWifiStrength(strength);
     }   
 
     Item {

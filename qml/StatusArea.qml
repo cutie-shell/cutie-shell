@@ -23,6 +23,20 @@ Rectangle {
         text13.text = strength.toString() + " %";
     }
 
+    function setWifiStrength(strength) {
+        if (strength > 80) {
+            image1.source = "icons/network-wireless-signal-excellent-symbolic.svg"
+        } else if (strength > 50) {
+            image1.source = "icons/network-wireless-signal-good-symbolic.svg"
+        } else if (strength > 30) {
+            image1.source = "icons/network-wireless-signal-ok-symbolic.svg"
+        } else if (strength > 10) {
+            image1.source = "icons/network-wireless-signal-low-symbolic.svg"
+        } else {
+            image1.source = "icons/network-wireless-signal-none-symbolic.svg"
+        }
+    }
+
     Rectangle
     {
         id: maskRect2
@@ -52,7 +66,7 @@ Rectangle {
         anchors.verticalCenter: parent.verticalCenter
         width: 15 * shellScaleFactor
         height: 15 * shellScaleFactor
-        source: "icons/network-wireless-signal-good-symbolic.svg"
+        source: "icons/network-wireless-signal-none-symbolic.svg"
         sourceSize.height: 400
         sourceSize.width: 400
         fillMode: Image.PreserveAspectFit

@@ -55,6 +55,14 @@ WaylandCompositor {
     function setCellularStrength(n, strength) {
         screen.setCellularStrength(n, strength);
     }
+
+    function setWifiName(name) {
+        screen.setWifiName(name);
+    }
+
+    function setWifiStrength(strength) {
+        screen.setWifiStrength(strength);
+    }
     
     XdgShell {
         onToplevelCreated: {
