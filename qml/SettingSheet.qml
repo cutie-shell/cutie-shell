@@ -297,21 +297,6 @@ Rectangle {
                 id: settingsModel
 
                 ListElement {
-                    bText: ""
-                    tText: "WiFi"
-                    icon: "icons/network-wireless-signal-none-symbolic.svg"
-                }
-                ListElement {
-                    bText: "Airplane"
-                    tText: ""
-                    icon: "icons/airplane-mode.svg"
-                }
-                ListElement {
-                    bText: "-1 °C"
-                    tText: "Snow"
-                    icon: "icons/weather/graphic-weather-n322-light.png"
-                }
-                ListElement {
                     bText: "Power Off"
                     tText: ""
                     icon: "icons/system-shutdown-symbolic.svg"
@@ -322,6 +307,25 @@ Rectangle {
                         isPoweroffPressed = !isPoweroffPressed
                     }
                 }
+
+                ListElement {
+                    bText: ""
+                    tText: "WiFi"
+                    icon: "icons/network-wireless-signal-none-symbolic.svg"
+                }
+
+                /*
+                ListElement {
+                    bText: "Airplane"
+                    tText: ""
+                    icon: "icons/airplane-mode.svg"
+                }
+                ListElement {
+                    bText: "-1 °C"
+                    tText: "Snow"
+                    icon: "icons/weather/graphic-weather-n322-light.png"
+                }
+                */
             }
 
             GridView {
