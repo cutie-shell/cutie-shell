@@ -14,6 +14,7 @@ private:
     org::cutie_shell::SettingsDaemon::Atmosphere *atmosphere;
     org::cutie_shell::SettingsDaemon::Ofono *ofono;
     QList<org::cutie_shell::SettingsDaemon::Modem *> *modems;
+    org::cutie_shell::SettingsDaemon::Connman *connmann;
     org::freedesktop::DBus::Properties *battery;
     QSettings *settingsStore;
     
@@ -30,6 +31,7 @@ public:
     void autostart();
     void initCellular(int i);
     void initCellularFull();
+    void initWifi();
     Q_INVOKABLE void loadAppList();
 public Q_SLOTS:
     void onUPowerInfoChanged(QString interface, QVariantMap, QStringList);
@@ -38,6 +40,8 @@ public Q_SLOTS:
     void onNetNameChanged(QString name);
     void onNetStrengthChanged(uchar strength);
     void onModemAdded(QDBusObjectPath path);
+    void onWifiNameChanged(QString name);
+    void onWifiStrengthChanged(uchar strength);
 };
 
 #endif // BACKLIGHT_H
