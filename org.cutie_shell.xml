@@ -70,4 +70,18 @@
       <arg name="strength" type="y" direction="out"/>
     </signal>
   </interface>
+  <interface name="org.cutie_shell.SettingsDaemon.Connman">
+    <method name="GetWifiStrength">
+      <arg name="strength" type="y" direction="out"/>
+    </method>
+    <signal name="WifiStrengthChanged">
+      <arg name="strength" type="y" direction="out"/>
+    </signal>
+    <method name="GetWifiName">
+      <arg name="name" type="s" direction="out"/>
+    </method>
+    <signal name="WifiNameChanged">
+      <arg name="name" type="s" direction="out"/>
+    </signal>
+  </interface>
 </node>
