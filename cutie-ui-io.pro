@@ -47,4 +47,7 @@ DBUS_INTERFACES += \
 systemdservice.files = cutie-ui-io.service
 systemdservice.path = /usr/lib/systemd/system/
 
-INSTALLS += systemdservice
+autostart.files = maliit.desktop
+autostart.path = /etc/xdg/autostart/
+
+INSTALLS += systemdservice autostart
