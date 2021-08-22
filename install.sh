@@ -7,13 +7,15 @@ sudo apt upgrade -y
 sudo apt install git qtdeclarative5-dev qdbus qtcreator qml qtbase5-gles-dev qt5-qpa-hwcomposer-plugin g++ make libudev-dev qml-module-qtquick2 qml-module-qtquick-controls qml-module-qtquick-controls2 qml-module-qtsensors qml-module-qtwayland-compositor qml-module-qtquick-virtualkeyboard polkit-kde-agent-1 libqt5dbus5 libqt5waylandclient5 libqt5waylandclient5-dev qtwayland5 qtvirtualkeyboard-plugin qml-module-qt-labs-folderlistmodel libqt5multimedia5 qtbase5-private-gles-dev qtwayland5-dev-tools libwayland-dev libxcb* doxygen libchewing3-dev libpinyin13-dev presage libpresage-dev libhunspell-dev qtwayland5-private-dev cmake -y
 cd ~
 
-pt download qtmultimedia5-dev
+apt download qtmultimedia5-dev
 ar x qtmultimedia5*.deb
 unxz data.tar.xz
 sudo mv data.tar /
 cd /
 sudo tar -xvf data.tar
 sudo rm -rvf data.tar
+
+cd ~
 
 echo -e  "\e[32m[X] Cloning repositories"
 sudo git clone https://github.com/cutie-shell/atmospheres.git /usr/share/atmospheres
