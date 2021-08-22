@@ -43,3 +43,11 @@ DBUS_INTERFACES += \
         org.freedesktop.DBus.xml \
         org.freedesktop.Notifications.xml \
         org.cutie_shell.xml
+
+systemdservice.files = cutie-ui-io.service
+systemdservice.path = /usr/lib/systemd/system/
+
+autostart.files = maliit.desktop
+autostart.path = /etc/xdg/autostart/
+
+INSTALLS += systemdservice autostart

@@ -139,8 +139,6 @@ void Settings::execApp(QString command)
 {
     qputenv("QT_QPA_PLATFORM", QByteArray("wayland"));
     qputenv("EGL_PLATFORM", QByteArray("wayland"));
-    qunsetenv("QT_IM_MODULE");
-    qunsetenv("QT_QPA_GENERIC_PLUGINS");
     qputenv("QT_SCALE_FACTOR", QString::number(((QQmlApplicationEngine *)parent())->rootContext()->contextProperty("shellScaleFactor").toDouble() * 3 / 4).toUtf8());
     qputenv("GDK_SCALE", QString::number(((QQmlApplicationEngine *)parent())->rootContext()->contextProperty("shellScaleFactor").toDouble() * 3 / 4).toUtf8());
     qputenv("GDK_DPI_SCALE", QString::number(((QQmlApplicationEngine *)parent())->rootContext()->contextProperty("shellScaleFactor").toDouble() * 3 / 4).toUtf8());
