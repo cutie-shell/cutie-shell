@@ -66,4 +66,4 @@ echo "PersistentTetheringMode=true" | sudo tee -a /etc/connman/main.conf
 sudo systemctl unmask connman
 sudo systemctl enable --now connman && sudo systemctl stop usb-tethering && sudo systemctl disable --now NetworkManager && connmanctl enable gadget && connmanctl tether gadget on
 
-echo -e  "\e[32m[X] Installation finished, please reboot now."
+sudo reboot -f
