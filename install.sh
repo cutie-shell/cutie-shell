@@ -4,17 +4,24 @@ echo -e  "\e[32m[X] Upgrading packages and installing necessary dependencies"
 echo "deb http://droidian-libhybris.repo.droidian.org/bullseye-glvnd/ bullseye main" | sudo tee -a /etc/apt/sources.list
 sudo apt update -y
 sudo apt upgrade -y
-sudo apt install git qtdeclarative5-dev qdbus qtcreator qml qtbase5-gles-dev qt5-qpa-hwcomposer-plugin g++ make libudev-dev qml-module-qtquick2 qml-module-qtquick-controls qml-module-qtquick-controls2 qml-module-qtsensors qml-module-qtwayland-compositor qml-module-qtquick-virtualkeyboard polkit-kde-agent-1 libqt5dbus5 libqt5waylandclient5 libqt5waylandclient5-dev qtwayland5 qtvirtualkeyboard-plugin qml-module-qt-labs-folderlistmodel libqt5multimedia5 qtbase5-private-gles-dev qtwayland5-dev-tools libwayland-dev libxcb* doxygen libchewing3-dev libpinyin13-dev presage libpresage-dev libhunspell-dev cmake -y
+sudo apt install git qtdeclarative5-dev qdbus qtcreator qml qtbase5-gles-dev qt5-qpa-hwcomposer-plugin g++ make libudev-dev qml-module-qtquick2 qml-module-qtquick-controls qml-module-qtquick-controls2 qml-module-qtsensors qml-module-qtwayland-compositor qml-module-qtquick-virtualkeyboard polkit-kde-agent-1 libqt5dbus5 libqt5waylandclient5 libqt5waylandclient5-dev qtwayland5 qtvirtualkeyboard-plugin qml-module-qt-labs-folderlistmodel libqt5multimedia5 qtbase5-private-gles-dev qtwayland5-dev-tools libwayland-dev libxcb* doxygen libchewing3-dev libpinyin13-dev presage libpresage-dev libhunspell-dev qtwayland5-private-dev cmake -y
 cd ~
-sudo apt download qtmultimedia5-dev
-sudo dpkg -i qtmultimedia5-dev*
+
+pt download qtmultimedia5-dev
+ar x qtmultimedia5*.deb
+unxz data.tar.xz
+sudo mv data.tar /
+cd /
+sudo tar -xvf data.tar
+sudo rm -rvf data.tar
+
 echo -e  "\e[32m[X] Cloning repositories"
 sudo git clone https://github.com/cutie-shell/atmospheres.git /usr/share/atmospheres
 git clone https://github.com/cutie-shell/cutie-shell
 git clone https://github.com/cutie-shell/cutie-settings-daemon.git
 git clone https://github.com/cutie-shell/qml-module-cutie.git
 git clone https://github.com/cutie-shell/cutie-keyboard.git
-wget https://github.com/maliit/framework/archive/refs/tags/2.0.0.zip
+git clone https://github.com/maliit/framework.git
 
 echo -e  "\e[32m[X] Installing cutie-shell-daemon"
 cd cutie-settings-daemon
@@ -44,8 +51,7 @@ sudo systemctl enable cutie-ui-io
 
 echo -e "\e[32m[X] installing maliit-framework"
 cd ~
-unzip 2.0.0.zip
-cd framework-2.0.0
+cd framework
 mkdir build
 cd build
 cmake -DCMAKE_INSTALL_PREFIX=/usr ..
@@ -60,8 +66,7 @@ cd build
 cmake -DCMAKE_INSTALL_PREFIX=/usr ..
 make -j$(nproc)
 sudo make install
-
-sudo apt install -f
+sudo glib-compile-schemas /usr/share/glib-2.0/schemas/
 
 echo -e "\e32m[X] setting up connman"
 sudo systemctl mask connman
