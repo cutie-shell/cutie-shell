@@ -16,9 +16,9 @@ ShellSurfaceItem {
         for (let i = 0; i < shellSurfaces.count; i++) {
             if (shellSurfaces.get(i).shellSurface != shellSurface) {
                 if (shellSurface != null) {
-                    shellSurfaces.get(i).shellSurface.toplevel.sendFullscreen(Qt.size(view.width, view.height * 0.7 - 36 * shellScaleFactor));
+                    shellSurfaces.get(i).shellSurface.toplevel.sendResizing(Qt.size(view.width, view.height * 0.7 - 36 * shellScaleFactor));
                 } else {
-                    shellSurfaces.get(i).shellSurface.toplevel.sendFullscreen(Qt.size(view.width, view.height - 20 * shellScaleFactor));
+                    shellSurfaces.get(i).shellSurface.toplevel.sendResizing(Qt.size(view.width, view.height - 20 * shellScaleFactor));
                 }
             }
         }
