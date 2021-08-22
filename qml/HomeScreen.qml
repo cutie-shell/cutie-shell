@@ -10,11 +10,41 @@ Rectangle {
     z: 150
     color: "transparent"
     enabled: root.state == "homeScreen"
+
+    Rectangle {
+        id: searchBar
+        height: 30 * shellScaleFactor
+        color: (atmosphereVariant == "dark") ? "#ffffff" : "#000000"
+        visible: true
+        anchors.left: parent.left
+        anchors.right: parent.right
+        anchors.top: parent.top
+        anchors.leftMargin: 8 * shellScaleFactor
+        anchors.rightMargin: 8 * shellScaleFactor
+        anchors.topMargin: 25 * shellScaleFactor
+        radius: 8 * shellScaleFactor
+        clip: true
+        TextField {
+            id: searchText
+            text: ""
+            anchors.verticalCenter: parent.verticalCenter
+            anchors.left: parent.left
+            anchors.right: parent.right
+            color: (atmosphereVariant == "dark") ? "#000000" : "#ffffff"
+            clip: true
+            font.family: "Lato"
+            font.pixelSize: 14 * shellScaleFactor
+
+            background: Rectangle {
+                color: "transparent"
+            }
+        }
+    }
     
     GridView {
         id: tabListView
         anchors.fill: parent
-        anchors.topMargin: 20 * shellScaleFactor
+        anchors.topMargin: 64 * shellScaleFactor
         model: shellSurfaces
         cellWidth: view.width / 2 - 5 * shellScaleFactor
         cellHeight: view.height / 2 + 20 * shellScaleFactor
@@ -70,6 +100,28 @@ Rectangle {
                     horizontalAlignment: Text.AlignHCenter
                     font.family: "Lato"
                     font.bold: false
+
+                    onTextChanged: {
+                        if (text == "maliit-server") {
+                            if (appScreen.shellSurfaceIdx == index){
+                                if (shellSurfaces.count != 1) {
+                                    if (index == shellSurfaces.count - 1) {
+                                        appScreen.shellSurface = shellSurfaces.get(index - 1).shellSurface;
+                                        appScreen.shellSurfaceIdx = index - 1;
+                                    } else {
+                                        appScreen.shellSurface = shellSurfaces.get(index + 1).shellSurface;
+                                        appScreen.shellSurfaceIdx = index + 1;
+                                    }
+                                } else {
+                                    appScreen.shellSurface = null;
+                                    appScreen.shellSurfaceIdx = -1;
+                                }
+                            }
+            			    root.state = root.oldState;
+                            screen.keyboard = modelData;
+			                shellSurfaces.remove(index);
+                        }
+                    }
                 }
 
                 MouseArea {
