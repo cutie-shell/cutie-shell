@@ -17,12 +17,15 @@ ShellSurfaceItem {
             if (shellSurfaces.get(i).shellSurface != shellSurface) {
                 if (shellSurface != null) {
                     shellSurfaces.get(i).shellSurface.toplevel.sendFullscreen(Qt.size(view.width, view.height * 0.7 - 36 * shellScaleFactor));
-                    content.keyboardHeight = view.height * 0.3 + 16 * shellScaleFactor
                 } else {
                     shellSurfaces.get(i).shellSurface.toplevel.sendFullscreen(Qt.size(view.width, view.height - 20 * shellScaleFactor));
-                    content.keyboardHeight = 0
                 }
             }
+        }
+        if (shellSurface != null) {
+            content.keyboardHeight = view.height * 0.3 + 16 * shellScaleFactor
+        } else {
+            content.keyboardHeight = 0
         }
     }
 }
