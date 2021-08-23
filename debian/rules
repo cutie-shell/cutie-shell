@@ -1,0 +1,40 @@
+#!/usr/bin/make -f
+
+# Uncomment this to turn on verbose mode.
+#export DH_VERBOSE=1
+
+DEB_HOST_MULTIARCH ?= $(shell dpkg-architecture -qDEB_HOST_MULTIARCH)
+
+export QT_SELECT := qt5
+
+export DEB_BUILD_MAINT_OPTIONS = hardening=+all
+
+%:
+	dh $@ --with pkgkde_symbolshelper
+
+override_dh_auto_clean:
+	dh_auto_clean
+	rm -rf $(CURDIR)/test_root
+	rm -rf $(CURDIR)/docs
+	rm -rf $(CURDIR)/.local
+
+override_dh_auto_configure:
+	dh_auto_configure -- QT_BUILD_PARTS+=tests QMAKE_PYTHON=python3
+
+override_dh_auto_build-indep:
+	dh_auto_build -- docs
+
+override_dh_auto_build-arch:
+	# Makefiles need to be regenerated after qmltypes.prf becomes available.
+	# (The below line seems to be not needed since the bare existence of override
+	# target makes dh(1) change the build order, but let's keep it to be safe.)
+	find -name Makefile -and -not -path ./Makefile -delete
+	dh_auto_build
+
+override_dh_auto_install-arch:
+	dh_auto_install -- INSTALL_ROOT=$(CURDIR)/debian/tmp
+
+override_dh_auto_install-indep:
+	dh_auto_build -- INSTALL_ROOT=$(CURDIR)/debian/tmp install_docs
+
+override_dh_auto_test-indep:
