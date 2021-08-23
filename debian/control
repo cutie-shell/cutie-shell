@@ -1,0 +1,18 @@
+Source: cutie-shell
+Section: libs
+Maintainer: Erik Inkinen <erik.inkinen@gmail.com>
+Priority: optional
+Build-Depends: pkg-kde-tools,
+               qt5-qmake,
+               qtbase5-dev,
+               pkg-config,
+               qtdeclarative5-dev,
+               libqt5dbus5
+Standards-Version: 4.5.1
+
+Package: cutie-shell
+Architecture: any
+Multi-Arch: foreign
+Pre-Depends: ${misc:Pre-Depends}
+Depends: ${misc:Depends}, ${shlibs:Depends}, cutie-settings-daemon, qml-module-qtquick2, qml-module-qtquick-controls, qml-module-qtquick-controls2, qml-module-qtsensors, qml-module-qtwayland-compositor
+Description: This package contains Cutie Shell.

@@ -50,4 +50,7 @@ systemdservice.path = /usr/lib/systemd/system/
 autostart.files = maliit.desktop
 autostart.path = /etc/xdg/autostart/
 
-INSTALLS += systemdservice autostart
+logindconfig.files = logind.conf.d/10-cutie.conf
+logindconfig.path = /etc/systemd/logind.conf.d/
+
+INSTALLS += systemdservice autostart logindconfig
