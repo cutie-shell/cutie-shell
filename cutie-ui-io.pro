@@ -53,4 +53,4 @@ autostart.path = /etc/xdg/autostart/
 logindconfig.files = logind.conf.d/10-cutie.conf
 logindconfig.path = /etc/systemd/logind.conf.d/
 
-INSTALLS += systemdservice autostart logindconfig
+INSTALLS += autostart logindconfig
