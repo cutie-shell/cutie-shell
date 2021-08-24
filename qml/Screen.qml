@@ -29,10 +29,10 @@ WaylandOutput {
     property XdgSurface keyboard: null
 
     function handleShellSurface(shellSurface, toplevel) {
-        shellSurfaces.insert(0, {shellSurface: shellSurface});
-        toplevel.sendResizing(Qt.size(view.width, view.height - 20 * shellScaleFactor));
+        shellSurfaces.insert(appScreen.shellSurfaceIdx + 1, {shellSurface: shellSurface});
+        toplevel.sendResizing(Qt.size(view.width, view.height - content.keyboardHeight - 20 * shellScaleFactor));
         appScreen.shellSurface = shellSurface;
-        appScreen.shellSurfaceIdx = 0;
+        appScreen.shellSurfaceIdx += 1;
         root.oldState = root.state;
         root.state = "appScreen";
     }

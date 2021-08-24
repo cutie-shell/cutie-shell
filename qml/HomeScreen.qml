@@ -105,12 +105,12 @@ Rectangle {
                         if (text == "maliit-server") {
                             if (appScreen.shellSurfaceIdx == index){
                                 if (shellSurfaces.count != 1) {
-                                    if (index == shellSurfaces.count - 1) {
-                                        appScreen.shellSurface = shellSurfaces.get(index - 1).shellSurface;
-                                        appScreen.shellSurfaceIdx = index - 1;
-                                    } else {
+                                    if (index == 0) {
                                         appScreen.shellSurface = shellSurfaces.get(index + 1).shellSurface;
                                         appScreen.shellSurfaceIdx = index + 1;
+                                    } else {
+                                        appScreen.shellSurface = shellSurfaces.get(index - 1).shellSurface;
+                                        appScreen.shellSurfaceIdx = index - 1;
                                     }
                                 } else {
                                     appScreen.shellSurface = null;
@@ -136,12 +136,12 @@ Rectangle {
                     onPressAndHold: {
                         if (appScreen.shellSurfaceIdx == index){
                             if (shellSurfaces.count != 1) {
-                                if (index == shellSurfaces.count - 1) {
-                                    appScreen.shellSurface = shellSurfaces.get(index - 1).shellSurface;
-                                    appScreen.shellSurfaceIdx = index - 1;
-                                } else {
+                                if (index == 0) {
                                     appScreen.shellSurface = shellSurfaces.get(index + 1).shellSurface;
                                     appScreen.shellSurfaceIdx = index + 1;
+                                } else {
+                                    appScreen.shellSurface = shellSurfaces.get(index - 1).shellSurface;
+                                    appScreen.shellSurfaceIdx = index - 1;
                                 }
                             } else {
                                 appScreen.shellSurface = null;
@@ -156,11 +156,11 @@ Rectangle {
                             if (appScreen.shellSurfaceIdx == index){
                                 if (shellSurfaces.count != 1) {
                                     if (index == shellSurfaces.count - 1) {
-                                        appScreen.shellSurface = shellSurfaces.get(index - 1).shellSurface;
-                                        appScreen.shellSurfaceIdx = index - 1;
-                                    } else {
                                         appScreen.shellSurface = shellSurfaces.get(index + 1).shellSurface;
                                         appScreen.shellSurfaceIdx = index + 1;
+                                    } else {
+                                        appScreen.shellSurface = shellSurfaces.get(index - 1).shellSurface;
+                                        appScreen.shellSurfaceIdx = index - 1;
                                     }
                                 } else {
                                     appScreen.shellSurface = null;
