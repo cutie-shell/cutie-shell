@@ -70,7 +70,7 @@ make -j$(nproc)
 sudo make install
 sudo glib-compile-schemas /usr/share/glib-2.0/schemas/
 
-echo -e  "\e[32m[X] Fixing atmospheres"
+echo -e  "\e[32m[X] fixing atmospheres"
 sudo rm -rf /usr/share/debian
 sudo rm -rf /usr/share/LICENSE
 sudo rm -rf /usr/share/README.md
@@ -82,4 +82,5 @@ echo "PersistentTetheringMode=true" | sudo tee -a /etc/connman/main.conf
 sudo systemctl unmask connman
 sudo systemctl enable --now connman && sudo systemctl stop usb-tethering && sudo systemctl disable --now NetworkManager && connmanctl enable gadget && connmanctl tether gadget on
 
+echo -e  "\e[32m[X] reboot"
 sudo reboot -f
