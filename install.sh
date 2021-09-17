@@ -1,7 +1,6 @@
 #!/bin/bash
-echo -e  "\e[32m[X] Hybris-installer cutie shell"
+echo -e  "\e[32m[X] wayland-egl installer cutie shell"
 echo -e  "\e[32m[X] Upgrading packages and installing necessary dependencies"
-echo "deb http://droidian-libhybris.repo.droidian.org/bullseye-glvnd/ bullseye main" | sudo tee -a /etc/apt/sources.list
 sudo apt update -y
 sudo apt upgrade -y
 sudo apt install git qtdeclarative5-dev qdbus qml qtbase5-gles-dev qt5-qpa-hwcomposer-plugin g++ make libudev-dev qml-module-qtquick2 qml-module-qtquick-controls qml-module-qtquick-controls2 qml-module-qtsensors qml-module-qtwayland-compositor qml-module-qtquick-virtualkeyboard polkit-kde-agent-1 libqt5dbus5 libqt5waylandclient5 libqt5waylandclient5-dev qtwayland5 qtvirtualkeyboard-plugin qml-module-qt-labs-folderlistmodel libqt5multimedia5 qtbase5-private-gles-dev qtwayland5-dev-tools libwayland-dev libxcb* doxygen libchewing3-dev libpinyin13-dev presage libpresage-dev libhunspell-dev qtwayland5-private-dev cmake -y
