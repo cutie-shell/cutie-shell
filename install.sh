@@ -1,10 +1,10 @@
 #!/bin/bash
-
+echo -e  "\e[32m[X] Hybris-installer cutie shell"
 echo -e  "\e[32m[X] Upgrading packages and installing necessary dependencies"
 echo "deb http://droidian-libhybris.repo.droidian.org/bullseye-glvnd/ bullseye main" | sudo tee -a /etc/apt/sources.list
 sudo apt update -y
 sudo apt upgrade -y
-sudo apt install git qtdeclarative5-dev qdbus qtcreator qml qtbase5-gles-dev qt5-qpa-hwcomposer-plugin g++ make libudev-dev qml-module-qtquick2 qml-module-qtquick-controls qml-module-qtquick-controls2 qml-module-qtsensors qml-module-qtwayland-compositor qml-module-qtquick-virtualkeyboard polkit-kde-agent-1 libqt5dbus5 libqt5waylandclient5 libqt5waylandclient5-dev qtwayland5 qtvirtualkeyboard-plugin qml-module-qt-labs-folderlistmodel libqt5multimedia5 qtbase5-private-gles-dev qtwayland5-dev-tools libwayland-dev libxcb* doxygen libchewing3-dev libpinyin13-dev presage libpresage-dev libhunspell-dev qtwayland5-private-dev cmake -y
+sudo apt install git qtdeclarative5-dev qdbus qml qtbase5-gles-dev qt5-qpa-hwcomposer-plugin g++ make libudev-dev qml-module-qtquick2 qml-module-qtquick-controls qml-module-qtquick-controls2 qml-module-qtsensors qml-module-qtwayland-compositor qml-module-qtquick-virtualkeyboard polkit-kde-agent-1 libqt5dbus5 libqt5waylandclient5 libqt5waylandclient5-dev qtwayland5 qtvirtualkeyboard-plugin qml-module-qt-labs-folderlistmodel libqt5multimedia5 qtbase5-private-gles-dev qtwayland5-dev-tools libwayland-dev libxcb* doxygen libchewing3-dev libpinyin13-dev presage libpresage-dev libhunspell-dev qtwayland5-private-dev cmake -y
 cd ~
 
 apt download qtmultimedia5-dev
@@ -18,12 +18,17 @@ sudo rm -rvf data.tar
 cd ~
 
 echo -e  "\e[32m[X] Cloning repositories"
-sudo git clone https://github.com/cutie-shell/atmospheres.git /usr/share/atmospheres
+sudo git clone https://github.com/cutie-shell/atmospheres.git /usr/share/
 git clone https://github.com/cutie-shell/cutie-shell
 git clone https://github.com/cutie-shell/cutie-settings-daemon.git
 git clone https://github.com/cutie-shell/qml-module-cutie.git
 git clone https://github.com/cutie-shell/cutie-keyboard.git
 git clone https://github.com/maliit/framework.git
+
+echo -e  "\e[32m[X] Fixing atmospheres"
+sudo rm -rf /usr/share/debian
+sudo rm -rf /usr/share/LICENSE
+sudo rm -rf /usr/share/README.md
 
 echo -e  "\e[32m[X] Installing cutie-shell-daemon"
 cd cutie-settings-daemon
