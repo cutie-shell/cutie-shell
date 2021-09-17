@@ -25,11 +25,6 @@ git clone https://github.com/cutie-shell/qml-module-cutie.git
 git clone https://github.com/cutie-shell/cutie-keyboard.git
 git clone https://github.com/maliit/framework.git
 
-echo -e  "\e[32m[X] Fixing atmospheres"
-sudo rm -rf /usr/share/debian
-sudo rm -rf /usr/share/LICENSE
-sudo rm -rf /usr/share/README.md
-
 echo -e  "\e[32m[X] Installing cutie-shell-daemon"
 cd cutie-settings-daemon
 qmake
@@ -74,6 +69,11 @@ cmake -DCMAKE_INSTALL_PREFIX=/usr ..
 make -j$(nproc)
 sudo make install
 sudo glib-compile-schemas /usr/share/glib-2.0/schemas/
+
+echo -e  "\e[32m[X] Fixing atmospheres"
+sudo rm -rf /usr/share/debian
+sudo rm -rf /usr/share/LICENSE
+sudo rm -rf /usr/share/README.md
 
 echo -e "\e32m[X] setting up connman"
 sudo systemctl mask connman
