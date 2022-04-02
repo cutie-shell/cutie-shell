@@ -12,10 +12,6 @@
         <file>StatusArea.qml</file>
         <file>LauncherSwipe.qml</file>
         <file>WaylandChrome.qml</file>
-        <file>weatherinfo.qml</file>
-        <file>../components/WeatherIcon.qml</file>
-        <file>../components/ForecastIcon.qml</file>
-        <file>../components/BigForecastIcon.qml</file>
     </qresource>
     <qresource prefix="/QtQuick/VirtualKeyboard/content/styles/cutie">
         <file>style.qml</file>
