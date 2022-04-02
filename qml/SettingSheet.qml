@@ -1,8 +1,8 @@
 import QtQuick 2.14
 import QtQuick.Controls 2.14
 import QtGraphicalEffects 1.0
-
-// setting sheet 
+import WeatherInfo 1.0
+// setting sheet
 Rectangle {
     id: settingSheet
     width: view.width
@@ -13,7 +13,8 @@ Rectangle {
     y: -view.height
 
     property bool isPoweroffPressed: false
-
+    property string weatherIcon: ""
+    
     onOpacityChanged: {
         isPoweroffPressed = false;
     }
@@ -28,6 +29,16 @@ Rectangle {
                     btn.tText = "";
                 }
             }
+        }
+    }
+    AppModel {
+        id: model
+        onReadyChanged: {
+            if (model.ready)
+              settingSheet.setWeather()
+
+
+
         }
     }
 
@@ -83,6 +94,63 @@ Rectangle {
             }
         }
     }
+    function setWeather() {
+        for (let i = 0; i < settingsModel.count; i++) {
+            let btn = settingsModel.get(i)
+            if (btn.tText == "No weather data") {
+                btn.bText = (model.hasValidWeather
+                             ? model.weather.temperature
+                             : "??")
+                btn.tText = (model.hasValidWeather
+                             ? model.weather.weatherDescription
+                             : "No weather data")
+               weatherIcon= (model.hasValidWeather
+                             ? model.weather.weatherIcon
+                             : "01d")
+                switch (weatherIcon) {
+                case "01d":
+                case "01n":
+                  btn.icon =  "icons/weather-sunny.png"
+                    break;
+                case "02d":
+                case "02n":
+                  btn.icon =   "icons/weather-sunny-very-few-clouds.png"
+                    break;
+                case "03d":
+                case "03n":
+                   btn.icon =   "icons/weather-few-clouds.png"
+                    break;
+                case "04d":
+                case "04n":
+                  btn.icon =    "icons/weather-overcast.png"
+                    break;
+                case "09d":
+                case "09n":
+                  btn.icon =    "icons/weather-showers.png"
+                    break;
+                case "10d":
+                case "10n":
+                  btn.icon =   "icons/weather-showers.png"
+                    break;
+                case "11d":
+                case "11n":
+                   btn.icon =   "icons/weather-thundershower.png"
+                    break;
+                case "13d":
+                case "13n":
+                   btn.icon =   "icons/weather-snow.png"
+                    break;
+                case "50d":
+                case "50n":
+                 btn.icon =    "icons/weather-fog.png"
+                    break;
+                default:
+                   btn.icon =   "icons/weather-unknown.png"
+                }
+
+            }
+        }
+    }
 
     function setWifiStrength(strength) {
         for (let i = 0; i < settingsModel.count; i++) {
@@ -110,7 +178,7 @@ Rectangle {
         width: parent.width
         z: 100
 
-        MouseArea { 
+        MouseArea {
             drag.target: parent; drag.axis: Drag.YAxis; drag.minimumY: - 10 * shellScaleFactor; drag.maximumY: view.height - 10 * shellScaleFactor
             enabled: settingsState.state != "closed"
             anchors.fill: parent
@@ -124,11 +192,11 @@ Rectangle {
             }
 
             onReleased: {
-                if (parent.y < view.height - 2 * parent.height) { 
+                if (parent.y < view.height - 2 * parent.height) {
                     settingsState.state = "closed"
                     settingContainer.state = "closed"
                 }
-                else { 
+                else {
                     settingsState.state = "opened"
                     settingContainer.state = "opened"
                 }
@@ -320,12 +388,17 @@ Rectangle {
                     tText: ""
                     icon: "icons/airplane-mode.svg"
                 }
+                 */
                 ListElement {
-                    bText: "-1 °C"
-                    tText: "Snow"
-                    icon: "icons/weather/graphic-weather-n322-light.png"
+                    bText: ""
+                    tText: "No weather data"
+                    icon: ""
+                         clickHandler: function (self) {
+                              model.refreshWeather()
+                             settingSheet.setWeather()
+                         }
                 }
-                */
+
             }
 
             GridView {
@@ -371,7 +444,7 @@ Rectangle {
                             font.family: "Lato"
                             font.bold: false
                         }
-                        
+
                         Image {
                             anchors.fill: parent
                             anchors.margins: parent.width / 3
@@ -507,7 +580,7 @@ Rectangle {
                         if (screenLockState.state != "closed") {
                             let maxB = settings.GetMaxBrightness();
                             settings.SetBrightness(maxB / 6 + maxB * vol / 120);
-                        } 
+                        }
                     }
                     state: atmosphereVariant
                     states: [
