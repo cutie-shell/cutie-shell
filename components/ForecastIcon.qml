@@ -51,33 +51,51 @@
 import QtQuick 2.0
 
 Item {
-    id: current
+    id: top
 
-    property string topText: "20*"
-    property string bottomText: "Mostly cloudy"
+    property string topText: "Mon"
     property string weatherIcon: "01d"
-    property real smallSide: (current.width < current.height ? current.width : current.height)
+    property string bottomText: "22*/23*"
 
     Text {
-        text: current.topText
-        font.pointSize: 28
+        id: dayText
+        horizontalAlignment: Text.AlignHCenter
+        width: top.width
         color: "#ffffff"
-        anchors {
-            top: current.top
-            left: current.left
-            topMargin: 5
-            leftMargin: 5
-        }
+        text: top.topText
+
+        anchors.top: parent.top
+        anchors.topMargin: top.height / 5 - dayText.paintedHeight
+        anchors.horizontalCenter: parent.horizontalCenter
     }
 
     WeatherIcon {
-        weatherIcon: current.weatherIcon
-        useServerIcon: false
+        id: icon
+        weatherIcon: top.weatherIcon
+
+        property real side: {
+            var h = 3 * top.height / 5
+            if (top.width < h)
+                top.width;
+            else
+                h;
+        }
+
+        width: icon.side
+        height: icon.side
+
         anchors.centerIn: parent
-        anchors.verticalCenterOffset: -15
-        width: current.smallSide
-        height: current.smallSide
     }
 
+    Text {
+        id: tempText
+        horizontalAlignment: Text.AlignHCenter
+        width: top.width
+        text: top.bottomText
+        color: "#ffffff"
 
+        anchors.bottom: parent.bottom
+        anchors.bottomMargin: top.height / 5 - tempText.paintedHeight
+        anchors.horizontalCenter: parent.horizontalCenter
+    }
 }

@@ -12,7 +12,7 @@ Rectangle {
     property alias lockscreenDate: lockscreenDate 
 
     function timeChanged() {
-        lockscreenTime.text = Qt.formatDateTime(new Date(), "HH:mm:ss");
+        lockscreenTime.text = Qt.formatDateTime(new Date(), "HH:mm");
         lockscreenDate.text = Qt.formatDateTime(new Date(), "dddd, MMMM d");
     }
 

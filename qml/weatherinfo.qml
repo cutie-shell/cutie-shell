@@ -49,7 +49,7 @@
 ****************************************************************************/
 
 import QtQuick 2.0
-import "components"
+import "../components"
 //! [0]
 import WeatherInfo 1.0
 

@@ -1,5 +1,5 @@
 <RCC>
-    <qresource prefix="/icons/">
+    <qresource prefix="/icons">
         <file>audio-volume-high-symbolic.svg</file>
         <file>audio-volume-low-symbolic.svg</file>
         <file>audio-volume-medium-symbolic.svg</file>
@@ -231,5 +231,15 @@
         <file>weather/weather-snow.png</file>
         <file>weather/weather-sunny.png</file>
         <file>weather/weather-thundershower.png</file>
+        <file>weather-sunny.png</file>
+        <file>weather-sunny-very-few-clouds.png</file>
+        <file>weather-storm.png</file>
+        <file>weather-sleet.png</file>
+        <file>weather-snow.png</file>
+        <file>weather-thundershower.png</file>
+        <file>weather-showers.png</file>
+        <file>weather-overcast.png</file>
+        <file>weather-icy.png</file>
+        <file>weather-few-clouds.png</file>
     </qresource>
 </RCC>
