@@ -27,7 +27,7 @@ WaylandOutput {
     property color atmosphereForeground: "#ffffff"
 
     property XdgSurface keyboard: null
-
+   scaleFactor: 2
     function handleShellSurface(shellSurface, toplevel) {
         shellSurfaces.insert(appScreen.shellSurfaceIdx + 1, {shellSurface: shellSurface});
         toplevel.sendResizing(Qt.size(view.width, view.height - content.keyboardHeight - 20 * shellScaleFactor));
