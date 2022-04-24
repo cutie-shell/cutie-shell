@@ -31,16 +31,16 @@ Rectangle {
             }
         }
     }
-    AppModel {
-        id: model
-        onReadyChanged: {
-            if (model.ready)
-              settingSheet.setWeather()
+   // AppModel {
+        //id: model
+       // onReadyChanged: {
+         //   if (model.ready)
+        //      settingSheet.setWeather()
 
 
 
-        }
-    }
+      //  }
+    //}
 
     function setSettingContainerY(y) {
         settingContainer.y = y;
