@@ -6,7 +6,7 @@
 #include "settings.h"
 #include "hwbuttons.h"
 #include "notifications.h"
-#include "appmodel.h"
+//#include "appmodel.h"
 #include <QLoggingCategory>
 
 int main(int argc, char *argv[])
@@ -22,9 +22,9 @@ int main(int argc, char *argv[])
     QCoreApplication::setApplicationName("Cutie Shell");
 
     QGuiApplication app(argc, argv);
-    qmlRegisterType<WeatherData>("WeatherInfo", 1, 0, "WeatherData");
-    qmlRegisterType<AppModel>("WeatherInfo", 1, 0, "AppModel");
- qRegisterMetaType<WeatherData>();
+   // qmlRegisterType<WeatherData>("WeatherInfo", 1, 0, "WeatherData");
+  //  qmlRegisterType<AppModel>("WeatherInfo", 1, 0, "AppModel");
+ //qRegisterMetaType<WeatherData>();
 
     QQmlApplicationEngine engine;
 
