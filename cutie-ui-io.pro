@@ -1,5 +1,5 @@
-QT += quick dbus core network positioning qml quick
-
+QT += quick dbus core network  qml quick
+#positioning problem depends in qtbase5-gles-dev
 CONFIG += c++11
 
 
@@ -8,14 +8,14 @@ CONFIG += c++11
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
-        appmodel.cpp \
+        #appmodel.cpp \
         main.cpp \
         settings.cpp \
         hwbuttons.cpp \
         notifications.cpp
 
 HEADERS += \
-        appmodel.h \
+        #appmodel.h \
         settings.h \
         hwbuttons.h \
         notifications.h
