@@ -30,7 +30,7 @@
     <signal name="VariantChanged">
     </signal>
   </interface>
-  <interface name="org.cutie_shell.SettingsDaemon.Ofono">
+  <interface name="org.cutie_shell.SettingsDaemon.Modems">
     <method name="ModemCount">
       <arg name="count" type="u" direction="out"/>
     </method>
@@ -70,7 +70,7 @@
       <arg name="strength" type="y" direction="out"/>
     </signal>
   </interface>
-  <interface name="org.cutie_shell.SettingsDaemon.Connman">
+  <interface name="org.cutie_shell.SettingsDaemon.Networks">
     <method name="GetWifiStrength">
       <arg name="strength" type="y" direction="out"/>
     </method>

@@ -12,9 +12,9 @@ class Settings : public QObject
 private:
     org::cutie_shell::SettingsDaemon::Backlight *backlight;
     org::cutie_shell::SettingsDaemon::Atmosphere *atmosphere;
-    org::cutie_shell::SettingsDaemon::Ofono *ofono;
+    org::cutie_shell::SettingsDaemon::Modems *modemm;
     QList<org::cutie_shell::SettingsDaemon::Modem *> *modems;
-    org::cutie_shell::SettingsDaemon::Connman *connmann;
+    org::cutie_shell::SettingsDaemon::Networks *networks;
     org::freedesktop::DBus::Properties *battery;
     QSettings *settingsStore;
     

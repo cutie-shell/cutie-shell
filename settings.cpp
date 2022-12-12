@@ -11,14 +11,14 @@ Settings::Settings(QObject *parent) : QObject(parent) {
     this->atmosphere = new org::cutie_shell::SettingsDaemon::Atmosphere(
         "org.cutie_shell.SettingsDaemon", "/atmosphere",
         QDBusConnection::systemBus());
-    this->ofono = new org::cutie_shell::SettingsDaemon::Ofono(
+    this->modemm = new org::cutie_shell::SettingsDaemon::Modems(
         "org.cutie_shell.SettingsDaemon", "/modem",
         QDBusConnection::systemBus());
-    this->connmann = new org::cutie_shell::SettingsDaemon::Connman(
+    this->networks = new org::cutie_shell::SettingsDaemon::Networks(
         "org.cutie_shell.SettingsDaemon", "/connection",
         QDBusConnection::systemBus());
     this->modems = new QList<org::cutie_shell::SettingsDaemon::Modem *>();
-    QDBusPendingReply<unsigned int> countReply = ofono->ModemCount();
+    QDBusPendingReply<unsigned int> countReply = modemm->ModemCount();
     countReply.waitForFinished();
     if (countReply.isValid()) {
         for (unsigned int i = 0; i < countReply.value(); i++) {
@@ -37,7 +37,7 @@ Settings::Settings(QObject *parent) : QObject(parent) {
     connect(this->battery, SIGNAL(PropertiesChanged(QString, QVariantMap, QStringList)), this, SLOT(onUPowerInfoChanged(QString, QVariantMap, QStringList)));
     connect(this->atmosphere, SIGNAL(PathChanged()), this, SLOT(onAtmospherePathChanged()));
     connect(this->atmosphere, SIGNAL(VariantChanged()), this, SLOT(onAtmosphereVariantChanged()));
-    connect(this->ofono, SIGNAL(ModemAdded(QDBusObjectPath)), this, SLOT(onModemAdded(QDBusObjectPath)));
+    connect(this->modemm, SIGNAL(ModemAdded(QDBusObjectPath)), this, SLOT(onModemAdded(QDBusObjectPath)));
     setAtmospherePath(this->settingsStore->value("atmospherePath", "file://usr/share/atmospheres/city/").toString());
     setAtmosphereVariant(this->settingsStore->value("atmosphereVariant", "dark").toString());
     onAtmospherePathChanged();
@@ -72,20 +72,20 @@ void Settings::initCellular(int i) {
 }
 
 void Settings::initWifi() {
-    QDBusPendingReply<QString> netReply = connmann->GetWifiName();
+    QDBusPendingReply<QString> netReply = networks->GetWifiName();
     netReply.waitForFinished();
     if (netReply.isValid()) {
         QMetaObject::invokeMethod(((QQmlApplicationEngine *)parent())->rootObjects()[0], "setWifiName", Q_ARG(QVariant, netReply.value()));
     }
 
-    QDBusPendingReply<uchar> netReply2 = connmann->GetWifiStrength();
+    QDBusPendingReply<uchar> netReply2 = networks->GetWifiStrength();
     netReply2.waitForFinished();
     if (netReply2.isValid()) {
         QMetaObject::invokeMethod(((QQmlApplicationEngine *)parent())->rootObjects()[0], "setWifiStrength", Q_ARG(QVariant, netReply2.value()));
     }
 
-    connect(this->connmann, SIGNAL(WifiStrengthChanged(uchar)), this, SLOT(onWifiStrengthChanged(uchar)));
-    connect(this->connmann, SIGNAL(WifiNameChanged(QString)), this, SLOT(onWifiNameChanged(QString)));  
+    connect(this->networks, SIGNAL(WifiStrengthChanged(uchar)), this, SLOT(onWifiStrengthChanged(uchar)));
+    connect(this->networks, SIGNAL(WifiNameChanged(QString)), this, SLOT(onWifiNameChanged(QString)));  
 }
 
 void Settings::initCellularFull() {
@@ -137,6 +137,7 @@ void Settings::refreshBatteryInfo() {
 
 void Settings::execApp(QString command)
 {
+    qputenv("CUTIE_SHELL", QByteArray("true"));
     qputenv("QT_QPA_PLATFORM", QByteArray("wayland"));
     qputenv("EGL_PLATFORM", QByteArray("wayland"));
     qputenv("QT_SCALE_FACTOR", QString::number(((QQmlApplicationEngine *)parent())->rootContext()->contextProperty("shellScaleFactor").toDouble() * 3 / 4).toUtf8());
