@@ -3,8 +3,7 @@ import QtGraphicalEffects 1.0
 
 Rectangle {
     width: parent.width
-    height: 20 * shellScaleFactor
-    z: 400
+    height: 30 * shellScaleFactor
     anchors.top: parent.top
     color: "transparent"
 
@@ -20,7 +19,6 @@ Rectangle {
         } else {
             image2.source = "icons/network-cellular-signal-none.svg"
         }
-        text13.text = strength.toString() + " %";
     }
 
     function setWifiStrength(strength) {
@@ -40,8 +38,8 @@ Rectangle {
     Rectangle
     {
         id: maskRect2
-        width: 15 * shellScaleFactor
-        height: 15 * shellScaleFactor
+        width: 10 * shellScaleFactor
+        height: 10 * shellScaleFactor
         visible: false
         state: atmosphereVariant
         states: [
@@ -61,11 +59,11 @@ Rectangle {
 
     Image {
         id: image1
-        anchors.right: parent.right
-        anchors.rightMargin: 12 * shellScaleFactor
+        anchors.right: image3.left
+        anchors.rightMargin: 4 * shellScaleFactor
         anchors.verticalCenter: parent.verticalCenter
-        width: 15 * shellScaleFactor
-        height: 15 * shellScaleFactor
+        width: 13 * shellScaleFactor
+        height: 13 * shellScaleFactor
         source: "icons/network-wireless-signal-none-symbolic.svg"
         sourceSize.height: 400
         sourceSize.width: 400
@@ -84,8 +82,8 @@ Rectangle {
         anchors.right: image1.left
         anchors.rightMargin: 4 * shellScaleFactor
         anchors.verticalCenter: parent.verticalCenter
-        width: 15 * shellScaleFactor
-        height: 15 * shellScaleFactor
+        width: 13 * shellScaleFactor
+        height: 13 * shellScaleFactor
         source: "icons/network-cellular-signal-none.svg"
         sourceSize.height: 128
         sourceSize.width: 128
@@ -99,39 +97,13 @@ Rectangle {
         maskSource: image2
     }
 
-    Text {
-        id: text13
-        anchors.right: image2.left
-        anchors.rightMargin: 4 * shellScaleFactor
-        anchors.verticalCenter: parent.verticalCenter
-        color: (atmosphereVariant == "dark") ? "#ffffff" : "#000000"
-        text: "0 %"
-        font.pixelSize: 9 * shellScaleFactor
-        font.bold: false
-        state: atmosphereVariant
-        states: [
-            State {
-                name: "dark"
-                PropertyChanges { target: clockText; color: "#ffffff" }
-            },
-            State {
-                name: "light"
-                PropertyChanges { target: clockText; color: "#000000" }
-            }
-        ]
-        transitions: Transition {
-            ColorAnimation { properties: "color"; duration: 500; easing.type: Easing.InOutQuad }
-        }
-        font.family: "Lato"
-    }
-
     Image {
         id: image3
-        anchors.left: clockText.right
-        anchors.leftMargin: 4 * shellScaleFactor
+        anchors.right: text14.left
+        anchors.rightMargin: 4 * shellScaleFactor
         anchors.verticalCenter: parent.verticalCenter
-        width: 15 * shellScaleFactor
-        height: 15 * shellScaleFactor
+        width: 13 * shellScaleFactor
+        height: 13 * shellScaleFactor
         source: ((batteryStatus.Percentage == 100) ? "icons/battery-100-charged.svg" : 
             ((batteryStatus.State === 1) ? ((batteryStatus.Percentage > 70) ? "icons/battery-070-charging.svg" : 
             ((batteryStatus.Percentage > 50) ? "icons/battery-050-charging.svg": "icons/battery-010-charging.svg")) : 
@@ -152,11 +124,11 @@ Rectangle {
 
     Text {
         id: text14
-        anchors.left: image3.right
-        anchors.leftMargin: 4 * shellScaleFactor
+        anchors.right: parent.right
+        anchors.rightMargin: 12 * shellScaleFactor
         anchors.verticalCenter: parent.verticalCenter
         text: batteryStatus.Percentage.toString() + " %"
-        font.pixelSize: 9 * shellScaleFactor
+        font.pixelSize: 12 * shellScaleFactor
         font.bold: false
         state: atmosphereVariant
         states: [
@@ -182,7 +154,7 @@ Rectangle {
         anchors.verticalCenter: parent.verticalCenter
         width: 25 * shellScaleFactor
         text: Qt.formatDateTime(new Date(), "HH:mm")
-        font.pixelSize: 9 * shellScaleFactor
+        font.pixelSize: 12 * shellScaleFactor
         font.bold: false
         state: atmosphereVariant
         states: [
@@ -213,7 +185,6 @@ Rectangle {
     Item {
         x: 0
         y: 0
-        z: 100
         height: parent.height
         width: parent.width
 

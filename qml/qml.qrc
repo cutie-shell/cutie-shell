@@ -11,9 +11,21 @@
         <file>NotificationScreen.qml</file>
         <file>StatusArea.qml</file>
         <file>LauncherSwipe.qml</file>
+        <file>ScreenSwipe.qml</file>
         <file>WaylandChrome.qml</file>
-    </qresource>
-    <qresource prefix="/QtQuick/VirtualKeyboard/content/styles/cutie">
-        <file>style.qml</file>
+        <file>kbdstyle/QtQuick/VirtualKeyboard/Styles/cutie/style.qml</file>
+	<file>kbdstyle/QtQuick/VirtualKeyboard/Styles/cutie/images/settings-fff.svg</file>
+        <file>kbdstyle/QtQuick/VirtualKeyboard/Styles/cutie/images/backspace-fff.svg</file>
+        <file>kbdstyle/QtQuick/VirtualKeyboard/Styles/cutie/images/search-fff.svg</file>
+        <file>kbdstyle/QtQuick/VirtualKeyboard/Styles/cutie/images/shift-fff.svg</file>
+        <file>kbdstyle/QtQuick/VirtualKeyboard/Styles/cutie/images/check-fff.svg</file>
+        <file>kbdstyle/QtQuick/VirtualKeyboard/Styles/cutie/images/handwriting-fff.svg</file>
+        <file>kbdstyle/QtQuick/VirtualKeyboard/Styles/cutie/images/selectionhandle-bottom.svg</file>
+        <file>kbdstyle/QtQuick/VirtualKeyboard/Styles/cutie/images/globe-fff.svg</file>
+        <file>kbdstyle/QtQuick/VirtualKeyboard/Styles/cutie/images/enter-fff.svg</file>
+        <file>kbdstyle/QtQuick/VirtualKeyboard/Styles/cutie/images/hidekeyboard-fff.svg</file>
+        <file>kbdstyle/QtQuick/VirtualKeyboard/Styles/cutie/images/shift-c5d6b6.svg</file>
+        <file>kbdstyle/QtQuick/VirtualKeyboard/Styles/cutie/images/shift-80c342.svg</file>
+        <file>kbdstyle/QtQuick/VirtualKeyboard/Styles/cutie/images/textmode-fff.svg</file>
     </qresource>
 </RCC>

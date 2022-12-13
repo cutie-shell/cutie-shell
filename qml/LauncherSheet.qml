@@ -7,7 +7,6 @@ Rectangle {
     id: launcherSheet
     width: view.width
     height: view.height
-    z: 450
     opacity: 0
     color: "transparent"
     y: view.height
@@ -23,7 +22,6 @@ Rectangle {
     Item {
         x: 0
         y: 0
-        z: 100
         height: 10 * shellScaleFactor
         width: parent.width
 
@@ -125,7 +123,7 @@ Rectangle {
 
                 onContentYChanged: {
                     if(atYBeginning){
-                        if(Math.abs(tempContentY - contentY) > 40 * shellScaleFactor){
+                        if(Math.abs(tempContentY - contentY) > 30 * shellScaleFactor){
                             if(refreshing){
                                 return;
                             } else {
@@ -166,10 +164,13 @@ Rectangle {
                         anchors.bottom: appIconButton.bottom
                         anchors.horizontalCenter: appIconButton.horizontalCenter
                         text: appName
-                        font.pixelSize: 7 * shellScaleFactor
+                        font.pixelSize: 12 * shellScaleFactor
                         clip: true
                         font.family: "Lato"
                         color: (atmosphereVariant == "dark") ? "#ffffff" : "#000000"
+			width: 2 * appIconButton.width / 3
+			elide: Text.ElideRight
+			horizontalAlignment: Text.AlignHCenter
                     }
                 }
             }

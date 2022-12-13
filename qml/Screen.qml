@@ -4,7 +4,6 @@ import QtWayland.Compositor 1.14
 import QtGraphicalEffects 1.0
 import QtQuick.Controls 2.1
 import QtSensors 5.11
-//import Process 1.0
 
 WaylandOutput {
     id: compositor
@@ -27,10 +26,9 @@ WaylandOutput {
     property color atmosphereForeground: "#ffffff"
 
     property XdgSurface keyboard: null
-   scaleFactor: 2
     function handleShellSurface(shellSurface, toplevel) {
+        toplevel.sendResizing(Qt.size(view.width, view.height - 30 * shellScaleFactor))
         shellSurfaces.insert(appScreen.shellSurfaceIdx + 1, {shellSurface: shellSurface});
-        toplevel.sendResizing(Qt.size(view.width, view.height - content.keyboardHeight - 20 * shellScaleFactor));
         appScreen.shellSurface = shellSurface;
         appScreen.shellSurfaceIdx += 1;
         root.oldState = root.state;
@@ -39,12 +37,34 @@ WaylandOutput {
 
     function lock() {
         if (screenLockState.state == "closed") {
-            screenLockState.state = "locked";
-            settings.SetBrightness(settings.GetMaxBrightness() * unlockBrightness);
+            openBl.start();
         } else {
-            screenLockState.state = "closed";
             unlockBrightness = settings.GetBrightness() / settings.GetMaxBrightness();
-            settings.SetBrightness(0);
+            closeBl.start();
+        }
+    }
+
+    NumberAnimation { 
+        id: closeBl
+        target: settings
+        property: "brightness"
+        to: 0 
+        duration: 200
+
+        onFinished: {
+            screenLockState.state = "closed";
+        }
+    }
+
+    NumberAnimation { 
+        id: openBl
+        target: settings
+        property: "brightness"
+        to: settings.GetMaxBrightness() * unlockBrightness
+        duration: 200
+
+        onFinished: {
+            screenLockState.state = "locked";
         }
     }
 
@@ -75,6 +95,13 @@ WaylandOutput {
     Item {
         id: root
         property string oldState: "homeScreen"
+        property string tmpState: "homeScreen"
+
+        onStateChanged: {
+            oldState = tmpState;
+            tmpState = state;
+        }
+
         state: "homeScreen" 
         states: [
             State{
@@ -201,8 +228,7 @@ WaylandOutput {
                 ParallelAnimation {
                     NumberAnimation { target: setting; properties: "opacity"; duration: 800; easing.type: Easing.InOutQuad; }
                     SequentialAnimation {
-                        NumberAnimation { target: setting; properties: "anchors.topMargin"; duration: 300; easing.type: Easing.InOutQuad; to: 10 * shellScaleFactor }
-                        NumberAnimation { target: setting; properties: "anchors.topMargin"; duration: 300; easing.type: Easing.InOutQuad; to: -10 * shellScaleFactor }
+                        NumberAnimation { target: setting; properties: "anchors.topMargin"; duration: 300; easing.type: Easing.InOutQuad; to: -20 * shellScaleFactor }
                     }
                 }
            },
@@ -211,8 +237,7 @@ WaylandOutput {
                 ParallelAnimation {
                     NumberAnimation { target: setting; properties: "opacity"; duration: 800; easing.type: Easing.InOutQuad; }
                     SequentialAnimation {
-                        NumberAnimation { target: setting; properties: "anchors.topMargin"; duration: 300; easing.type: Easing.InOutQuad; to: -10 * shellScaleFactor }
-                        NumberAnimation { target: setting; properties: "anchors.topMargin"; duration: 300; easing.type: Easing.InOutQuad; to: 10 * shellScaleFactor }
+                        NumberAnimation { target: setting; properties: "anchors.topMargin"; duration: 300; easing.type: Easing.InOutQuad; to: -20 * shellScaleFactor }
                     }
                 }
            },
@@ -221,7 +246,6 @@ WaylandOutput {
                 ParallelAnimation {
                     NumberAnimation { target: setting; properties: "opacity"; duration: 800; easing.type: Easing.InOutQuad; }
                     SequentialAnimation {
-                        NumberAnimation { target: setting; properties: "anchors.topMargin"; duration: 0; easing.type: Easing.InOutQuad; to: -10 * shellScaleFactor }
                         NumberAnimation { target: setting; properties: "anchors.topMargin"; duration: 600; easing.type: Easing.InOutQuad; to: 0 }
                     }
                 }
@@ -231,7 +255,6 @@ WaylandOutput {
                 ParallelAnimation {
                     NumberAnimation { target: setting; properties: "opacity"; duration: 800; easing.type: Easing.InOutQuad; }
                     SequentialAnimation {
-                        NumberAnimation { target: setting; properties: "anchors.topMargin"; duration: 0; easing.type: Easing.InOutQuad; to: 10 * shellScaleFactor }
                         NumberAnimation { target: setting; properties: "anchors.topMargin"; duration: 600; easing.type: Easing.InOutQuad; to: 0 }
                     }
                 }
@@ -248,16 +271,6 @@ WaylandOutput {
             id: view 
             color: "#2E3440"
             anchors.fill: parent
-            //rotation: orientation
-
-            Rectangle { anchors.fill: parent; color: '#2E3440' }
-
-           // Process { id: process }
-
-            //Component {
-              //  id: procComponent
-                //Process {}
-            //}
 
             FontLoader {
                 id: icon
@@ -268,14 +281,10 @@ WaylandOutput {
                 id: content 
                 anchors.fill: parent
 
-                property real keyboardHeight: 0
-
                 Item {
                     id: realWallpaper
                     anchors.fill: parent
-                    z: 100
                     Image {
-                        z: 100
                         id: wallpaper
                         anchors.fill: parent
                         source: atmospherePath + "wallpaper.jpg"
@@ -283,7 +292,6 @@ WaylandOutput {
                     }
 
                     Image {
-                        z: 101
                         id: nextWallpaper
                         anchors.fill: parent
                         source: nextAtmospherePath + "wallpaper.jpg"
@@ -314,21 +322,28 @@ WaylandOutput {
                     }
                 }
 
-                AppScreen { id: appScreen; focus: true }
+                FastBlur {
+                    visible: root.state != "homeScreen"
+                    anchors.fill: parent
+                    source: realWallpaper
+                    radius: 70
+                }
+
                 HomeScreen { id: homeScreen }
                 NotificationScreen { id: notificationScreen }
+                AppScreen { id: appScreen }
+                Keyboard {}
+
+                ScreenSwipe { id: screenSwipe }
 
                 SettingSheet { id: settingSheet } 
-                LauncherSheet { id: launcherSheet } 
-
                 StatusArea { id: setting }
+
+                LauncherSheet { id: launcherSheet } 
                 LauncherSwipe { id: lSwipe }
 
                 LockScreen { id: lockscreen }
             }
-        }
-        Loader {
-            source: "Keyboard.qml"
         }
     }
 }

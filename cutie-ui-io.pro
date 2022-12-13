@@ -1,4 +1,4 @@
-QT += quick dbus core network  qml quick
+QT += quick dbus core network qml quick  gui-private
 #positioning problem depends in qtbase5-gles-dev
 CONFIG += c++11
 
@@ -15,7 +15,6 @@ SOURCES += \
         notifications.cpp
 
 HEADERS += \
-        #appmodel.h \
         settings.h \
         hwbuttons.h \
         notifications.h

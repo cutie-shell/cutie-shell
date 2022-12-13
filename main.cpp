@@ -22,15 +22,14 @@ int main(int argc, char *argv[])
     QCoreApplication::setApplicationName("Cutie Shell");
 
     QGuiApplication app(argc, argv);
-   // qmlRegisterType<WeatherData>("WeatherInfo", 1, 0, "WeatherData");
-  //  qmlRegisterType<AppModel>("WeatherInfo", 1, 0, "AppModel");
- //qRegisterMetaType<WeatherData>();
 
     QQmlApplicationEngine engine;
 
     Settings *settings = new Settings(&engine);
     settings->refreshBatteryInfo();
 
+    engine.addImportPath(":/kbdstyle");
+    qputenv("QT_VIRTUALKEYBOARD_STYLE", "cutie");
 
     engine.rootContext()->setContextProperty("shellScaleFactor", shellScaleFactor);
     engine.rootContext()->setContextProperty("settings", settings);

@@ -3,7 +3,6 @@ import QtGraphicalEffects 1.0
 
 Rectangle {
     id: lockscreen 
-    z: 325
     x: 0; y: 0; width: parent.width; height: parent.height 
     color: "transparent"
 
@@ -62,10 +61,10 @@ Rectangle {
         Text { 
             id: lockscreenTime
             color: (atmosphereVariant == "dark") ? "#ffffff" : "#000000"
-            text: Qt.formatDateTime(new Date(), "HH:mm:ss")
-            font.pixelSize: 48 * shellScaleFactor
+            text: Qt.formatDateTime(new Date(), "HH:mm")
+            font.pixelSize: 72 * shellScaleFactor
             font.family: "Lato"
-            font.weight: Font.ExtraLight
+            font.weight: Font.Light
             anchors { left: parent.left; bottom: lockscreenDate.top; leftMargin: 15 * shellScaleFactor; bottomMargin: 3* shellScaleFactor }
         }
 
@@ -73,7 +72,7 @@ Rectangle {
             id: lockscreenDate
             color: (atmosphereVariant == "dark") ? "#ffffff" : "#000000"
             text: Qt.formatDateTime(new Date(), "dddd, MMMM d")
-            font.pixelSize: 14 * shellScaleFactor
+            font.pixelSize: 20 * shellScaleFactor
             font.family: "Lato"
             font.weight: Font.Black
             anchors { left: parent.left; bottom: parent.bottom; margins: 15 * shellScaleFactor }

@@ -9,6 +9,8 @@
 class Settings : public QObject
 {
     Q_OBJECT
+    Q_PROPERTY (unsigned int brightness READ GetBrightness WRITE SetBrightness NOTIFY brightnessChanged)
+    Q_PROPERTY (unsigned int maxBrightness READ GetMaxBrightness)
 private:
     org::cutie_shell::SettingsDaemon::Backlight *backlight;
     org::cutie_shell::SettingsDaemon::Atmosphere *atmosphere;
@@ -42,6 +44,8 @@ public Q_SLOTS:
     void onModemAdded(QDBusObjectPath path);
     void onWifiNameChanged(QString name);
     void onWifiStrengthChanged(uchar strength);
+signals:
+    void brightnessChanged(unsigned int brightness);
 };
 
 #endif // BACKLIGHT_H

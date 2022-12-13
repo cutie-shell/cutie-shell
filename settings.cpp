@@ -1,5 +1,8 @@
 #include <QQmlApplicationEngine>
 #include <QQmlContext>
+#include <QtGui/QGuiApplication>
+#include <QScreen>
+#include <qpa/qplatformscreen.h>
 
 #include "settings.h"
 
@@ -117,6 +120,15 @@ unsigned int Settings::GetBrightness() {
 
 void Settings::SetBrightness(unsigned int value) {
     backlight->SetBrightness(value);
+	QPlatformScreen *pscreen = ((QGuiApplication *)QCoreApplication::instance())
+			->screens().first()->handle();
+	if (value == 0) {
+		pscreen->setPowerState(QPlatformScreen::PowerStateOff);
+	}
+	if (value > 0 && pscreen->powerState() != QPlatformScreen::PowerStateOn) {
+		pscreen->setPowerState(QPlatformScreen::PowerStateOn);
+	}
+	emit brightnessChanged(value);
 }
 
 void Settings::StoreBrightness(unsigned int value) {
@@ -140,10 +152,10 @@ void Settings::execApp(QString command)
     qputenv("CUTIE_SHELL", QByteArray("true"));
     qputenv("QT_QPA_PLATFORM", QByteArray("wayland"));
     qputenv("EGL_PLATFORM", QByteArray("wayland"));
-    qputenv("QT_SCALE_FACTOR", QString::number(((QQmlApplicationEngine *)parent())->rootContext()->contextProperty("shellScaleFactor").toDouble() * 3 / 4).toUtf8());
-    qputenv("GDK_SCALE", QString::number(((QQmlApplicationEngine *)parent())->rootContext()->contextProperty("shellScaleFactor").toDouble() * 3 / 4).toUtf8());
-    qputenv("GDK_DPI_SCALE", QString::number(((QQmlApplicationEngine *)parent())->rootContext()->contextProperty("shellScaleFactor").toDouble() * 3 / 4).toUtf8());
-
+    qputenv("QT_SCALE_FACTOR", QString::number(((QQmlApplicationEngine *)parent())->rootContext()->contextProperty("shellScaleFactor").toDouble()).toUtf8());
+    qputenv("GDK_SCALE", QString::number(((QQmlApplicationEngine *)parent())->rootContext()->contextProperty("shellScaleFactor").toDouble()).toUtf8());
+    qputenv("GDK_DPI_SCALE", QString::number(((QQmlApplicationEngine *)parent())->rootContext()->contextProperty("shellScaleFactor").toDouble()).toUtf8());
+	qunsetenv("QT_IM_MODULE");
     qputenv("WAYLAND_DISPLAY", ((QQmlApplicationEngine *)parent())->rootObjects()[0]->property("socketName").toString().toUtf8());
     QStringList args = QStringList();
     args.append("-c");

@@ -1,13 +1,10 @@
 import QtQuick 2.14
 import QtQuick.Controls 2.14
 import QtGraphicalEffects 1.0
-//import WeatherInfo 1.0
-// setting sheet
 Rectangle {
     id: settingSheet
     width: view.width
     height: view.height
-    z: 350
     opacity: 0
     color: "transparent"
     y: -view.height
@@ -31,16 +28,6 @@ Rectangle {
             }
         }
     }
-   // AppModel {
-        //id: model
-       // onReadyChanged: {
-         //   if (model.ready)
-        //      settingSheet.setWeather()
-
-
-
-      //  }
-    //}
 
     function setSettingContainerY(y) {
         settingContainer.y = y;
@@ -176,14 +163,12 @@ Rectangle {
         y: parent.height - 10 * shellScaleFactor
         height: 10 * shellScaleFactor
         width: parent.width
-        z: 100
-
+        
         MouseArea {
             drag.target: parent; drag.axis: Drag.YAxis; drag.minimumY: - 10 * shellScaleFactor; drag.maximumY: view.height - 10 * shellScaleFactor
             enabled: settingsState.state != "closed"
             anchors.fill: parent
             propagateComposedEvents: true
-            z: 425
 
             onPressed: {
                 settingsState.state = "closing";
@@ -256,33 +241,8 @@ Rectangle {
             transitions: Transition {
                 to: "*"
                 NumberAnimation { target: settingContainer; properties: "y"; duration: 300; easing.type: Easing.InOutQuad; }
-           }
-
-            Text {
-                id: text2
-                x: 25  * shellScaleFactor
-                y: 25  * shellScaleFactor
-                text: qsTr("Accent")
-                font.pixelSize: 14 * shellScaleFactor
-                font.family: "Lato"
-                font.weight: Font.Black
-                state: atmosphereVariant
-                states: [
-                    State {
-                        name: "dark"
-                        PropertyChanges { target: text2; color: "#ffffff" }
-                    },
-                    State {
-                        name: "light"
-                        PropertyChanges { target: text2; color: "#000000" }
-                    }
-                ]
-                transitions: Transition {
-                    ColorAnimation { properties: "color"; duration: 500; easing.type: Easing.InOutQuad }
-                }
             }
 
-            //Armospheres ui block
             ListModel {
                 id: atmospheresModel
                 ListElement {
@@ -312,61 +272,98 @@ Rectangle {
                 }
             }
 
-            ListView {
-                x: 25 * shellScaleFactor
-                y: 55 * shellScaleFactor
-                width: view.width - 50 * shellScaleFactor
-                height: 60 * shellScaleFactor
-                model: atmospheresModel
-                orientation: Qt.Horizontal
+            Rectangle {
+                height: 160 * shellScaleFactor
+                color: (atmosphereVariant == "dark") ? "#2fffffff" : "#4f000000"
+                radius: 10 * shellScaleFactor
+                anchors.left: parent.left
+                anchors.right: parent.right
+                anchors.rightMargin: 20 * shellScaleFactor
+                anchors.leftMargin: 20 * shellScaleFactor
+                y: 35 * shellScaleFactor
                 clip: true
-                spacing: 15 * shellScaleFactor
-                delegate: Image {
-                    width: 60 * shellScaleFactor
-                    height: 60 * shellScaleFactor
-                    source: path + "wallpaper.jpg"
-                    fillMode: Image.PreserveAspectFit
 
-                    Text {
-                        anchors.centerIn: parent
-                        text: name
-                        font.pixelSize: 9 * shellScaleFactor
-                        font.bold: false
-                        color: (variant == "dark") ? "#FFFFFF" : "#000000"
-                        font.family: "Lato"
-                    }
-
-                    MouseArea{
-                        anchors.fill: parent
-                        onClicked:{
-                            settings.setAtmosphereVariant(variant);
-                            nextWallpaper.state = "changing"
-                            settings.setAtmospherePath(path);
-                            nextWallpaper.state = "normal"
-                            atmosphereTimer.start();
-                            //settings.onAtmosphereVariantChanged()
+                Text {
+                    id: text2
+                    x: 20  * shellScaleFactor
+                    y: 20  * shellScaleFactor
+                    text: qsTr("Atmosphere")
+                    font.pixelSize: 24 * shellScaleFactor
+                    font.family: "Lato"
+                    font.weight: Font.Black
+                    state: atmosphereVariant
+                    states: [
+                        State {
+                            name: "dark"
+                            PropertyChanges { target: text2; color: "#ffffff" }
+                        },
+                        State {
+                            name: "light"
+                            PropertyChanges { target: text2; color: "#000000" }
                         }
+                    ]
+                    transitions: Transition {
+                        ColorAnimation { properties: "color"; duration: 500; easing.type: Easing.InOutQuad }
                     }
+                }
 
-                    Timer {
-                        id: atmosphereTimer
-                        interval: 500
-                        repeat: false
-                        onTriggered: {
-                            nextAtmospherePath = atmospherePath;
+                ListView {
+                    anchors.fill: parent
+                    anchors.topMargin: 64 * shellScaleFactor
+                    model: atmospheresModel
+                    orientation: Qt.Horizontal
+                    clip: false
+                    spacing: -20 * shellScaleFactor
+                    delegate: Item {
+                        width: 100 * shellScaleFactor
+                        height: 100 * shellScaleFactor
+                        Image {
+                            x: 20 * shellScaleFactor
+                            width: 60 * shellScaleFactor
+                            height: 80 * shellScaleFactor
+                            source: path + "wallpaper.jpg"
+                            fillMode: Image.PreserveAspectCrop
+
+                            Text {
+                                anchors.centerIn: parent
+                                text: name
+                                font.pixelSize: 14 * shellScaleFactor
+                                font.bold: false
+                                color: (variant == "dark") ? "#FFFFFF" : "#000000"
+                                font.family: "Lato"
+                            }
+
+                            MouseArea{
+                                anchors.fill: parent
+                                onClicked:{
+                                    settings.setAtmosphereVariant(variant);
+                                    nextWallpaper.state = "changing"
+                                    settings.setAtmospherePath(path);
+                                    nextWallpaper.state = "normal"
+                                    atmosphereTimer.start();
+                                }
+                            }
+
+                            Timer {
+                                id: atmosphereTimer
+                                interval: 500
+                                repeat: false
+                                onTriggered: {
+                                    nextAtmospherePath = atmospherePath;
+                                }
+                            }
                         }
                     }
                 }
             }
-            //End atmospheres
 
 
             ListModel {
                 id: settingsModel
 
                 ListElement {
-                    bText: "Power Off"
-                    tText: ""
+                    bText: ""
+                    tText: "Power Off"
                     icon: "icons/system-shutdown-symbolic.svg"
                     clickHandler: function (self) {
                         if (isPoweroffPressed) {
@@ -382,67 +379,79 @@ Rectangle {
                     icon: "icons/network-wireless-signal-none-symbolic.svg"
                 }
 
-                /*
-                ListElement {
-                    bText: "Airplane"
-                    tText: ""
-                    icon: "icons/airplane-mode.svg"
-                }
-                 */
-                ListElement {
-                    bText: ""
-                    tText: "No weather data"
-                    icon: ""
-                         clickHandler: function (self) {
-                              model.refreshWeather()
-                             settingSheet.setWeather()
-                         }
-                }
-
             }
 
             GridView {
+                id: widgetGrid
                 anchors.fill: parent
-                anchors.topMargin: 135 * shellScaleFactor
-                anchors.bottomMargin: 40 * shellScaleFactor
+                anchors.topMargin: 215 * shellScaleFactor
+                anchors.bottomMargin: 100 * shellScaleFactor
+                anchors.leftMargin: 20 * shellScaleFactor
                 model: settingsModel
-                cellWidth: view.width / 3 - 5 * shellScaleFactor
-                cellHeight: view.width / 3 - 5 * shellScaleFactor
+                cellWidth: width / 3
+                cellHeight: width / 3
                 clip: true
 
                 delegate: Item {
-                    width: view.width / 3 - 15 * shellScaleFactor
-                    height: view.width / 3 - 15 * shellScaleFactor
+                    width: widgetGrid.cellWidth
+                    height: widgetGrid.cellWidth
                     Rectangle {
                         id: settingBg
-                        width: view.width / 3 - 10 * shellScaleFactor
-                        height: view.width / 3 - 10 * shellScaleFactor
-                        x: 10 * shellScaleFactor
+                        width: parent.width - 20 * shellScaleFactor
+                        height: parent.width - 20 * shellScaleFactor
                         color: (atmosphereVariant == "dark") ? "#2fffffff" : "#4f000000"
                         radius: 10 * shellScaleFactor
 
                         Text {
+                            id: topText
                             anchors.horizontalCenter: parent.horizontalCenter
                             anchors.top: parent.top
-                            anchors.topMargin: 7 * shellScaleFactor
-                            color: "#ffffff"
+                            anchors.topMargin: 14 * shellScaleFactor
                             text: tText
-                            font.pixelSize: 9 * shellScaleFactor
+                            font.pixelSize: 12 * shellScaleFactor
                             horizontalAlignment: Text.AlignHCenter
                             font.family: "Lato"
                             font.bold: false
+                            state: atmosphereVariant
+                            states: [
+                                State {
+                                    name: "dark"
+                                    PropertyChanges { target: topText; color: "#ffffff" }
+                                },
+                                State {
+                                    name: "light"
+                                    PropertyChanges { target: topText; color: "#000000" }
+                                }
+                            ]
+                            transitions: Transition {
+                                ColorAnimation { properties: "color"; duration: 500; easing.type: Easing.InOutQuad }
+                            }
                         }
 
                         Text {
+                            id: bottomText
                             anchors.horizontalCenter: parent.horizontalCenter
                             anchors.bottom: parent.bottom
-                            anchors.bottomMargin: 7 * shellScaleFactor
-                            color: "#ffffff"
+                            anchors.bottomMargin: 14 * shellScaleFactor
                             text: bText
-                            font.pixelSize: 9 * shellScaleFactor
+                            font.pixelSize: 12 * shellScaleFactor
                             horizontalAlignment: Text.AlignHCenter
                             font.family: "Lato"
                             font.bold: false
+                            state: atmosphereVariant
+                            states: [
+                                State {
+                                    name: "dark"
+                                    PropertyChanges { target: bottomText; color: "#ffffff" }
+                                },
+                                State {
+                                    name: "light"
+                                    PropertyChanges { target: bottomText; color: "#000000" }
+                                }
+                            ]
+                            transitions: Transition {
+                                ColorAnimation { properties: "color"; duration: 500; easing.type: Easing.InOutQuad }
+                            }
                         }
 
                         Image {
@@ -465,14 +474,14 @@ Rectangle {
             Rectangle {
                 id: brightness
                 width: parent.width - 10 * shellScaleFactor
-                height: 25 * shellScaleFactor
+                height: 40 * shellScaleFactor
                 color: "#00000000"
                 anchors.left: parent.left
                 anchors.right: parent.right
                 anchors.bottom: parent.bottom
-                anchors.rightMargin: 0
-                anchors.leftMargin: 0
-                anchors.bottomMargin: 10 * shellScaleFactor
+                anchors.rightMargin: 10 * shellScaleFactor
+                anchors.leftMargin: 10 * shellScaleFactor
+                anchors.bottomMargin: 30 * shellScaleFactor
 
                 Rectangle
                 {
@@ -498,12 +507,12 @@ Rectangle {
 
                 Image {
                     id: volumeMuted1
-                    width: parent.height
+                    width: parent.height / 2
                     height: width
                     anchors.verticalCenter: parent.verticalCenter
                     anchors.left: parent.left
                     source: "icons/gpm-brightness-lcd-disabled.svg"
-                    anchors.leftMargin: 5 * shellScaleFactor
+                    anchors.leftMargin: 7 * shellScaleFactor
                     sourceSize.height: height*2
                     sourceSize.width: width*2
                     visible: false
@@ -517,12 +526,12 @@ Rectangle {
 
                 Image {
                     id: volumeHigh1
-                    width: parent.height
+                    width: parent.height / 2
                     height: width
                     anchors.verticalCenter: parent.verticalCenter
                     anchors.right: parent.right
                     source: "icons/gpm-brightness-lcd"
-                    anchors.rightMargin: 5 * shellScaleFactor
+                    anchors.rightMargin: 7 * shellScaleFactor
                     sourceSize.height: height*2
                     sourceSize.width: width*2
                     visible: false
@@ -541,8 +550,8 @@ Rectangle {
                     anchors.verticalCenter: parent.verticalCenter
                     anchors.left: volumeMuted1.right
                     anchors.right: volumeHigh1.left
-                    anchors.rightMargin: 5 * shellScaleFactor
-                    anchors.leftMargin: 5 * shellScaleFactor
+                    anchors.rightMargin: 25 * shellScaleFactor
+                    anchors.leftMargin: 25 * shellScaleFactor
                     state: atmosphereVariant
                     states: [
                         State {
@@ -563,8 +572,8 @@ Rectangle {
                     id: volumeBarThumb1
                     x: (screenBrightness * (volumeBarTrack1.width - volumeBarThumb1.width) / 100) + volumeBarTrack1.x
                     y: volumeBarTrack1.y - height/2
-                    width: parent.height
-                    height: width
+                    width: height
+                    height: parent.height / 2
                     radius: width / 2
                     MouseArea {
                         anchors.fill: parent
