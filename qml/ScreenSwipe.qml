@@ -13,9 +13,9 @@ Item {
 
             function getNextState() {
                 if (root.state == "homeScreen")
-                    return (appScreen.shellSurfaceIdx >= 0) ? "appScreen" : "notificationScreen";
+                    return "notificationScreen";
                 else if (root.state == "notificationScreen")
-                    return (appScreen.shellSurfaceIdx >= 0) ? "appScreen" : "homeScreen";
+                    return "homeScreen";
                 else if (root.state == "appScreen")
                     return "homeScreen";
                 else return "";
@@ -60,7 +60,7 @@ Item {
                 else if (root.state == "notificationScreen")
                     return "homeScreen";
                 else if (root.state == "appScreen")
-                    return "notificationScreen";
+                    return "homeScreen";
                 else return "";
             }
 
