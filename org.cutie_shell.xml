@@ -70,18 +70,34 @@
       <arg name="strength" type="y" direction="out"/>
     </signal>
   </interface>
-  <interface name="org.cutie_shell.SettingsDaemon.Networks">
-    <method name="GetWifiStrength">
-      <arg name="strength" type="y" direction="out"/>
-    </method>
-    <signal name="WifiStrengthChanged">
-      <arg name="strength" type="y" direction="out"/>
-    </signal>
-    <method name="GetWifiName">
-      <arg name="name" type="s" direction="out"/>
-    </method>
-    <signal name="WifiNameChanged">
-      <arg name="name" type="s" direction="out"/>
-    </signal>
+  <interface name="org.cutie_shell.SettingsDaemon.Networking">
+    <property name="Backends" type="ao" access="read"/>
+    <signal name="BackendsChanged">
+      <arg type="ao" name="Backends" direction="out"/>
+    </signal>  
+  </interface>
+  <interface name="org.cutie_shell.SettingsDaemon.NetworkBackend">
+    <property name="Devices" type="ao" access="read"/>
+    <signal name="DevicesChanged">
+      <arg type="ao" name="Devices" direction="out"/>
+    </signal>  
+  </interface>
+  <interface name="org.cutie_shell.SettingsDaemon.NetworkDevice">
+    <property name="Services" type="ao" access="read"/>
+    <property name="ActiveService" type="o" access="read"/>
+    <signal name="ServicesChanged">
+      <arg type="ao" name="Services" direction="out"/>
+    </signal>  
+    <signal name="ActiveServiceChanged">
+      <arg type="o" name="ActiveService" direction="out"/>
+    </signal>  
+  </interface>
+  <interface name="org.cutie_shell.SettingsDaemon.NetworkService">
+    <property name="DisplayName" type="s" access="read"/>
+    <property name="Strength" type="y" access="read"/>
+    <property name="Wireless" type="b" access="read"/>
+    <signal name="StrengthChanged">
+      <arg type="y" name="Strength" direction="out"/>
+    </signal>  
   </interface>
 </node>

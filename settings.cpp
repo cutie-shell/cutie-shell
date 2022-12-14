@@ -17,8 +17,11 @@ Settings::Settings(QObject *parent) : QObject(parent) {
     this->modemm = new org::cutie_shell::SettingsDaemon::Modems(
         "org.cutie_shell.SettingsDaemon", "/modem",
         QDBusConnection::systemBus());
-    this->networks = new org::cutie_shell::SettingsDaemon::Networks(
-        "org.cutie_shell.SettingsDaemon", "/connection",
+    this->networks = new org::cutie_shell::SettingsDaemon::NetworkDevice(
+        "org.cutie_shell.SettingsDaemon", "/networking/device/1",
+        QDBusConnection::systemBus());
+    this->networkService = new org::cutie_shell::SettingsDaemon::NetworkService(
+        "org.cutie_shell.SettingsDaemon", this->networks->activeService().path(),
         QDBusConnection::systemBus());
     this->modems = new QList<org::cutie_shell::SettingsDaemon::Modem *>();
     QDBusPendingReply<unsigned int> countReply = modemm->ModemCount();
@@ -75,20 +78,9 @@ void Settings::initCellular(int i) {
 }
 
 void Settings::initWifi() {
-    QDBusPendingReply<QString> netReply = networks->GetWifiName();
-    netReply.waitForFinished();
-    if (netReply.isValid()) {
-        QMetaObject::invokeMethod(((QQmlApplicationEngine *)parent())->rootObjects()[0], "setWifiName", Q_ARG(QVariant, netReply.value()));
-    }
-
-    QDBusPendingReply<uchar> netReply2 = networks->GetWifiStrength();
-    netReply2.waitForFinished();
-    if (netReply2.isValid()) {
-        QMetaObject::invokeMethod(((QQmlApplicationEngine *)parent())->rootObjects()[0], "setWifiStrength", Q_ARG(QVariant, netReply2.value()));
-    }
-
-    connect(this->networks, SIGNAL(WifiStrengthChanged(uchar)), this, SLOT(onWifiStrengthChanged(uchar)));
-    connect(this->networks, SIGNAL(WifiNameChanged(QString)), this, SLOT(onWifiNameChanged(QString)));  
+	if (QString("/").compare(this->networks->activeService().path()) != 0)
+		onActiveServiceChanged(this->networks->activeService());
+    connect(this->networks, SIGNAL(ActiveServiceChanged(QDBusObjectPath)), this, SLOT(onActiveServiceChanged(QDBusObjectPath)));
 }
 
 void Settings::initCellularFull() {
@@ -246,8 +238,18 @@ void Settings::onNetStrengthChanged(uchar strength) {
     QMetaObject::invokeMethod(((QQmlApplicationEngine *)parent())->rootObjects()[0], "setCellularStrength", Q_ARG(QVariant, i + 1), Q_ARG(QVariant, strength));      
 }
 
-void Settings::onWifiNameChanged(QString name) {
-    QMetaObject::invokeMethod(((QQmlApplicationEngine *)parent())->rootObjects()[0], "setWifiName", Q_ARG(QVariant, name));      
+void Settings::onActiveServiceChanged(QDBusObjectPath path) {
+	delete this->networkService;
+	qDebug() << path.path();
+	this->networkService = new org::cutie_shell::SettingsDaemon::NetworkService(
+        "org.cutie_shell.SettingsDaemon", path.path(),
+        QDBusConnection::systemBus());
+
+	if (this->networkService) {
+		QMetaObject::invokeMethod(((QQmlApplicationEngine *)parent())->rootObjects()[0], "setWifiName", Q_ARG(QVariant, this->networkService->displayName()));
+		QMetaObject::invokeMethod(((QQmlApplicationEngine *)parent())->rootObjects()[0], "setWifiStrength", Q_ARG(QVariant, this->networkService->strength()));
+    	connect(this->networkService, SIGNAL(StrengthChanged(uchar)), this, SLOT(onWifiStrengthChanged(uchar)));
+	}    
 }
 
 void Settings::onWifiStrengthChanged(uchar strength) {
