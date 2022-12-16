@@ -1,6 +1,7 @@
 # Cutie Shell
+<img src="cutie.png" width="100px">
 
-You can find more information and installation instructions at our website: [https://cutie-shell.github.io/](https://cutie-shell.github.io)
+You can find more information and installation instructions at our website: [https://cutie-shell.org/](https://cutie-shell.org)
 
 Status: Pre-alpha
 
