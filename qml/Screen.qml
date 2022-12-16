@@ -265,8 +265,8 @@ WaylandOutput {
     sizeFollowsWindow: true
     window: Window {
         visible: true
-        width: 222 * shellScaleFactor
-        height: 370 * shellScaleFactor
+        width: 440 * shellScaleFactor
+        height: 720 * shellScaleFactor
         Rectangle {
             id: view 
             color: "#2E3440"
