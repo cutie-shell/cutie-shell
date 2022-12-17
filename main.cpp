@@ -6,13 +6,16 @@
 #include "settings.h"
 #include "hwbuttons.h"
 #include "notifications.h"
-//#include "appmodel.h"
 #include <QLoggingCategory>
+#include <QIcon>
 
 int main(int argc, char *argv[])
 {
     int shellScaleFactor = qEnvironmentVariable("QT_SCALE_FACTOR", "1").toDouble();
     qunsetenv("QT_SCALE_FACTOR");
+
+    QIcon::setThemeName("hicolor");
+    QIcon::setThemeSearchPaths(QStringList("/usr/share/icons"));
 
 #if QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
     QCoreApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
