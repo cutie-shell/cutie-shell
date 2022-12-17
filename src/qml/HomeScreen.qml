@@ -84,6 +84,15 @@ Rectangle {
                     clip: true
                     visible: false
                     onSurfaceDestroyed: shellSurfaces.remove(index)
+
+                    Component.onCompleted: {
+                        if (modelData.toplevel) modelData.toplevel.sendResizing(Qt.size(view.width / shellScaleFactor, view.height / shellScaleFactor - 30))
+
+                        appScreen.shellSurface = modelData;
+                        appScreen.shellSurfaceIdx += 1;
+                        root.oldState = root.state;
+                        root.state = "appScreen";
+                    }
                 }
 
                 OpacityMask {

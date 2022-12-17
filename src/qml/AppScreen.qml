@@ -7,6 +7,7 @@ Rectangle {
     opacity: 0
     visible: opacity > 0
     color: "transparent"
+    property alias chrome: visibleClient
     
     property ShellSurface shellSurface
     property int shellSurfaceIdx: -1

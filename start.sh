@@ -1,18 +1,9 @@
 #!/bin/bash
 
-export LD_LIBRARY_PATH=/usr/local/lib:$LD_LIBRARY_PATH
 export QT_QPA_PLATFORM=eglfs
 export QT_IM_MODULE=qtvirtualkeyboard
-export QT_QAYLAND_CLIENT_BUFFER_INTEGRATION=wayland-egl
-#export QT_QPA_EGLFS_KMS_CONFIG=/opt/cutiepi-shell/kms.conf
-export XDG_RUNTIME_DIR=$HOME/.xdg
-
-#if [ ! "`systemctl is-active connman`" == "active" ]; then 
-#    sudo service connman start 
-#fi
-
-#rfkill unblock all
-#connmanctl disable wifi
-#connmanctl enable wifi 
-
-./cutie-ui-io -plugin libinput
+export QT_AUTO_SCREEN_SCALE_FACTOR=0
+export QT_SCALE_FACTOR="2"
+export QT_VIRTUALKEYBOARD_STYLE=cutie
+export QT_VIRTUALKEYBOARD_LAYOUT_PATH=/usr/share/cutie-keyboard/layouts
+./cutie-ui-io

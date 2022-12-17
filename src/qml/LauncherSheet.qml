@@ -147,6 +147,7 @@ Rectangle {
                         height: view.width / 4
                         width: view.width / 4
                         icon.name: appIcon
+                        icon.source: "file://" + appIcon
                         icon.color: "transparent"
                         icon.height: view.width / 8
                         icon.width: view.width / 8

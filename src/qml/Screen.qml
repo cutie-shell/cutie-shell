@@ -26,13 +26,9 @@ WaylandOutput {
     property color atmosphereForeground: "#ffffff"
 
     property XdgSurface keyboard: null
+
     function handleShellSurface(shellSurface, toplevel) {
-        toplevel.sendResizing(Qt.size(view.width, view.height - 30 * shellScaleFactor))
         shellSurfaces.append({shellSurface: shellSurface});
-        appScreen.shellSurface = shellSurface;
-        appScreen.shellSurfaceIdx += 1;
-        root.oldState = root.state;
-        root.state = "appScreen";
     }
 
     function lock() {
@@ -43,6 +39,8 @@ WaylandOutput {
             closeBl.start();
         }
     }
+
+    scaleFactor: shellScaleFactor
 
     NumberAnimation { 
         id: closeBl
@@ -271,11 +269,6 @@ WaylandOutput {
             id: view 
             color: "#2E3440"
             anchors.fill: parent
-
-            FontLoader {
-                id: icon
-                source: "qrc:/fonts/Font Awesome 5 Free-Solid-900.otf"
-            }
 
             Rectangle {
                 id: content 
