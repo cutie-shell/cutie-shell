@@ -49,10 +49,7 @@ DBUS_INTERFACES += \
 systemdservice.files = cutie-ui-io.service
 systemdservice.path = /usr/lib/systemd/system/
 
-autostart.files = maliit.desktop
-autostart.path = /etc/xdg/autostart/
-
 logindconfig.files = logind.conf.d/10-cutie.conf
 logindconfig.path = /etc/systemd/logind.conf.d/
 
-INSTALLS += autostart logindconfig systemdservice
+INSTALLS += logindconfig systemdservice
