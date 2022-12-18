@@ -1,3 +1,3 @@
-logind.conf.d/10-cutie.conf /etc/systemd/logind.conf.d/
-maliit.desktop /etc/xdg/autostart/
+etc/systemd/logind.conf.d/10-cutie.conf
 usr/bin/cutie-ui-io
+usr/share/cutie-keyboard/
