@@ -5,6 +5,7 @@ Priority: optional
 Build-Depends: pkg-kde-tools,
                qt5-qmake,
                qtbase5-dev,
+               qtbase5-private-dev,
                pkg-config,
                qtdeclarative5-dev,
                libqt5dbus5
