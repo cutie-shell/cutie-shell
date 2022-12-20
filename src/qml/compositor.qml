@@ -21,6 +21,8 @@ import QtWayland.Compositor 1.14
 WaylandCompositor {
     id: comp
     useHardwareIntegrationExtension:true
+
+    property alias window: screen.window
     Screen { id: screen }
 
     function addApp(name, exec, icon) {
