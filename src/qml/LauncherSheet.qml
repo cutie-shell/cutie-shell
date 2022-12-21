@@ -22,7 +22,7 @@ Rectangle {
     Item {
         x: 0
         y: 0
-        height: 10 * shellScaleFactor
+        height: 20 * shellScaleFactor
         width: parent.width
 
         MouseArea { 
@@ -106,7 +106,7 @@ Rectangle {
             GridView {
                 id: launchAppGrid
                 anchors.fill: parent
-                anchors.topMargin: 5 * shellScaleFactor
+                anchors.topMargin: 20 * shellScaleFactor
                 model: launcherApps
                 cellWidth: view.width / 4
                 cellHeight: view.width / 4
@@ -169,9 +169,9 @@ Rectangle {
                         clip: true
                         font.family: "Lato"
                         color: (atmosphereVariant == "dark") ? "#ffffff" : "#000000"
-			width: 2 * appIconButton.width / 3
-			elide: Text.ElideRight
-			horizontalAlignment: Text.AlignHCenter
+                        width: 2 * appIconButton.width / 3
+                        elide: Text.ElideRight
+                        horizontalAlignment: Text.AlignHCenter
                     }
                 }
             }

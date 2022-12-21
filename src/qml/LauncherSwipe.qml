@@ -3,12 +3,12 @@ import QtGraphicalEffects 1.0
 
 Item {
     x: 0
-    y: parent.height - 10 * shellScaleFactor
-    height: 10 * shellScaleFactor
+    y: parent.height - 20 * shellScaleFactor
+    height: 20 * shellScaleFactor
     width: parent.width
 
     MouseArea { 
-        drag.target: parent; drag.axis: Drag.YAxis; drag.minimumY: - 10 * shellScaleFactor; drag.maximumY: view.height - 10 * shellScaleFactor
+        drag.target: parent; drag.axis: Drag.YAxis; drag.minimumY: - 20 * shellScaleFactor; drag.maximumY: view.height - 20 * shellScaleFactor
         enabled: (launcherState.state != "opened") && (screenLockState.state == "opened") && (settingsState.state == "closed")
         anchors.fill: parent
 
@@ -28,7 +28,7 @@ Item {
                 launcherState.state = "closed"
                 launcherSheet.setLauncherContainerState("closed");
             }
-            parent.y = parent.parent.height - 10 * shellScaleFactor;
+            parent.y = parent.parent.height - 20 * shellScaleFactor;
         }
 
         onPositionChanged: {
