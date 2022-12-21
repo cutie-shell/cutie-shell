@@ -1,0 +1,3 @@
+[submodule "atmospheres"]
+	path = atmospheres
+	url = https://github.com/cutie-shell/atmospheres

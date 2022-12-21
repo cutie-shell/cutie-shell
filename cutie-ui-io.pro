@@ -44,10 +44,16 @@ DBUS_INTERFACES += \
 systemdservice.files = cutie-ui-io.service
 systemdservice.path = /usr/lib/systemd/system/
 
+systemdandroidservice.files = android-service@hwcomposer.service.d
+systemdandroidservice.path = /etc/systemd/system/
+
 logindconfig.files = logind.conf.d/10-cutie.conf
 logindconfig.path = /etc/systemd/logind.conf.d/
 
 layouts.files = src/qml/layouts
 layouts.path = /usr/share/cutie-keyboard
 
-INSTALLS += logindconfig systemdservice layouts
+atmospheres.files = atmospheres/atmospheres
+atmospheres.path = /usr/share/
+
+INSTALLS += logindconfig systemdservice systemdandroidservice layouts atmospheres

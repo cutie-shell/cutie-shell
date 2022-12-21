@@ -15,5 +15,8 @@ Package: cutie-shell
 Architecture: any
 Multi-Arch: foreign
 Pre-Depends: ${misc:Pre-Depends}
-Depends: ${misc:Depends}, ${shlibs:Depends}, cutie-settings-daemon, qml-module-qtquick2, qml-module-qtquick-controls, qml-module-qtquick-controls2, qml-module-qtsensors, qml-module-qtwayland-compositor
+Depends: ${misc:Depends}, ${shlibs:Depends}, cutie-settings-daemon, qml-module-qtquick2, qml-module-qtquick-controls, qml-module-qtquick-controls2, qml-module-qtsensors, qml-module-qtwayland-compositor, qtvirtualkeyboard-plugin, qml-module-qt-labs-folderlistmodel, upower
 Description: This package contains Cutie Shell.
+Provides: phosh, phosh-config-hwcomposer, gnome-console
+Conflicts: phosh, phosh-config-hwcomposer, gnome-console
+Replaces: phosh, phosh-config-hwcomposer, gnome-console
