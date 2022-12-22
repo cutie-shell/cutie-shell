@@ -1,0 +1,6 @@
+<RCC>
+    <qresource prefix="/sounds">
+	<!-- notification sound by Erik Inkinen -->
+        <file>notif.wav</file>
+    </qresource>
+</RCC>

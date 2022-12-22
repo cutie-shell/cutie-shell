@@ -17,7 +17,8 @@ HEADERS += \
 
 RESOURCES += \
         src/qml/qml.qrc \
-        icons/icons.qrc
+        icons/icons.qrc \
+        sounds/sounds.qrc
 
 # Additional import path used to resolve QML modules in Qt Creator's code model
 QML_IMPORT_PATH =

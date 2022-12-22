@@ -17,6 +17,7 @@
 
 import QtQuick 2.14
 import QtWayland.Compositor 1.14
+import QtMultimedia 5.15
 
 WaylandCompositor {
     id: comp
@@ -32,9 +33,15 @@ WaylandCompositor {
                         appIcon: icon
                     })
     }
+    
+    SoundEffect {
+        id: notifSound
+        source: "qrc:/sounds/notif.wav"
+    }
 
     function addNotification(title, body, id) {
         notifications.append({title: title, body: body, id: id});
+        notifSound.play();
     }
 
     function delNotification(id) {
