@@ -93,6 +93,20 @@ Rectangle {
             font.pixelSize: 20 * shellScaleFactor
             font.family: "Lato"
             font.weight: Font.Black
+            anchors { left: parent.left; bottom: lockscreenNotifs.top; leftMargin: 15 * shellScaleFactor; bottomMargin: 3* shellScaleFactor }
+        }
+
+        Text { 
+            id: lockscreenNotifs
+            color: (atmosphereVariant == "dark") ? "#ffffff" : "#000000"
+            text: notifications.count > 1
+                ? qsTr("You have %1 unread notifications.").arg(notifications.count)
+                : (notifications.count > 0
+                ? qsTr("You have 1 unread notification.")
+                : qsTr("You have no unread notifications."))
+            font.pixelSize: 16 * shellScaleFactor
+            font.family: "Lato"
+            font.weight: Font.Normal
             anchors { left: parent.left; bottom: parent.bottom; margins: 15 * shellScaleFactor }
         }
 
