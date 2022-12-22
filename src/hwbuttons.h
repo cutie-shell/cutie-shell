@@ -11,7 +11,9 @@ class HWButtons : public QObject
 public:
     explicit HWButtons(QObject *parent = nullptr);
     bool eventFilter(QObject *, QEvent *ev);
-signals:
+private:
+    bool volUpDown;
+    bool volUpUsed;
 };
 
 #endif // HWBUTTONS_H

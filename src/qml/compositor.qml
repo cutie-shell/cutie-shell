@@ -19,6 +19,8 @@ import QtQuick 2.14
 import QtWayland.Compositor 1.14
 import QtMultimedia 5.15
 
+import Cutie 1.0
+
 WaylandCompositor {
     id: comp
     useHardwareIntegrationExtension:true
@@ -73,6 +75,26 @@ WaylandCompositor {
 
     function setWifiStrength(strength) {
         screen.setWifiStrength(strength);
+    }
+
+    function volUp() {
+        if (CutieVolume.volume < 0.9)
+            CutieVolume.volume += 0.1;
+        else CutieVolume.volume = 1.0;
+
+        if (CutieVolume.volume > 0.0)
+            CutieVolume.muted = false;
+        else CutieVolume.muted = true;
+    }
+
+    function volDown() {
+        if (CutieVolume.volume > 0.1)
+            CutieVolume.volume -= 0.1;
+        else CutieVolume.volume = 0.0;
+
+        if (CutieVolume.volume > 0.0)
+            CutieVolume.muted = false;
+        else CutieVolume.muted = true;
     }
     
     XdgShell {
