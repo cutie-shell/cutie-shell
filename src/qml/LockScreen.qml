@@ -61,18 +61,7 @@ Rectangle {
                 enabled: screenLockState.state == "closed";
                 anchors.fill: parent
 
-                Timer{
-                    id:timer
-                    interval: 200
-                }
-                onClicked: {
-                    if(timer.running)
-                    {
-                        compositor.lock()
-                        timer.stop()
-                    }
-                    else timer.restart()
-                }
+                onClicked: {}
             }
         }
 
