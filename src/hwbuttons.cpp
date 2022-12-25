@@ -5,7 +5,7 @@
 
 #include "hwbuttons.h"
 
-HWButtons::HWButtons(QObject *parent) : QObject(parent)
+HWButtons::HWButtons(QObject *parent) : QObject(parent), volUpDown(false), volUpUsed(false)
 {
 
 }
