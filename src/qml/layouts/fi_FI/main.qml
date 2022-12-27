@@ -182,6 +182,19 @@ KeyboardLayout {
         WSpaceKey {
             weight: 800
         }
+
+        Key {
+            text: "å"
+            alternativeKeys: "a"
+        }
+        Key {
+            text: "ä"
+            alternativeKeys: "æa"
+        }
+        Key {
+            text: "ö"
+            alternativeKeys: "øo"
+        }
         HideKeyboardKey {
             weight: 130
         }
