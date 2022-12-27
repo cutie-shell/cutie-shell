@@ -9,39 +9,11 @@ Rectangle {
     opacity: 0
     color: "transparent"
     enabled: root.state == "homeScreen"
-
-    Rectangle {
-        id: searchBar
-        height: 40 * shellScaleFactor
-	    color: (atmosphereVariant == "dark") ? "#ffffff" : "#000000"
-        visible: true
-        anchors.left: parent.left
-        anchors.right: parent.right
-        anchors.top: parent.top
-        anchors.leftMargin: 8 * shellScaleFactor
-        anchors.rightMargin: 8 * shellScaleFactor
-        anchors.topMargin: 50 * shellScaleFactor
-        radius: 8 * shellScaleFactor
-        clip: true
-        TextField {
-            id: searchText
-            text: ""
-            anchors.verticalCenter: parent.verticalCenter
-            anchors.left: parent.left
-            anchors.right: parent.right
-            anchors.margins: 10 * shellScaleFactor
-            color: (atmosphereVariant == "dark") ? "#000000" : "#ffffff"
-            clip: true
-            font.family: "Lato"
-            font.pixelSize: 15 * shellScaleFactor
-            background: Item { }
-        }
-    }
     
     GridView {
         id: tabListView
         anchors.fill: parent
-        anchors.topMargin: searchBar.height + 70 * shellScaleFactor
+        anchors.topMargin: 70 * shellScaleFactor
         model: shellSurfaces
         cellWidth: view.width / 2 - 5 * shellScaleFactor
         cellHeight: view.height / 2 + 20 * shellScaleFactor
