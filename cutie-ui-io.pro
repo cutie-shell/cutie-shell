@@ -1,4 +1,4 @@
-QT += quick dbus core network qml quick  gui-private
+QT += quick dbus core network qml quick gui-private
 
 CONFIG += c++11
 
@@ -45,7 +45,9 @@ DBUS_INTERFACES += \
 systemdservice.files = cutie-ui-io.service
 systemdservice.path = /usr/lib/systemd/system/
 
-systemdandroidservice.files = android-service@hwcomposer.service.d
+systemdandroidservice.files = \
+        android-service@hwcomposer.service.d \
+        cutie-ui-io.service.d
 systemdandroidservice.path = /etc/systemd/system/
 
 logindconfig.files = logind.conf.d/10-cutie.conf
@@ -57,4 +59,4 @@ layouts.path = /usr/share/cutie-keyboard
 atmospheres.files = atmospheres/atmospheres
 atmospheres.path = /usr/share/
 
-INSTALLS += logindconfig systemdservice systemdandroidservice layouts atmospheres
+INSTALLS += logindconfig systemdservice layouts atmospheres

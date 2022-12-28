@@ -19,7 +19,7 @@ override_dh_auto_clean:
 	rm -rf $(CURDIR)/.local
 
 override_dh_auto_configure:
-	dh_auto_configure -- QT_BUILD_PARTS+=tests QMAKE_PYTHON=python3
+	dh_auto_configure -- QT_BUILD_PARTS+=tests QMAKE_PYTHON=python3 INSTALLS+=systemdandroidservice
 
 override_dh_auto_build-indep:
 	dh_auto_build -- docs
@@ -40,4 +40,4 @@ override_dh_auto_install-indep:
 override_dh_auto_test-indep:
 
 override_dh_installsystemd:
-	dh_installsystemd --name cutie-ui-io
+	dh_installsystemd --no-stop-on-upgrade --name cutie-ui-io

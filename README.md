@@ -5,4 +5,4 @@ You can find more information at our website: [https://cutie-shell.org/](https:/
 
 Status: Pre-alpha
 
-Tested on: Volla Phone, Xiaomi Redmi 7, OnePlus 6t, PinePhone
+Tested on: Volla Phone, Google Pixel 3a, Xiaomi Redmi 7, OnePlus 6t, PinePhone
