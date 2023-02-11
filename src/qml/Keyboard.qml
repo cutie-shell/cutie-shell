@@ -1,7 +1,7 @@
-import QtQuick 2.14
-import QtQuick.VirtualKeyboard 2.2
-import QtQuick.VirtualKeyboard.Settings 2.2
-import QtWayland.Compositor 1.14
+import QtQuick
+import QtQuick.VirtualKeyboard
+import QtQuick.VirtualKeyboard.Settings
+import QtWayland.Compositor
 
 InputPanel {
     id: inputPanel

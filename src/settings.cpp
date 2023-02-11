@@ -154,7 +154,7 @@ void Settings::execApp(QString command)
 }
 
 void Settings::loadAppList() {
-    QString xdgDataDirs = QTextCodec::codecForMib(106)->toUnicode(qgetenv("XDG_DATA_DIRS"));
+    QString xdgDataDirs = QString(qgetenv("XDG_DATA_DIRS"));
     QStringList dataDirList = xdgDataDirs.split(':');
     for (int dirI = 0; dirI < dataDirList.count(); dirI++) {
         QDir *curAppDir = new QDir(dataDirList.at(dirI) + "/applications");

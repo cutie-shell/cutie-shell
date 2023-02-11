@@ -15,18 +15,19 @@
     along with CutiePi shell. If not, see <https://www.gnu.org/licenses/>.
 */
 
-import QtQuick 2.14
-import QtWayland.Compositor 1.14
-import QtMultimedia 5.15
+import QtQuick
+import QtWayland.Compositor
+import QtWayland.Compositor.XdgShell
+import QtMultimedia
 
-import Cutie 1.0
+import Cutie
 
 WaylandCompositor {
     id: comp
     useHardwareIntegrationExtension:true
 
     property alias window: screen.window
-    Screen { id: screen }
+    WaylandScreen { id: screen }
 
     function addApp(name, exec, icon) {
         launcherApps.append({

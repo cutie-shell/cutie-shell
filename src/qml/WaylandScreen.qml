@@ -1,9 +1,10 @@
-import QtQuick 2.14
-import QtQuick.Window 2.2
-import QtWayland.Compositor 1.14
-import QtGraphicalEffects 1.0
-import QtQuick.Controls 2.1
-import QtSensors 5.11
+import QtQuick
+import QtQuick.Window
+import QtWayland.Compositor
+import QtWayland.Compositor.XdgShell
+import Qt5Compat.GraphicalEffects
+import QtQuick.Controls
+import QtSensors
 
 WaylandOutput {
     id: compositor

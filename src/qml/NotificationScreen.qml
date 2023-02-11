@@ -1,6 +1,6 @@
-import QtQuick 2.12
-import QtGraphicalEffects 1.0
-import QtWayland.Compositor 1.14
+import QtQuick
+import Qt5Compat.GraphicalEffects
+import QtWayland.Compositor
 
 Rectangle {
     anchors.fill: parent

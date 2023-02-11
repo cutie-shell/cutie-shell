@@ -1,7 +1,7 @@
-import QtQuick 2.12
-import QtGraphicalEffects 1.0
-import QtWayland.Compositor 1.14
-import QtQuick.Controls 2.12
+import QtQuick
+import Qt5Compat.GraphicalEffects
+import QtWayland.Compositor
+import QtQuick.Controls
 
 Rectangle {
     id: homeScreen
@@ -51,7 +51,6 @@ Rectangle {
                     anchors.fill: parent
                     anchors.bottomMargin: 25 * shellScaleFactor
                     surface: modelData.surface
-                    sizeFollowsSurface: false
                     inputEventsEnabled: false
                     clip: true
                     visible: false

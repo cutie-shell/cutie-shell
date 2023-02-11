@@ -1,12 +1,11 @@
-import QtQuick 2.14
-import QtWayland.Compositor 1.14
-import QtQuick.VirtualKeyboard 2.2
-import QtQuick.VirtualKeyboard.Settings 2.2
+import QtQuick
+import QtWayland.Compositor
+import QtQuick.VirtualKeyboard
+import QtQuick.VirtualKeyboard.Settings
 
 ShellSurfaceItem {
     x: 0
     y: 30 * shellScaleFactor
-    sizeFollowsSurface: true
     autoCreatePopupItems: true
     touchEventsEnabled: false
 

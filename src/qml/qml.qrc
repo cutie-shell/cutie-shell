@@ -3,7 +3,7 @@
         <file>compositor.qml</file>
         <file>Keyboard.qml</file>
         <file>LockScreen.qml</file>
-        <file>Screen.qml</file>
+        <file>WaylandScreen.qml</file>
         <file>SettingSheet.qml</file>
         <file>LauncherSheet.qml</file>
         <file>HomeScreen.qml</file>
@@ -14,7 +14,7 @@
         <file>ScreenSwipe.qml</file>
         <file>WaylandChrome.qml</file>
         <file>kbdstyle/QtQuick/VirtualKeyboard/Styles/cutie/style.qml</file>
-	<file>kbdstyle/QtQuick/VirtualKeyboard/Styles/cutie/images/settings-fff.svg</file>
+	    <file>kbdstyle/QtQuick/VirtualKeyboard/Styles/cutie/images/settings-fff.svg</file>
         <file>kbdstyle/QtQuick/VirtualKeyboard/Styles/cutie/images/backspace-fff.svg</file>
         <file>kbdstyle/QtQuick/VirtualKeyboard/Styles/cutie/images/search-fff.svg</file>
         <file>kbdstyle/QtQuick/VirtualKeyboard/Styles/cutie/images/shift-fff.svg</file>

@@ -30,7 +30,7 @@ Environment=LANG=C.UTF-8
 Environment=QT_QPA_PLATFORM=hwcomposer
 Environment=EGL_PLATFORM=hwcomposer
 Environment=QT_IM_MODULE=qtvirtualkeyboard
-Environment=QT_AUTO_SCREEN_SCALE_FACTOR=0
+Environment=QT_ENABLE_HIGHDPI_SCALING=0
 Environment=QT_SCALE_FACTOR="3"
 Environment=QT_VIRTUALKEYBOARD_STYLE=cutie
 Environment=QT_VIRTUALKEYBOARD_LAYOUT_PATH=/usr/share/cutie-keyboard/layouts
