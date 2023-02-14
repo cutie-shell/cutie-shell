@@ -2,10 +2,10 @@
 #include <QQmlApplicationEngine>
 #include <QQmlContext>
 #include <QDBusPendingReply>
-#include <notifications_adaptor.h>
 #include "settings.h"
 #include "hwbuttons.h"
 #include "notifications.h"
+#include "NotificationsAdaptor.h"
 #include <QLoggingCategory>
 #include <QIcon>
 
