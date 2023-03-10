@@ -23,7 +23,12 @@ Depends: ${misc:Depends}, ${shlibs:Depends},
           qml6-module-qtwayland-compositor, 
           qt6-virtualkeyboard-plugin, 
           qml6-module-qt-labs-folderlistmodel, 
-          qml6-module-qtquick-virtualkeyboard, 
+          qml6-module-qtquick-virtualkeyboard,
+          qml6-module-qtqml-workerscript,
+          qml6-module-qtmultimedia,
+          qml6-module-qtquick-window,
+          qml6-module-qtquick-templates,
+          qml6-module-qtquick-layouts,
           upower
 Description: This package contains Cutie Shell.
 
