@@ -31,7 +31,7 @@ int main(int argc, char *argv[])
     Settings *settings = new Settings(&engine);
     settings->refreshBatteryInfo();
 
-    engine.addImportPath("qrc://kbdstyle");
+    engine.addImportPath("qrc:/kbdstyle");
     qputenv("QT_VIRTUALKEYBOARD_STYLE", "cutie");
 
     engine.rootContext()->setContextProperty("shellScaleFactor", shellScaleFactor);
