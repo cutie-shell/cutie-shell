@@ -6,6 +6,7 @@ import QtQuick.Layouts
 import QtQuick.VirtualKeyboard
 import QtQuick.VirtualKeyboard.Styles
 import Qt5Compat.GraphicalEffects
+import Cutie
 
 KeyboardStyle {
     id: currentStyle
@@ -17,29 +18,21 @@ KeyboardStyle {
     readonly property string resourcePrefix: "qrc:/kbdstyle/QtQuick/VirtualKeyboard/Styles/cutie/"
 
     readonly property string inputLocale: InputContext.locale
-    property color primaryColor: "#00000000"
-    property color primaryLightColor: (atmosphereVariant == "dark") ? "#80ffffff" : "#80000000"
-    property color primaryDarkColor: (atmosphereVariant == "dark") ? "#ffffffff" : "#ff000000"
-    property color textOnPrimaryColor: (atmosphereVariant == "dark") ? "#000000" : "#ffffff"
-    property color secondaryColor: (atmosphereVariant == "dark") ? "#ffffffff" : "#ff000000"
-    property color secondaryLightColor: (atmosphereVariant == "dark") ? "#000000" : "#ffffff"
-    property color secondaryDarkColor: (atmosphereVariant == "dark") ? "#20000000" : "#20ffffff"
-    property color textOnSecondaryColor: (atmosphereVariant == "dark") ? "#000000" : "#ffffff"
 
-    property color keyboardBackgroundColor: primaryColor
-    property color normalKeyBackgroundColor: primaryDarkColor
-    property color highlightedKeyBackgroundColor: primaryLightColor
-    property color capsLockKeyAccentColor: secondaryColor
-    property color modeKeyAccentColor: textOnPrimaryColor
-    property color keyTextColor: textOnPrimaryColor
-    property color keySmallTextColor: textOnPrimaryColor
-    property color popupBackgroundColor: secondaryColor
-    property color popupBorderColor: secondaryLightColor
-    property color popupTextColor: textOnSecondaryColor
-    property color popupHighlightColor: secondaryDarkColor
-    property color selectionListTextColor: primaryDarkColor
-    property color selectionListSeparatorColor: primaryDarkColor
-    property color selectionListBackgroundColor: primaryColor
+    property color keyboardBackgroundColor: "transparent"
+    property color normalKeyBackgroundColor: Atmosphere.primaryColor
+    property color highlightedKeyBackgroundColor: Atmosphere.secondaryColor
+    property color capsLockKeyAccentColor: Atmosphere.accentColor
+    property color modeKeyAccentColor: Atmosphere.accentColor
+    property color keyTextColor: Atmosphere.textColor
+    property color keySmallTextColor: Atmosphere.textColor
+    property color popupBackgroundColor: Atmosphere.secondaryColor
+    property color popupBorderColor: Atmosphere.accentColor
+    property color popupTextColor: Atmosphere.textColor
+    property color popupHighlightColor: Atmosphere.secondaryColor
+    property color selectionListTextColor: Atmosphere.textColor
+    property color selectionListSeparatorColor: Atmosphere.textColor
+    property color selectionListBackgroundColor: "transparent"
     property color navigationHighlightColor: "yellow"
 
     property real inputLocaleIndicatorOpacity: 1.0

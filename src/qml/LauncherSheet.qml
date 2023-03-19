@@ -1,15 +1,21 @@
 import QtQuick
 import QtQuick.Controls
 import Qt5Compat.GraphicalEffects
+import Cutie
 
 // launcher sheet 
-Rectangle {
+Item {
     id: launcherSheet
     width: view.width
     height: view.height
     opacity: 0
-    color: "transparent"
     y: view.height
+
+    FastBlur {
+        anchors.fill: parent
+        source: realWallpaper
+        radius: 70
+    }   
 
     function setLauncherContainerY(y) {
         launcherContainer.y = y;
@@ -57,122 +63,107 @@ Rectangle {
         }
     }
 
-    FastBlur {
-        anchors.fill: parent
-        source: realWallpaper
-        anchors.rightMargin: 0
-        anchors.bottomMargin: 0
-        anchors.leftMargin: 0
-        anchors.topMargin: 0
-        radius: 90
+    Item {
+        id: launcherContainer
+        y: /*view.height*/0
+        height: parent.height
+        width: parent.width
 
-        Rectangle {
-            anchors.fill: parent
-            color: (atmosphereVariant == "dark") ? "#80000000" : "#80ffffff"
-        }
+        state: "closed"
 
-        Item {
-            id: launcherContainer
-            y: /*view.height*/0
-            height: parent.height
-            width: parent.width
-
-            state: "closed"
-
-            states: [
-                State {
-                    name: "opened"
-                    PropertyChanges { target: launcherContainer; y: 0 }
-                },
-                State {
-                    name: "closed"
-                    PropertyChanges { target: launcherContainer; y: view.height }
-                },
-                State {
-                    name: "opening"
-                    PropertyChanges { target: launcherContainer; y: view.height }
-                },
-                State {
-                    name: "closing"
-                    PropertyChanges { target: launcherContainer; y: 0 }
-                }
+        states: [
+            State {
+                name: "opened"
+                PropertyChanges { target: launcherContainer; y: 0 }
+            },
+            State {
+                name: "closed"
+                PropertyChanges { target: launcherContainer; y: view.height }
+            },
+            State {
+                name: "opening"
+                PropertyChanges { target: launcherContainer; y: view.height }
+            },
+            State {
+                name: "closing"
+                PropertyChanges { target: launcherContainer; y: 0 }
+            }
             ]
 
-            transitions: Transition {
-                to: "*"
-                NumberAnimation { target: launcherContainer; properties: "y"; duration: 300; easing.type: Easing.InOutQuad; }
+        transitions: Transition {
+            to: "*"
+            NumberAnimation { target: launcherContainer; properties: "y"; duration: 300; easing.type: Easing.InOutQuad; }
+        }
+
+        GridView {
+            id: launchAppGrid
+            anchors.fill: parent
+            anchors.topMargin: 20 * shellScaleFactor
+            model: launcherApps
+            cellWidth: view.width / 4
+            cellHeight: view.width / 4
+
+            property real tempContentY: 0
+            property bool refreshing: false
+
+
+            onAtYBeginningChanged: {
+                if(atYBeginning){
+                    tempContentY = contentY
+                }
             }
 
-            GridView {
-                id: launchAppGrid
-                anchors.fill: parent
-                anchors.topMargin: 20 * shellScaleFactor
-                model: launcherApps
-                cellWidth: view.width / 4
-                cellHeight: view.width / 4
-
-                property real tempContentY: 0
-                property bool refreshing: false
-
-
-                onAtYBeginningChanged: {
-                    if(atYBeginning){
-                        tempContentY = contentY
-                    }
-                }
-
-                onContentYChanged: {
-                    if(atYBeginning){
-                        if(Math.abs(tempContentY - contentY) > 30 * shellScaleFactor){
-                            if(refreshing){
-                                return;
-                            } else {
-                                refreshing = true               
-                            }
+            onContentYChanged: {
+                if(atYBeginning){
+                    if(Math.abs(tempContentY - contentY) > 30 * shellScaleFactor){
+                        if(refreshing){
+                            return;
+                        } else {
+                            refreshing = true               
                         }
                     }
                 }
+            }
 
-                onMovementEnded: {
-                    if (refreshing) {
-                        launcherApps.clear();
-                        settings.loadAppList();
-                        refreshing = false     
+            onMovementEnded: {
+                if (refreshing) {
+                    launcherApps.clear();
+                    settings.loadAppList();
+                    refreshing = false     
+                }
+            }
+
+            delegate: Item {
+                Button {
+                    id: appIconButton
+                    height: view.width / 4
+                    width: view.width / 4
+                    icon.name: appIcon
+                    icon.source: "file://" + appIcon
+                    icon.color: "transparent"
+                    icon.height: view.width / 8
+                    icon.width: view.width / 8
+                    background: Rectangle {
+                        color: "transparent"
+                    }
+
+                    onClicked: {
+                        settings.execApp(appExec);
+                        launcherState.state = "closed"
+                        launcherContainer.state = "closed"
                     }
                 }
-
-                delegate: Item {
-                    Button {
-                        id: appIconButton
-                        height: view.width / 4
-                        width: view.width / 4
-                        icon.name: appIcon
-                        icon.source: "file://" + appIcon
-                        icon.color: "transparent"
-                        icon.height: view.width / 8
-                        icon.width: view.width / 8
-                        background: Rectangle {
-                            color: "transparent"
-                        }
-
-                        onClicked: {
-                            settings.execApp(appExec);
-                            launcherState.state = "closed"
-                            launcherContainer.state = "closed"
-                        }
-                    }
-                    Text {
-                        anchors.bottom: appIconButton.bottom
-                        anchors.horizontalCenter: appIconButton.horizontalCenter
-                        text: appName
-                        font.pixelSize: 12 * shellScaleFactor
-                        clip: true
-                        font.family: "Lato"
-                        color: (atmosphereVariant == "dark") ? "#ffffff" : "#000000"
-                        width: 2 * appIconButton.width / 3
-                        elide: Text.ElideRight
-                        horizontalAlignment: Text.AlignHCenter
-                    }
+                Text {
+                    anchors.bottom: appIconButton.bottom
+                    anchors.horizontalCenter: appIconButton.horizontalCenter
+                    text: appName
+                    font.pixelSize: 12 * shellScaleFactor
+                    clip: true
+                    font.family: "Lato"
+                    color: Atmosphere.textColor
+                    width: 2 * appIconButton.width / 3
+                    elide: Text.ElideRight
+                    horizontalAlignment: Text.AlignHCenter
                 }
             }
         }

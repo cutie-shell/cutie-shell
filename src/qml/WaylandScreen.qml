@@ -5,6 +5,7 @@ import QtWayland.Compositor.XdgShell
 import Qt5Compat.GraphicalEffects
 import QtQuick.Controls
 import QtSensors
+import Cutie
 
 WaylandOutput {
     id: compositor
@@ -23,7 +24,7 @@ WaylandOutput {
     property real unlockBrightness: 0.5
 
     property int drawerMargin: 5*shellScaleFactor
-    property string nextAtmospherePath: "file://usr/share/atmospheres/city/"
+    property string nextAtmospherePath: "/usr/share/atmospheres/city/"
     property color atmosphereForeground: "#ffffff"
 
     property XdgSurface keyboard: null
@@ -266,12 +267,11 @@ WaylandOutput {
         visible: true
         width: 440 * shellScaleFactor
         height: 720 * shellScaleFactor
-        Rectangle {
-            id: view 
-            color: "#2E3440"
+        Item {
+            id: view
             anchors.fill: parent
 
-            Rectangle {
+            Item {
                 id: content 
                 anchors.fill: parent
 
@@ -281,14 +281,14 @@ WaylandOutput {
                     Image {
                         id: wallpaper
                         anchors.fill: parent
-                        source: atmospherePath + "wallpaper.jpg"
+                        source: "file:/" + atmospherePath + "/wallpaper.jpg"
                         fillMode: Image.PreserveAspectCrop
                     }
 
                     Image {
                         id: nextWallpaper
                         anchors.fill: parent
-                        source: nextAtmospherePath + "wallpaper.jpg"
+                        source: "file:/" + nextAtmospherePath + "/wallpaper.jpg"
                         fillMode: Image.PreserveAspectCrop
                         opacity: 0
                         state: "normal"

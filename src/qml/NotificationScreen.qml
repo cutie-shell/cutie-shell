@@ -1,18 +1,12 @@
 import QtQuick
 import Qt5Compat.GraphicalEffects
 import QtWayland.Compositor
+import Cutie
 
-Rectangle {
+Item {
     anchors.fill: parent
     opacity: 0
-    color: "transparent"
     enabled: root.state == "notificationScreen"
-
-    FastBlur {
-        anchors.fill: parent
-        source: realWallpaper
-        radius: 70
-    }
 
     ListView {
         id: notificationList
@@ -36,17 +30,7 @@ Rectangle {
                 font.family: "Lato"
                 font.weight: Font.Bold
                 horizontalAlignment: Text.AlignLeft
-                state: atmosphereVariant
-                states: [
-                    State {
-                        name: "dark"
-                        PropertyChanges { target: notificationHeader; color: "#ffffff" }
-                    },
-                    State {
-                        name: "light"
-                        PropertyChanges { target: notificationHeader; color: "#000000" }
-                    }
-                ]
+                color: Atmosphere.textColor
                 transitions: Transition {
                     ColorAnimation { properties: "color"; duration: 500; easing.type: Easing.InOutQuad }
                 }
@@ -64,17 +48,7 @@ Rectangle {
                 font.family: "Lato"
                 font.weight: Font.Normal
                 horizontalAlignment: Text.AlignLeft
-                state: atmosphereVariant
-                states: [
-                    State {
-                        name: "dark"
-                        PropertyChanges { target: descriptionText; color: "#ffffff" }
-                    },
-                    State {
-                        name: "light"
-                        PropertyChanges { target: descriptionText; color: "#000000" }
-                    }
-                ]
+                color: Atmosphere.textColor
                 transitions: Transition {
                     ColorAnimation { properties: "color"; duration: 500; easing.type: Easing.InOutQuad }
                 }
@@ -131,17 +105,7 @@ Rectangle {
                 font.family: "Lato"
                 font.weight: Font.Black
                 wrapMode: Text.Wrap
-                state: atmosphereVariant
-                states: [
-                    State {
-                        name: "dark"
-                        PropertyChanges { target: titleText; color: "#ffffff" }
-                    },
-                    State {
-                        name: "light"
-                        PropertyChanges { target: titleText; color: "#000000" }
-                    }
-                ]
+                color: Atmosphere.textColor
                 transitions: Transition {
                     ColorAnimation { properties: "color"; duration: 500; easing.type: Easing.InOutQuad }
                 }
@@ -160,17 +124,7 @@ Rectangle {
                 font.family: "Lato"
                 font.bold: false
                 wrapMode: Text.Wrap
-                state: atmosphereVariant
-                states: [
-                    State {
-                        name: "dark"
-                        PropertyChanges { target: bodyText; color: "#ffffff" }
-                    },
-                    State {
-                        name: "light"
-                        PropertyChanges { target: bodyText; color: "#000000" }
-                    }
-                ]
+                color: Atmosphere.textColor
                 transitions: Transition {
                     ColorAnimation { properties: "color"; duration: 500; easing.type: Easing.InOutQuad }
                 }

@@ -2,14 +2,21 @@ import QtQuick
 import Qt5Compat.GraphicalEffects
 import QtWayland.Compositor
 import QtQuick.Controls
+import Cutie
 
-Rectangle {
+Item {
     id: homeScreen
     anchors.fill: parent
     opacity: 0
-    color: "transparent"
     enabled: root.state == "homeScreen"
-    
+
+    FastBlur {
+        visible: shellSurfaces.count > 0
+        anchors.fill: parent
+        source: realWallpaper
+        radius: 70
+    }
+
     GridView {
         id: tabListView
         anchors.fill: parent
@@ -28,7 +35,7 @@ Rectangle {
                 width: appThumb.width - 20 * shellScaleFactor
                 height: appThumb.height - 20 * shellScaleFactor
                 x: 10 * shellScaleFactor
-                color: (atmosphereVariant == "dark") ? "#4fffffff" : "#4f000000"
+                color: Atmosphere.secondaryAlphaColor
                 radius: 10 * shellScaleFactor
                 clip: true
 
@@ -85,14 +92,14 @@ Rectangle {
                         anchors.bottom: parent.bottom
                         height: 50 * shellScaleFactor
                         radius: 10 * shellScaleFactor
-                        color: (atmosphereVariant == "dark") ? "#ffffff" : "#000000"
+                        color: Atmosphere.primaryColor
                     }
 
                     Text {
                         anchors.horizontalCenter: parent.horizontalCenter
                         anchors.bottom: parent.bottom
                         anchors.bottomMargin: 7 * shellScaleFactor
-                        color: (atmosphereVariant == "dark") ? "#000000" : "#ffffff"
+                        color: Atmosphere.textColor
                         text: modelData.toplevel.title
                         font.pixelSize: 12 * shellScaleFactor
                         horizontalAlignment: Text.AlignHCenter

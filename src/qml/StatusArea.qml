@@ -1,11 +1,11 @@
 import QtQuick
 import Qt5Compat.GraphicalEffects
+import Cutie
 
-Rectangle {
+Item {
     width: parent.width
     height: 30 * shellScaleFactor
     anchors.top: parent.top
-    color: "transparent"
 
     function setCellularStrength(strength) {
         if (strength > 80) {
@@ -41,17 +41,7 @@ Rectangle {
         width: 10 * shellScaleFactor
         height: 10 * shellScaleFactor
         visible: false
-        state: atmosphereVariant
-        states: [
-            State {
-                name: "dark"
-                PropertyChanges { target: maskRect2; color: "#ffffff" }
-            },
-            State {
-                name: "light"
-                PropertyChanges { target: maskRect2; color: "#000000" }
-            }
-        ]
+        color: Atmosphere.textColor
         transitions: Transition {
             ColorAnimation { properties: "color"; duration: 500; easing.type: Easing.InOutQuad }
         }
@@ -130,17 +120,7 @@ Rectangle {
         text: Math.floor(batteryStatus.Percentage).toString() + " %"
         font.pixelSize: 12 * shellScaleFactor
         font.bold: false
-        state: atmosphereVariant
-        states: [
-            State {
-                name: "dark"
-                PropertyChanges { target: text14; color: "#ffffff" }
-            },
-            State {
-                name: "light"
-                PropertyChanges { target: text14; color: "#000000" }
-            }
-        ]
+        color: Atmosphere.textColor
         transitions: Transition {
             ColorAnimation { properties: "color"; duration: 500; easing.type: Easing.InOutQuad }
         }
@@ -156,17 +136,7 @@ Rectangle {
         text: Qt.formatDateTime(new Date(), "HH:mm")
         font.pixelSize: 12 * shellScaleFactor
         font.bold: false
-        state: atmosphereVariant
-        states: [
-            State {
-                name: "dark"
-                PropertyChanges { target: clockText; color: "#ffffff" }
-            },
-            State {
-                name: "light"
-                PropertyChanges { target: clockText; color: "#000000" }
-            }
-        ]
+        color: Atmosphere.textColor
         transitions: Transition {
             ColorAnimation { properties: "color"; duration: 500; easing.type: Easing.InOutQuad }
         }
