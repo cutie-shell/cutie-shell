@@ -9,6 +9,8 @@ InputPanel {
     anchors.left: parent.left
     anchors.right: parent.right
 
+    Component.onCompleted: VirtualKeyboardSettings.styleName = "cutie"
+
     onStateChanged: {
         for (var i = 0; i < shellSurfaces.count; i++) {
             if (state == "visible") {

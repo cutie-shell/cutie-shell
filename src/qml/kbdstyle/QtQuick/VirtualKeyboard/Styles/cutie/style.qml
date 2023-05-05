@@ -14,7 +14,7 @@ KeyboardStyle {
     readonly property real keyBackgroundMargin: Math.round(10 * scaleHint)
     readonly property real keyContentMargin: Math.round(40 * scaleHint)
     readonly property real keyIconScale: scaleHint / 2
-    readonly property string resourcePrefix: "qrc:/kbdstyle/QtQuick/VirtualKeyboard/Styles/cutie/"
+    readonly property string resourcePrefix: Qt.resolvedUrl(".")
 
     readonly property string inputLocale: InputContext.locale
     property color primaryColor: "#00000000"
