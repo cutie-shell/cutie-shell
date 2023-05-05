@@ -3,12 +3,12 @@ Section: libs
 Maintainer: Erik Inkinen <erik.inkinen@gmail.com>
 Priority: optional
 Build-Depends: pkg-kde-tools,
-               qt5-qmake,
-               qtbase5-dev,
-               qtbase5-private-dev,
+               cmake,
+               qt6-base-dev,
+               qt6-base-private-dev,
                pkg-config,
-               qtdeclarative5-dev,
-               libqt5dbus5
+               qt6-declarative-dev,
+               libqt6dbus6
 Standards-Version: 4.5.1
 
 Package: cutie-shell
@@ -17,13 +17,18 @@ Multi-Arch: foreign
 Pre-Depends: ${misc:Pre-Depends}
 Depends: ${misc:Depends}, ${shlibs:Depends}, 
           cutie-settings-daemon, 
-          qml-module-qtquick2, 
-          qml-module-qtquick-controls, 
-          qml-module-qtquick-controls2, 
-          qml-module-qtsensors, 
-          qml-module-qtwayland-compositor, 
-          qtvirtualkeyboard-plugin, 
-          qml-module-qt-labs-folderlistmodel, 
+          qml6-module-qtquick, 
+          qml6-module-qtquick-controls, 
+          qml6-module-qtsensors, 
+          qml6-module-qtwayland-compositor, 
+          qt6-virtualkeyboard-plugin, 
+          qml6-module-qt-labs-folderlistmodel, 
+          qml6-module-qtquick-virtualkeyboard,
+          qml6-module-qtqml-workerscript,
+          qml6-module-qtmultimedia,
+          qml6-module-qtquick-window,
+          qml6-module-qtquick-templates,
+          qml6-module-qtquick-layouts,
           upower
 Description: This package contains Cutie Shell.
 

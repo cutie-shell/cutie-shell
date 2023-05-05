@@ -127,7 +127,7 @@ Rectangle {
         anchors.right: parent.right
         anchors.rightMargin: 12 * shellScaleFactor
         anchors.verticalCenter: parent.verticalCenter
-        text: batteryStatus.Percentage.toString() + " %"
+        text: Math.floor(batteryStatus.Percentage).toString() + " %"
         font.pixelSize: 12 * shellScaleFactor
         font.bold: false
         state: atmosphereVariant
