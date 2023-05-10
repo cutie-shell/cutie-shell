@@ -1,5 +1,5 @@
 [Unit]
-Description=CutiePiShellCommunityProject
+Description=Cutie Shell UI
 
 # Make sure we are started after logins are permitted.
 After=systemd-user-sessions.service
@@ -16,8 +16,6 @@ After=dbus.socket
 # See README for more details.
 After=session-c1.scope
 
-After=lxc@android.service
-
 # Since we are part of the graphical session, make sure we are started before
 # it is complete.
 Before=graphical.target
@@ -27,17 +25,16 @@ ConditionPathExists=/dev/tty0
 
 [Service]
 Environment=LANG=C.UTF-8
-Environment=QT_QPA_PLATFORM=hwcomposer
-Environment=EGL_PLATFORM=hwcomposer
+Environment=QT_QPA_PLATFORM=eglfs
 Environment=QT_IM_MODULE=qtvirtualkeyboard
 Environment=QT_ENABLE_HIGHDPI_SCALING=0
-Environment=QT_SCALE_FACTOR="3"
+Environment=QT_SCALE_FACTOR="2"
 Environment=QT_VIRTUALKEYBOARD_STYLE=cutie
 Environment=QT_VIRTUALKEYBOARD_LAYOUT_PATH=/usr/share/cutie-keyboard/layouts
-ExecStartPre=/usr/bin/waitforservice init.svc.vendor.hwcomposer-*
-ExecStart=/usr/bin/cutie-ui-io -plugin evdevtouch -plugin evdevkeyboard
+Environment=QT_MEDIA_BACKEND=ffmpeg
+ExecStart=/usr/bin/cutie-ui-io -plugin libinput
 TimeoutStartSec=30
-User=32011
+User=1000
 PAMName=login
 WorkingDirectory=~
 Restart=always
