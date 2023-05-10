@@ -31,6 +31,7 @@ Environment=QT_ENABLE_HIGHDPI_SCALING=0
 Environment=QT_SCALE_FACTOR="2"
 Environment=QT_VIRTUALKEYBOARD_STYLE=cutie
 Environment=QT_VIRTUALKEYBOARD_LAYOUT_PATH=/usr/share/cutie-keyboard/layouts
+Environment=QT_MEDIA_BACKEND=ffmpeg
 ExecStart=/usr/bin/cutie-ui-io -plugin libinput
 TimeoutStartSec=30
 User=1000
