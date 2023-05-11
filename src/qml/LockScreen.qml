@@ -10,10 +10,42 @@ Item {
     property alias lockscreenTime: lockscreenTime
     property alias lockscreenDate: lockscreenDate 
 
-    FastBlur {
+
+    Image {
+        id: lockWallpaper
         anchors.fill: parent
-        source: realWallpaper
+        source: "file:/" + atmospherePath + "/wallpaper.jpg"
+        fillMode: Image.PreserveAspectCrop
+    }
+
+    FastBlur {
+        id: clockBlur
+        anchors.fill: parent
+        source: lockWallpaper
         radius: 70
+        visible: false
+    }
+
+    Item {
+        id: clockBlurMask
+        anchors.fill: parent
+        clip: true
+        Rectangle {
+            anchors.left: parent.left
+            anchors.right: parent.right
+            anchors.leftMargin: 20
+            anchors.rightMargin: 20
+            y: 130
+            height: lockscreenTime.height + lockscreenDate.height + lockscreenNotifs.height + 50
+            color: "black"
+            radius: 10
+        }
+    }
+
+    OpacityMask {
+        anchors.fill: parent
+        source: clockBlur
+        maskSource: clockBlurMask
     }
 
     function timeChanged() {
@@ -62,7 +94,12 @@ Item {
         font.pixelSize: 72
         font.family: "Lato"
         font.weight: Font.Light
-        anchors { left: parent.left; bottom: lockscreenDate.top; leftMargin: 15; bottomMargin: 3 }
+
+        anchors { 
+            horizontalCenter: parent.horizontalCenter
+            top: parent.top; 
+            topMargin: 150
+        }
     }
 
     Text { 
@@ -72,7 +109,12 @@ Item {
         font.pixelSize: 20
         font.family: "Lato"
         font.weight: Font.Black
-        anchors { left: parent.left; bottom: lockscreenNotifs.top; leftMargin: 15; bottomMargin: 3 }
+
+        anchors { 
+            horizontalCenter: parent.horizontalCenter
+            top: lockscreenTime.bottom; 
+            topMargin: 5
+        }
     }
 
     Text { 
@@ -86,7 +128,12 @@ Item {
         font.pixelSize: 16
         font.family: "Lato"
         font.weight: Font.Normal
-        anchors { left: parent.left; bottom: parent.bottom; margins: 15 }
+
+        anchors { 
+            horizontalCenter: parent.horizontalCenter
+            top: lockscreenDate.bottom; 
+            topMargin: 5
+        }
     }
 
     Timer {
