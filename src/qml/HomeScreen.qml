@@ -10,13 +10,6 @@ Item {
     opacity: 0
     enabled: root.state == "homeScreen"
 
-    FastBlur {
-        visible: shellSurfaces.count > 0
-        anchors.fill: parent
-        source: realWallpaper
-        radius: 70
-    }
-
     GridView {
         id: tabListView
         anchors.fill: parent
@@ -30,14 +23,38 @@ Item {
             id: appThumb
             width: tabListView.cellWidth
             height: tabListView.cellHeight
-            Rectangle {
+
+            Item {
                 id: appBg
                 width: appThumb.width - 20
                 height: appThumb.height - 20
                 x: 10
-                color: Atmosphere.secondaryAlphaColor
-                radius: 10
-                clip: true
+
+                Item {
+                    id: tileBlurMask
+                    anchors.fill: tileBlur
+                    clip: true
+                    visible: false
+                    Rectangle {
+                        width: appBg.width
+                        height: appBg.height
+                        x: appThumb.x+appBg.x
+                        y: appThumb.y+appBg.y+tabListView.y
+                        color: "black"
+                        radius: 10
+                    }
+                }
+
+                FastBlur {
+                    id: tileBlur
+                    width: homeScreen.width
+                    height: homeScreen.height
+                    x: -appThumb.x-appBg.x
+                    y: -appThumb.y-appBg.y-tabListView.y
+                    source: realWallpaper
+                    radius: 70
+                    visible: false
+                }
 
                 Item {
                     id: appRoundMask
@@ -74,6 +91,12 @@ Item {
                         root.oldState = root.state;
                         root.state = "appScreen";
                     }
+                }
+
+                OpacityMask {
+                    anchors.fill: tileBlur
+                    source: tileBlur
+                    maskSource: tileBlurMask
                 }
 
                 OpacityMask {
@@ -139,14 +162,14 @@ Item {
                             }
                         }
                         else { 
-                            parent.opacity = 1;
+                            appThumb.opacity = 1;
                         }
                         appBg.x = 10;
                     }
 
                     onPositionChanged: {
                         if (drag.active) {
-                            parent.opacity = 1 - Math.abs(appBg.x - 10) / parent.width 
+                            appThumb.opacity = 1 - Math.abs(appBg.x - 10) / parent.width 
                         }
                     }
                 }
