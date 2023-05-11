@@ -177,7 +177,7 @@ Item {
             
             onPositionChanged: {
                 if (drag.active) {
-                    settingSheet.opacity = parent.y / view.height / 2;
+                    settingSheet.opacity = 2 * parent.y / view.height;
                     settingSheet.setSettingContainerY(parent.y - view.height);
                 }
             }

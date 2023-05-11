@@ -10,6 +10,10 @@ Item {
     opacity: 0
     y: -view.height
 
+    Behavior on opacity {
+        PropertyAnimation { duration: 300 }
+    }
+
     FastBlur {
         anchors.fill: parent
         source: realWallpaper
@@ -206,7 +210,7 @@ Item {
 
 Item {
     id: settingContainer
-            y: /*-view.height*/0
+    y: 0
     height: parent.height
     width: parent.width
 
@@ -229,11 +233,10 @@ Item {
             name: "closing"
             PropertyChanges { target: settingContainer; y: 0 }
         }
-        ]
+    ]
 
-    transitions: Transition {
-        to: "*"
-        NumberAnimation { target: settingContainer; properties: "y"; duration: 300; easing.type: Easing.InOutQuad; }
+    Behavior on y {
+        PropertyAnimation { duration: 300 }
     }
 
     Rectangle {
