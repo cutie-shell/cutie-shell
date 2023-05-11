@@ -5,7 +5,7 @@ Item {
         x: 0
         y: 0
         height: view.height
-        width: 20 * shellScaleFactor
+        width: 20
 
         MouseArea { 
             drag.target: parent; drag.axis: Drag.XAxis; drag.minimumX: 0; drag.maximumX: view.width
@@ -45,13 +45,13 @@ Item {
     }
 
     Item {
-        x: view.width - 20 * shellScaleFactor
+        x: view.width - 20
         y: 0
         height: view.height
-        width: 20 * shellScaleFactor
+        width: 20
 
         MouseArea { 
-            drag.target: parent; drag.axis: Drag.XAxis; drag.minimumX: -20 * shellScaleFactor; drag.maximumX: view.width - 20 * shellScaleFactor
+            drag.target: parent; drag.axis: Drag.XAxis; drag.minimumX: -20; drag.maximumX: view.width - 20
             anchors.fill: parent
 
             function getNextState() {
@@ -74,7 +74,7 @@ Item {
                     eval(root.state).opacity = 1; 
                     eval(nextState).opacity = 0 
                 }
-                parent.x = view.width - 20 * shellScaleFactor
+                parent.x = view.width - 20
             }
 
             onPositionChanged: {

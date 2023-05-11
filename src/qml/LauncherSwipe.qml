@@ -3,12 +3,12 @@ import Qt5Compat.GraphicalEffects
 
 Item {
     x: 0
-    y: parent.height - 20 * shellScaleFactor
-    height: 20 * shellScaleFactor
+    y: parent.height - 20
+    height: 20
     width: parent.width
 
     MouseArea { 
-        drag.target: parent; drag.axis: Drag.YAxis; drag.minimumY: - 20 * shellScaleFactor; drag.maximumY: view.height - 20 * shellScaleFactor
+        drag.target: parent; drag.axis: Drag.YAxis; drag.minimumY: - 20; drag.maximumY: view.height - 20
         enabled: (launcherState.state != "opened") && (screenLockState.state == "opened") && (settingsState.state == "closed")
         anchors.fill: parent
 
@@ -18,7 +18,7 @@ Item {
         }
 
         onReleased: {
-            var velocityThreshold = 0.002 * shellScaleFactor;
+            var velocityThreshold = 0.002;
 
             if (parent.y < view.height - 2 * parent.height) { 
                 launcherState.state = "opened"
@@ -28,7 +28,7 @@ Item {
                 launcherState.state = "closed"
                 launcherSheet.setLauncherContainerState("closed");
             }
-            parent.y = parent.parent.height - 20 * shellScaleFactor;
+            parent.y = parent.parent.height - 20 ;
         }
 
         onPositionChanged: {

@@ -19,7 +19,6 @@ import QtQuick
 import QtWayland.Compositor
 import QtWayland.Compositor.XdgShell
 import QtMultimedia
-
 import Cutie
 
 WaylandCompositor {

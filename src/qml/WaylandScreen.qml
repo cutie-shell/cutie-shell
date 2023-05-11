@@ -5,6 +5,7 @@ import QtWayland.Compositor.XdgShell
 import Qt5Compat.GraphicalEffects
 import QtQuick.Controls
 import QtSensors
+import Cutie
 
 WaylandOutput {
     id: compositor
@@ -22,8 +23,8 @@ WaylandOutput {
 
     property real unlockBrightness: 0.5
 
-    property int drawerMargin: 5*shellScaleFactor
-    property string nextAtmospherePath: "file://usr/share/atmospheres/city/"
+    property int drawerMargin: 5
+    property string nextAtmospherePath: "/usr/share/atmospheres/city/"
     property color atmosphereForeground: "#ffffff"
 
     property XdgSurface keyboard: null
@@ -227,7 +228,7 @@ WaylandOutput {
                 ParallelAnimation {
                     NumberAnimation { target: setting; properties: "opacity"; duration: 800; easing.type: Easing.InOutQuad; }
                     SequentialAnimation {
-                        NumberAnimation { target: setting; properties: "anchors.topMargin"; duration: 300; easing.type: Easing.InOutQuad; to: -20 * shellScaleFactor }
+                        NumberAnimation { target: setting; properties: "anchors.topMargin"; duration: 300; easing.type: Easing.InOutQuad; to: -20 }
                     }
                 }
            },
@@ -236,7 +237,7 @@ WaylandOutput {
                 ParallelAnimation {
                     NumberAnimation { target: setting; properties: "opacity"; duration: 800; easing.type: Easing.InOutQuad; }
                     SequentialAnimation {
-                        NumberAnimation { target: setting; properties: "anchors.topMargin"; duration: 300; easing.type: Easing.InOutQuad; to: -20 * shellScaleFactor }
+                        NumberAnimation { target: setting; properties: "anchors.topMargin"; duration: 300; easing.type: Easing.InOutQuad; to: -20 }
                     }
                 }
            },
@@ -264,14 +265,13 @@ WaylandOutput {
     sizeFollowsWindow: true
     window: Window {
         visible: true
-        width: 440 * shellScaleFactor
-        height: 720 * shellScaleFactor
-        Rectangle {
-            id: view 
-            color: "#2E3440"
+        width: 540
+        height: 1150
+        Item {
+            id: view
             anchors.fill: parent
 
-            Rectangle {
+            Item {
                 id: content 
                 anchors.fill: parent
 
@@ -281,14 +281,14 @@ WaylandOutput {
                     Image {
                         id: wallpaper
                         anchors.fill: parent
-                        source: atmospherePath + "wallpaper.jpg"
+                        source: "file:/" + atmospherePath + "/wallpaper.jpg"
                         fillMode: Image.PreserveAspectCrop
                     }
 
                     Image {
                         id: nextWallpaper
                         anchors.fill: parent
-                        source: nextAtmospherePath + "wallpaper.jpg"
+                        source: "file:/" + nextAtmospherePath + "/wallpaper.jpg"
                         fillMode: Image.PreserveAspectCrop
                         opacity: 0
                         state: "normal"
