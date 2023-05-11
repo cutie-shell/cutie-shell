@@ -167,12 +167,12 @@ function setWifiStrength(strength) {
 
 Item {
     x: 0
-    y: parent.height - 10 * shellScaleFactor
-    height: 10 * shellScaleFactor
+    y: parent.height - 10
+    height: 10
     width: parent.width
 
     MouseArea {
-        drag.target: parent; drag.axis: Drag.YAxis; drag.minimumY: - 10 * shellScaleFactor; drag.maximumY: view.height - 10 * shellScaleFactor
+        drag.target: parent; drag.axis: Drag.YAxis; drag.minimumY: - 10; drag.maximumY: view.height - 10
         enabled: settingsState.state != "closed"
         anchors.fill: parent
         propagateComposedEvents: true
@@ -192,7 +192,7 @@ Item {
                 settingsState.state = "opened"
                 settingContainer.state = "opened"
             }
-            parent.y = parent.parent.height - 10 * shellScaleFactor
+            parent.y = parent.parent.height - 10
         }
 
         onPositionChanged: {
@@ -237,22 +237,22 @@ Item {
     }
 
     Rectangle {
-        height: 160 * shellScaleFactor
+        height: 160
         color: Atmosphere.primaryAlphaColor
-        radius: 10 * shellScaleFactor
+        radius: 10
         anchors.left: parent.left
         anchors.right: parent.right
-        anchors.rightMargin: 20 * shellScaleFactor
-        anchors.leftMargin: 20 * shellScaleFactor
-        y: 35 * shellScaleFactor
+        anchors.rightMargin: 20
+        anchors.leftMargin: 20
+        y: 35
         clip: true
 
         Text {
             id: text2
-            x: 20  * shellScaleFactor
-            y: 20  * shellScaleFactor
+            x: 20
+            y: 20
             text: qsTr("Atmosphere")
-            font.pixelSize: 24 * shellScaleFactor
+            font.pixelSize: 24
             font.family: "Lato"
             font.weight: Font.Black
             color: Atmosphere.textColor
@@ -263,25 +263,25 @@ Item {
 
         ListView {
             anchors.fill: parent
-            anchors.topMargin: 64 * shellScaleFactor
+            anchors.topMargin: 64
             model: Atmosphere.atmosphereList
             orientation: Qt.Horizontal
             clip: false
-            spacing: -20 * shellScaleFactor
+            spacing: -20
             delegate: Item {
-                width: 100 * shellScaleFactor
-                height: 100 * shellScaleFactor
+                width: 100
+                height: 100
                 Image {
-                    x: 20 * shellScaleFactor
-                    width: 60 * shellScaleFactor
-                    height: 80 * shellScaleFactor
+                    x: 20
+                    width: 60
+                    height: 80
                     source: "file:/" + modelData.path + "/wallpaper.jpg"
                     fillMode: Image.PreserveAspectCrop
 
                     Text {
                         anchors.centerIn: parent
                         text: modelData.name
-                        font.pixelSize: 14 * shellScaleFactor
+                        font.pixelSize: 14
                         font.bold: false
                         color: (modelData.variant == "dark") ? "#FFFFFF" : "#000000"
                         font.family: "Lato"
@@ -338,9 +338,9 @@ Item {
     GridView {
         id: widgetGrid
         anchors.fill: parent
-        anchors.topMargin: 215 * shellScaleFactor
-        anchors.bottomMargin: 100 * shellScaleFactor
-        anchors.leftMargin: 20 * shellScaleFactor
+        anchors.topMargin: 215
+        anchors.bottomMargin: 100
+        anchors.leftMargin: 20
         model: settingsModel
         cellWidth: width / 3
         cellHeight: width / 3
@@ -351,18 +351,18 @@ Item {
             height: widgetGrid.cellWidth
             Rectangle {
                 id: settingBg
-                width: parent.width - 20 * shellScaleFactor
-                height: parent.width - 20 * shellScaleFactor
+                width: parent.width - 20
+                height: parent.width - 20
                 color: Atmosphere.secondaryAlphaColor
-                radius: 10 * shellScaleFactor
+                radius: 10
 
                 Text {
                     id: topText
                     anchors.horizontalCenter: parent.horizontalCenter
                     anchors.top: parent.top
-                    anchors.topMargin: 14 * shellScaleFactor
+                    anchors.topMargin: 14
                     text: tText
-                    font.pixelSize: 12 * shellScaleFactor
+                    font.pixelSize: 12
                     horizontalAlignment: Text.AlignHCenter
                     font.family: "Lato"
                     font.bold: false
@@ -376,9 +376,9 @@ Item {
                     id: bottomText
                     anchors.horizontalCenter: parent.horizontalCenter
                     anchors.bottom: parent.bottom
-                    anchors.bottomMargin: 14 * shellScaleFactor
+                    anchors.bottomMargin: 14
                     text: bText
-                    font.pixelSize: 12 * shellScaleFactor
+                    font.pixelSize: 12
                     horizontalAlignment: Text.AlignHCenter
                     font.family: "Lato"
                     font.bold: false
@@ -407,14 +407,14 @@ Item {
 
     Item {
         id: brightness
-        width: parent.width - 10 * shellScaleFactor
-        height: 40 * shellScaleFactor
+        width: parent.width - 10
+        height: 40
         anchors.left: parent.left
         anchors.right: parent.right
         anchors.bottom: parent.bottom
-        anchors.rightMargin: 10 * shellScaleFactor
-        anchors.leftMargin: 10 * shellScaleFactor
-        anchors.bottomMargin: 30 * shellScaleFactor
+        anchors.rightMargin: 10
+        anchors.leftMargin: 10
+        anchors.bottomMargin: 30
 
         Rectangle
         {
@@ -436,7 +436,7 @@ Item {
             anchors.verticalCenter: parent.verticalCenter
             anchors.left: parent.left
             source: "icons/gpm-brightness-lcd-disabled.svg"
-            anchors.leftMargin: 7 * shellScaleFactor
+            anchors.leftMargin: 7
             sourceSize.height: height*2
             sourceSize.width: width*2
             visible: false
@@ -455,7 +455,7 @@ Item {
             anchors.verticalCenter: parent.verticalCenter
             anchors.right: parent.right
             source: "icons/gpm-brightness-lcd"
-            anchors.rightMargin: 7 * shellScaleFactor
+            anchors.rightMargin: 7
             sourceSize.height: height*2
             sourceSize.width: width*2
             visible: false
@@ -469,13 +469,13 @@ Item {
 
         Rectangle {
             id: volumeBarTrack1
-            height: shellScaleFactor
+            height: 2
             radius: 1
             anchors.verticalCenter: parent.verticalCenter
             anchors.left: volumeMuted1.right
             anchors.right: volumeHigh1.left
-            anchors.rightMargin: 25 * shellScaleFactor
-            anchors.leftMargin: 25 * shellScaleFactor
+            anchors.rightMargin: 25
+            anchors.leftMargin: 25
             color: Atmosphere.textColor
             transitions: Transition {
                 ColorAnimation { properties: "color"; duration: 500; easing.type: Easing.InOutQuad }

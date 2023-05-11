@@ -23,7 +23,7 @@ WaylandOutput {
 
     property real unlockBrightness: 0.5
 
-    property int drawerMargin: 5*shellScaleFactor
+    property int drawerMargin: 5
     property string nextAtmospherePath: "/usr/share/atmospheres/city/"
     property color atmosphereForeground: "#ffffff"
 
@@ -228,7 +228,7 @@ WaylandOutput {
                 ParallelAnimation {
                     NumberAnimation { target: setting; properties: "opacity"; duration: 800; easing.type: Easing.InOutQuad; }
                     SequentialAnimation {
-                        NumberAnimation { target: setting; properties: "anchors.topMargin"; duration: 300; easing.type: Easing.InOutQuad; to: -20 * shellScaleFactor }
+                        NumberAnimation { target: setting; properties: "anchors.topMargin"; duration: 300; easing.type: Easing.InOutQuad; to: -20 }
                     }
                 }
            },
@@ -237,7 +237,7 @@ WaylandOutput {
                 ParallelAnimation {
                     NumberAnimation { target: setting; properties: "opacity"; duration: 800; easing.type: Easing.InOutQuad; }
                     SequentialAnimation {
-                        NumberAnimation { target: setting; properties: "anchors.topMargin"; duration: 300; easing.type: Easing.InOutQuad; to: -20 * shellScaleFactor }
+                        NumberAnimation { target: setting; properties: "anchors.topMargin"; duration: 300; easing.type: Easing.InOutQuad; to: -20 }
                     }
                 }
            },
@@ -265,8 +265,8 @@ WaylandOutput {
     sizeFollowsWindow: true
     window: Window {
         visible: true
-        width: 440 * shellScaleFactor
-        height: 720 * shellScaleFactor
+        width: 540
+        height: 1150
         Item {
             id: view
             anchors.fill: parent

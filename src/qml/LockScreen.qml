@@ -35,7 +35,7 @@ Item {
             propagateComposedEvents: true
 
             onReleased: {
-                if (parent.y < - 20 * shellScaleFactor) { screenLockState.state = "opened" }
+                if (parent.y < - 20) { screenLockState.state = "opened" }
                     else { lockscreen.opacity = 1}
                 parent.y = 0
             }
@@ -59,20 +59,20 @@ Item {
         id: lockscreenTime
         color: Atmosphere.textColor
         text: Qt.formatDateTime(new Date(), "HH:mm")
-        font.pixelSize: 72 * shellScaleFactor
+        font.pixelSize: 72
         font.family: "Lato"
         font.weight: Font.Light
-        anchors { left: parent.left; bottom: lockscreenDate.top; leftMargin: 15 * shellScaleFactor; bottomMargin: 3* shellScaleFactor }
+        anchors { left: parent.left; bottom: lockscreenDate.top; leftMargin: 15; bottomMargin: 3 }
     }
 
     Text { 
         id: lockscreenDate
         color: Atmosphere.textColor
         text: Qt.formatDateTime(new Date(), "dddd, MMMM d")
-        font.pixelSize: 20 * shellScaleFactor
+        font.pixelSize: 20
         font.family: "Lato"
         font.weight: Font.Black
-        anchors { left: parent.left; bottom: lockscreenNotifs.top; leftMargin: 15 * shellScaleFactor; bottomMargin: 3* shellScaleFactor }
+        anchors { left: parent.left; bottom: lockscreenNotifs.top; leftMargin: 15; bottomMargin: 3 }
     }
 
     Text { 
@@ -83,10 +83,10 @@ Item {
         : (notifications.count > 0
             ? qsTr("You have 1 unread notification.")
             : qsTr("You have no unread notifications."))
-        font.pixelSize: 16 * shellScaleFactor
+        font.pixelSize: 16
         font.family: "Lato"
         font.weight: Font.Normal
-        anchors { left: parent.left; bottom: parent.bottom; margins: 15 * shellScaleFactor }
+        anchors { left: parent.left; bottom: parent.bottom; margins: 15 }
     }
 
     Timer {

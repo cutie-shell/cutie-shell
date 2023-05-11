@@ -5,9 +5,9 @@ import QtQuick.VirtualKeyboard.Settings
 
 ShellSurfaceItem {
     x: 0
-    y: 30 * shellScaleFactor
+    y: 30
     autoCreatePopupItems: true
-    touchEventsEnabled: false
+    touchEventsEnabled: true
 
     onSurfaceDestroyed: {
         if (shellSurfaces.count != 0) {
@@ -21,45 +21,6 @@ ShellSurfaceItem {
             parent.shellSurface = null;
             parent.shellSurfaceIdx = -1;
             root.state = "homeScreen";
-        }
-    }
-
-    MouseArea {
-        anchors.fill: parent
-
-        onPressed: {
-            return true
-        }
-        onReleased: {
-            return true
-        }
-    }
-
-    MultiPointTouchArea {
-        anchors.fill: parent
-        mouseEnabled: true
-        enabled: root.state === "appScreen"
-        onPressed: {
-            for (let i = 0; i < touchPoints.length; i++) {
-                comp.defaultSeat.sendTouchPointPressed(parent.shellSurface.surface, touchPoints[i].pointId, 
-                    Qt.point(touchPoints[i].x / shellScaleFactor, touchPoints[i].y / shellScaleFactor));
-            }
-            comp.defaultSeat.sendTouchFrameEvent(parent.shellSurface.surface.client);
-            parent.takeFocus();
-        }
-        onReleased: {
-            for (let i = 0; i < touchPoints.length; i++) {
-                comp.defaultSeat.sendTouchPointReleased(parent.shellSurface.surface, touchPoints[i].pointId,
-                    Qt.point(touchPoints[i].x / shellScaleFactor, touchPoints[i].y / shellScaleFactor));
-            }
-            comp.defaultSeat.sendTouchFrameEvent(parent.shellSurface.surface.client);
-        }
-        onUpdated: {
-            for (let i = 0; i < touchPoints.length; i++) { 
-                comp.defaultSeat.sendTouchPointMoved(parent.shellSurface.surface, touchPoints[i].pointId, 
-                    Qt.point(touchPoints[i].x / shellScaleFactor, touchPoints[i].y / shellScaleFactor));
-            }
-            comp.defaultSeat.sendTouchFrameEvent(parent.shellSurface.surface.client);
         }
     }
 }

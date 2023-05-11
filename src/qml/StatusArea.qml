@@ -4,7 +4,7 @@ import Cutie
 
 Item {
     width: parent.width
-    height: 30 * shellScaleFactor
+    height: 30
     anchors.top: parent.top
 
     function setCellularStrength(strength) {
@@ -38,8 +38,8 @@ Item {
     Rectangle
     {
         id: maskRect2
-        width: 10 * shellScaleFactor
-        height: 10 * shellScaleFactor
+        width: 10
+        height: 10
         visible: false
         color: Atmosphere.textColor
         transitions: Transition {
@@ -50,10 +50,10 @@ Item {
     Image {
         id: image1
         anchors.right: image3.left
-        anchors.rightMargin: 4 * shellScaleFactor
+        anchors.rightMargin: 4
         anchors.verticalCenter: parent.verticalCenter
-        width: 13 * shellScaleFactor
-        height: 13 * shellScaleFactor
+        width: 13
+        height: 13
         source: "icons/network-wireless-signal-none-symbolic.svg"
         sourceSize.height: 400
         sourceSize.width: 400
@@ -70,10 +70,10 @@ Item {
     Image {
         id: image2
         anchors.right: image1.left
-        anchors.rightMargin: 4 * shellScaleFactor
+        anchors.rightMargin: 4
         anchors.verticalCenter: parent.verticalCenter
-        width: 13 * shellScaleFactor
-        height: 13 * shellScaleFactor
+        width: 13
+        height: 13
         source: "icons/network-cellular-signal-none.svg"
         sourceSize.height: 128
         sourceSize.width: 128
@@ -90,10 +90,10 @@ Item {
     Image {
         id: image3
         anchors.right: text14.left
-        anchors.rightMargin: 4 * shellScaleFactor
+        anchors.rightMargin: 4
         anchors.verticalCenter: parent.verticalCenter
-        width: 13 * shellScaleFactor
-        height: 13 * shellScaleFactor
+        width: 13
+        height: 13
         source: ((batteryStatus.Percentage == 100) ? "icons/battery-100-charged.svg" : 
             ((batteryStatus.State === 1) ? ((batteryStatus.Percentage > 70) ? "icons/battery-070-charging.svg" : 
             ((batteryStatus.Percentage > 50) ? "icons/battery-050-charging.svg": "icons/battery-010-charging.svg")) : 
@@ -115,10 +115,10 @@ Item {
     Text {
         id: text14
         anchors.right: parent.right
-        anchors.rightMargin: 12 * shellScaleFactor
+        anchors.rightMargin: 12
         anchors.verticalCenter: parent.verticalCenter
         text: Math.floor(batteryStatus.Percentage).toString() + " %"
-        font.pixelSize: 12 * shellScaleFactor
+        font.pixelSize: 12
         font.bold: false
         color: Atmosphere.textColor
         transitions: Transition {
@@ -130,11 +130,11 @@ Item {
     Text {
         id: clockText
         anchors.left: parent.left
-        anchors.leftMargin: 12 * shellScaleFactor
+        anchors.leftMargin: 12
         anchors.verticalCenter: parent.verticalCenter
-        width: 25 * shellScaleFactor
+        width: 25
         text: Qt.formatDateTime(new Date(), "HH:mm")
-        font.pixelSize: 12 * shellScaleFactor
+        font.pixelSize: 12
         font.bold: false
         color: Atmosphere.textColor
         transitions: Transition {

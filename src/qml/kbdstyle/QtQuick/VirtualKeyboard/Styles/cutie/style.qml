@@ -78,7 +78,7 @@ KeyboardStyle {
             color: control && control.highlighted ? highlightedKeyBackgroundColor : normalKeyBackgroundColor
             anchors.fill: keyPanel
             anchors.margins: keyBackgroundMargin
-            radius: 5 * shellScaleFactor
+            radius: 5
             Text {
                 id: keySmallText
                 text: control.smallText
@@ -162,7 +162,7 @@ KeyboardStyle {
         id: backspaceKeyPanel
         Rectangle {
             id: backspaceKeyBackground
-            radius: 5 * shellScaleFactor
+            radius: 5
             color: control && control.highlighted ? highlightedKeyBackgroundColor : normalKeyBackgroundColor
             anchors.fill: backspaceKeyPanel
             anchors.margins: keyBackgroundMargin
@@ -212,7 +212,7 @@ KeyboardStyle {
         id: languageKeyPanel
         Rectangle {
             id: languageKeyBackground
-            radius: 5 * shellScaleFactor
+            radius: 5
             color: control && control.highlighted ? highlightedKeyBackgroundColor : normalKeyBackgroundColor
             anchors.fill: languageKeyPanel
             anchors.margins: keyBackgroundMargin
@@ -262,7 +262,7 @@ KeyboardStyle {
         id: enterKeyPanel
         Rectangle {
             id: enterKeyBackground
-            radius: 5 * shellScaleFactor
+            radius: 5
             color: control && control.highlighted ? highlightedKeyBackgroundColor : normalKeyBackgroundColor
             anchors.fill: enterKeyPanel
             anchors.margins: keyBackgroundMargin
@@ -364,7 +364,7 @@ KeyboardStyle {
         id: hideKeyPanel
         Rectangle {
             id: hideKeyBackground
-            radius: 5 * shellScaleFactor
+            radius: 5
             color: control && control.highlighted ? highlightedKeyBackgroundColor : normalKeyBackgroundColor
             anchors.fill: hideKeyPanel
             anchors.margins: keyBackgroundMargin
@@ -414,7 +414,7 @@ KeyboardStyle {
         id: shiftKeyPanel
         Rectangle {
             id: shiftKeyBackground
-            radius: 5 * shellScaleFactor
+            radius: 5
             color: control && control.highlighted ? highlightedKeyBackgroundColor : normalKeyBackgroundColor
             anchors.fill: shiftKeyPanel
             anchors.margins: keyBackgroundMargin
@@ -486,7 +486,7 @@ KeyboardStyle {
         id: spaceKeyPanel
         Rectangle {
             id: spaceKeyBackground
-            radius: 5 * shellScaleFactor
+            radius: 5
             color: control && control.highlighted ? highlightedKeyBackgroundColor : normalKeyBackgroundColor
             anchors.fill: spaceKeyPanel
             anchors.margins: keyBackgroundMargin
@@ -528,7 +528,7 @@ KeyboardStyle {
         id: symbolKeyPanel
         Rectangle {
             id: symbolKeyBackground
-            radius: 5 * shellScaleFactor
+            radius: 5
             color: control && control.highlighted ? highlightedKeyBackgroundColor : normalKeyBackgroundColor
             anchors.fill: symbolKeyPanel
             anchors.margins: keyBackgroundMargin
@@ -580,7 +580,7 @@ KeyboardStyle {
         id: modeKeyPanel
         Rectangle {
             id: modeKeyBackground
-            radius: 5 * shellScaleFactor
+            radius: 5
             color: control && control.highlighted ? highlightedKeyBackgroundColor : normalKeyBackgroundColor
             anchors.fill: modeKeyPanel
             anchors.margins: keyBackgroundMargin
@@ -645,7 +645,7 @@ KeyboardStyle {
         id: handwritingKeyPanel
         Rectangle {
             id: hwrKeyBackground
-            radius: 5 * shellScaleFactor
+            radius: 5
             color: control && control.highlighted ? highlightedKeyBackgroundColor : normalKeyBackgroundColor
             anchors.fill: handwritingKeyPanel
             anchors.margins: keyBackgroundMargin
@@ -706,9 +706,9 @@ KeyboardStyle {
             id: characterPreviewBackground
             anchors.fill: parent
             color: popupBackgroundColor
-            radius: 5 * shellScaleFactor
+            radius: 5
             border {
-                width: 2 * shellScaleFactor
+                width: 2
                 color: popupBorderColor
             }
             readonly property int largeTextHeight: Math.round(height / 3 * 2)
@@ -842,7 +842,7 @@ KeyboardStyle {
     }
     alternateKeysListHighlight: Rectangle {
         color: popupHighlightColor
-        radius: 5 * shellScaleFactor
+        radius: 5
     }
     alternateKeysListBackground: Item {
         Rectangle {
@@ -851,10 +851,10 @@ KeyboardStyle {
             y: -margin
             width: parent.width + 2 * margin
             height: parent.height + 2 * margin
-            radius: 5 * shellScaleFactor
+            radius: 5
             color: popupBackgroundColor
             border {
-                width: 2 * shellScaleFactor
+                width: 2
                 color: popupBorderColor
             }
         }
@@ -925,7 +925,7 @@ KeyboardStyle {
         traceMargins: keyBackgroundMargin
         Rectangle {
             id: traceInputKeyPanelBackground
-            radius: 5 * shellScaleFactor
+            radius: 5
             color: normalKeyBackgroundColor
             anchors.fill: traceInputKeyPanel
             anchors.margins: keyBackgroundMargin
@@ -1092,7 +1092,7 @@ KeyboardStyle {
             height: parent.height
             color: popupBackgroundColor
             border {
-                width: 2 * shellScaleFactor
+                width: 2
                 color: popupBorderColor
             }
         }
@@ -1166,7 +1166,7 @@ KeyboardStyle {
     languageListBackground: Rectangle {
         color: popupBackgroundColor
         border {
-            width: 2 * shellScaleFactor
+            width: 2
             color: popupBorderColor
         }
     }

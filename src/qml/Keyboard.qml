@@ -12,9 +12,9 @@ InputPanel {
     onStateChanged: {
         for (var i = 0; i < shellSurfaces.count; i++) {
             if (state == "visible") {
-                shellSurfaces.get(i).shellSurface.toplevel.sendResizing(Qt.size(view.width / shellScaleFactor, (view.height - height) / shellScaleFactor - 30));
+                shellSurfaces.get(i).shellSurface.toplevel.sendResizing(Qt.size(view.width, (view.height - height) - 30));
             } else {
-                shellSurfaces.get(i).shellSurface.toplevel.sendResizing(Qt.size(view.width / shellScaleFactor, view.height / shellScaleFactor - 30));
+                shellSurfaces.get(i).shellSurface.toplevel.sendResizing(Qt.size(view.width, view.height - 30));
             }
         }
     }

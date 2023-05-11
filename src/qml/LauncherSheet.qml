@@ -28,7 +28,7 @@ Item {
     Item {
         x: 0
         y: 0
-        height: 20 * shellScaleFactor
+        height: 20
         width: parent.width
 
         MouseArea { 
@@ -98,7 +98,7 @@ Item {
         GridView {
             id: launchAppGrid
             anchors.fill: parent
-            anchors.topMargin: 20 * shellScaleFactor
+            anchors.topMargin: 20
             model: launcherApps
             cellWidth: view.width / 4
             cellHeight: view.width / 4
@@ -115,7 +115,7 @@ Item {
 
             onContentYChanged: {
                 if(atYBeginning){
-                    if(Math.abs(tempContentY - contentY) > 30 * shellScaleFactor){
+                    if(Math.abs(tempContentY - contentY) > 30){
                         if(refreshing){
                             return;
                         } else {
@@ -157,7 +157,7 @@ Item {
                     anchors.bottom: appIconButton.bottom
                     anchors.horizontalCenter: appIconButton.horizontalCenter
                     text: appName
-                    font.pixelSize: 12 * shellScaleFactor
+                    font.pixelSize: 12
                     clip: true
                     font.family: "Lato"
                     color: Atmosphere.textColor

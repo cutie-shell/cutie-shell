@@ -12,7 +12,6 @@
 int main(int argc, char *argv[])
 {
     int shellScaleFactor = qEnvironmentVariable("QT_SCALE_FACTOR", "1").toDouble();
-    qunsetenv("QT_SCALE_FACTOR");
 
     QIcon::setThemeName("hicolor");
     QIcon::setThemeSearchPaths(QStringList("/usr/share/icons"));
