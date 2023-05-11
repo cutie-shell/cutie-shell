@@ -106,18 +106,21 @@ WaylandOutput {
         states: [
             State{
                 name: "homeScreen"
+                PropertyChanges { target: wallpaperBlur; opacity: 0 }
                 PropertyChanges { target: homeScreen; opacity: 1 }
                 PropertyChanges { target: appScreen; opacity: 0 }
                 PropertyChanges { target: notificationScreen; opacity: 0 }
             },
             State {
                 name: "appScreen"
+                PropertyChanges { target: wallpaperBlur; opacity: 1 }
                 PropertyChanges { target: homeScreen; opacity: 0 }
                 PropertyChanges { target: appScreen; opacity: 1 }
                 PropertyChanges { target: notificationScreen; opacity: 0 }
             },
             State {
                 name: "notificationScreen"
+                PropertyChanges { target: wallpaperBlur; opacity: 1 }
                 PropertyChanges { target: homeScreen; opacity: 0 }
                 PropertyChanges { target: appScreen; opacity: 0 }
                 PropertyChanges { target: notificationScreen; opacity: 1 }
@@ -317,10 +320,14 @@ WaylandOutput {
                 }
 
                 FastBlur {
-                    visible: root.state != "homeScreen"
+                    id: wallpaperBlur
                     anchors.fill: parent
                     source: realWallpaper
                     radius: 70
+
+                    Behavior on opacity {
+                        PropertyAnimation { duration: 300 }
+                    }
                 }
 
                 HomeScreen { id: homeScreen }
