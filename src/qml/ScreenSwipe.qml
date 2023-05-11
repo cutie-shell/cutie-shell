@@ -29,7 +29,10 @@ Item {
                 }
                 else { 
                     eval(root.state).opacity = 1; 
-                    eval(nextState).opacity = 0 
+                    eval(nextState).opacity = 0;
+                    if (root.state === "homeScreen")
+                        wallpaperBlur.opacity = 0;
+                    else wallpaperBlur.opacity = 1;
                 }
                 parent.x = 0;
             }
@@ -37,8 +40,12 @@ Item {
             onPositionChanged: {
                 if (drag.active) {
                     let nextState = getNextState();
-                    eval(root.state).opacity = 1 - parent.x / view.width 
-                    eval(nextState).opacity = parent.x / view.width
+                    eval(root.state).opacity = 1 - 2 * parent.x / view.width 
+                    eval(nextState).opacity = 2 * parent.x / view.width
+                    if (root.state === "homeScreen")
+                        wallpaperBlur.opacity = 2 * parent.x / view.width;
+                    else if (nextState === "homeScreen")
+                        wallpaperBlur.opacity = 1 - 2 * parent.x / view.width;
                 }
             }
         }
@@ -72,7 +79,10 @@ Item {
                 }
                 else { 
                     eval(root.state).opacity = 1; 
-                    eval(nextState).opacity = 0 
+                    eval(nextState).opacity = 0;
+                    if (root.state === "homeScreen")
+                        wallpaperBlur.opacity = 0;
+                    else wallpaperBlur.opacity = 1;
                 }
                 parent.x = view.width - 20
             }
@@ -80,8 +90,12 @@ Item {
             onPositionChanged: {
                 if (drag.active) {
                     let nextState = getNextState();
-                    eval(root.state).opacity = parent.x / view.width 
-                    eval(nextState).opacity = 1 - parent.x / view.width
+                    eval(root.state).opacity = 2 * parent.x / view.width - 1
+                    eval(nextState).opacity = 2 - 2 * parent.x / view.width
+                    if (root.state === "homeScreen")
+                        wallpaperBlur.opacity = 2 - 2 * parent.x / view.width;
+                    else if (nextState === "homeScreen")
+                        wallpaperBlur.opacity = 2 * parent.x / view.width - 1;
                 }
             }
         }
