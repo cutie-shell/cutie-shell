@@ -34,6 +34,103 @@ Item {
             image1.source = "icons/network-wireless-signal-none-symbolic.svg"
         }
     }
+    
+    function modemDataChangeHandler(data) {
+        if (!data.Online || !data.Powered) {
+            image2.source = "icons/network-cellular-offline.svg"
+        }
+    }
+
+    function modemNetDataChangeHandler(netData) {
+        if (netData.Status === "unregistered"
+            || netData.Status === "denied") {
+            image2.source = "icons/network-cellular-offline.svg"
+        } else if (netData.Status === "searching") {
+            image2.source = "icons/network-cellular-no-route.svg"
+        } else {
+            if (netData.Strength > 80) {
+                image2.source = "icons/network-cellular-signal-excellent.svg"
+            } else if (netData.Strength > 50) {
+                image2.source = "icons/network-cellular-signal-good.svg"
+            } else if (netData.Strength > 30) {
+                image2.source = "icons/network-cellular-signal-ok.svg"
+            } else if (netData.Strength > 10) {
+                image2.source = "icons/network-cellular-signal-low.svg"
+            } else {
+                image2.source = "icons/network-cellular-signal-none.svg"
+            }
+        }
+    }
+
+    function wirelessDataChangeHandler(wData) {
+        if (wData.Strength > 80) {
+            image1.source = "icons/network-wireless-signal-excellent-symbolic.svg"
+        } else if (wData.Strength > 50) {
+            image1.source = "icons/network-wireless-signal-good-symbolic.svg"
+        } else if (wData.Strength > 30) {
+            image1.source = "icons/network-wireless-signal-ok-symbolic.svg"
+        } else if (wData.Strength > 10) {
+            image1.source = "icons/network-wireless-signal-low-symbolic.svg"
+        } else {
+            image1.source = "icons/network-wireless-signal-none-symbolic.svg"
+        }
+    }
+
+    function wirelessActiveAccessPointHandler(activeAccessPoint) {
+        if (activeAccessPoint) {
+            let wData = CutieWifiSettings.activeAccessPoint.data;
+            wirelessDataChangeHandler(wData);
+            CutieWifiSettings.activeAccessPoint.dataChanged.connect(wirelessDataChangeHandler);
+        } else image1.source = "icons/network-wireless-offline.svg";
+    }
+
+    function wirelessEnabledChangedHandler(wirelessEnabled) {
+        if (!wirelessEnabled) {
+            image1.source = "icons/network-wireless-offline.svg";
+        }
+    }
+
+    Component.onCompleted: {
+        if (CutieWifiSettings.wirelessEnabled) {
+            if (CutieWifiSettings.activeAccessPoint) {
+                let wData = CutieWifiSettings.activeAccessPoint.data;
+
+                wirelessDataChangeHandler(wData);
+                CutieWifiSettings.activeAccessPoint.dataChanged.connect(wirelessDataChangeHandler);
+            } else {
+                wirelessActiveAccessPointHandler(null);
+            }
+        } else {
+            wirelessEnabledChanged(false);
+        }
+
+        CutieWifiSettings.activeAccessPointChanged.connect(wirelessActiveAccessPointHandler);
+        CutieWifiSettings.wirelessEnabledChanged.connect(wirelessEnabledChangedHandler);
+
+        let modems = CutieModemSettings.modems;
+        let data = modems[0].data;
+        if (!data.Online || !data.Powered) {
+            image2.source = "icons/network-cellular-offline.svg";
+            CutieModemSettings.modems[0].dataChanged.connect(modemDataChangeHandler);
+            CutieModemSettings.modems[0].netDataChanged.connect(modemNetDataChangeHandler);
+            return;
+        }
+        let netData = modems[0].netData;
+        if (netData.Strength > 80) {
+            image2.source = "icons/network-cellular-signal-excellent.svg"
+        } else if (netData.Strength > 50) {
+            image2.source = "icons/network-cellular-signal-good.svg"
+        } else if (netData.Strength > 30) {
+            image2.source = "icons/network-cellular-signal-ok.svg"
+        } else if (netData.Strength > 10) {
+            image2.source = "icons/network-cellular-signal-low.svg"
+        } else {
+            image2.source = "icons/network-cellular-signal-none.svg"
+        }
+
+        CutieModemSettings.modems[0].dataChanged.connect(modemDataChangeHandler);
+        CutieModemSettings.modems[0].netDataChanged.connect(modemNetDataChangeHandler);
+    }
 
     Rectangle
     {
@@ -49,12 +146,12 @@ Item {
 
     Image {
         id: image1
-        anchors.right: image3.left
+        anchors.right: image2.left
         anchors.rightMargin: 4
         anchors.verticalCenter: parent.verticalCenter
         width: 13
         height: 13
-        source: "icons/network-wireless-signal-none-symbolic.svg"
+        source: "icons/network-wireless-offline.svg"
         sourceSize.height: 400
         sourceSize.width: 400
         fillMode: Image.PreserveAspectFit
@@ -69,12 +166,12 @@ Item {
 
     Image {
         id: image2
-        anchors.right: image1.left
+        anchors.right: image3.left
         anchors.rightMargin: 4
         anchors.verticalCenter: parent.verticalCenter
         width: 13
         height: 13
-        source: "icons/network-cellular-signal-none.svg"
+        source: "icons/network-cellular-offline.svg"
         sourceSize.height: 128
         sourceSize.width: 128
         fillMode: Image.PreserveAspectFit

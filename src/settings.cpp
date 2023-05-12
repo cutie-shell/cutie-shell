@@ -14,79 +14,17 @@ Settings::Settings(QObject *parent) : QObject(parent) {
     this->atmosphere = new org::cutie_shell::SettingsDaemon::Atmosphere(
         "org.cutie_shell.SettingsDaemon", "/atmosphere",
         QDBusConnection::systemBus());
-    this->modemm = new org::cutie_shell::SettingsDaemon::Modems(
-        "org.cutie_shell.SettingsDaemon", "/modem",
-        QDBusConnection::systemBus());
-    this->networks = new org::cutie_shell::SettingsDaemon::NetworkDevice(
-        "org.cutie_shell.SettingsDaemon", "/networking/device/1",
-        QDBusConnection::systemBus());
-    this->networkService = new org::cutie_shell::SettingsDaemon::NetworkService(
-        "org.cutie_shell.SettingsDaemon", this->networks->activeService().path(),
-        QDBusConnection::systemBus());
-    this->modems = new QList<org::cutie_shell::SettingsDaemon::Modem *>();
-    QDBusPendingReply<unsigned int> countReply = modemm->ModemCount();
-    countReply.waitForFinished();
-    if (countReply.isValid()) {
-        for (unsigned int i = 0; i < countReply.value(); i++) {
-            org::cutie_shell::SettingsDaemon::Modem *modem = 
-                new org::cutie_shell::SettingsDaemon::Modem(
-                "org.cutie_shell.SettingsDaemon", QString("/modem/").append(QString::number(i)),
-                QDBusConnection::systemBus());
-            modem->PowerModem(true);
-            modem->OnlineModem(true);
-            modems->append(modem);
-        }
-    }
     this->battery = new org::freedesktop::DBus::Properties(
         "org.freedesktop.UPower", "/org/freedesktop/UPower/devices/DisplayDevice",
         QDBusConnection::systemBus());    
     connect(this->battery, SIGNAL(PropertiesChanged(QString, QVariantMap, QStringList)), this, SLOT(onUPowerInfoChanged(QString, QVariantMap, QStringList)));
     connect(this->atmosphere, SIGNAL(PathChanged()), this, SLOT(onAtmospherePathChanged()));
     connect(this->atmosphere, SIGNAL(VariantChanged()), this, SLOT(onAtmosphereVariantChanged()));
-    connect(this->modemm, SIGNAL(ModemAdded(QDBusObjectPath)), this, SLOT(onModemAdded(QDBusObjectPath)));
     setAtmospherePath(this->settingsStore->value("atmospherePath", "file://usr/share/atmospheres/city/").toString());
     setAtmosphereVariant(this->settingsStore->value("atmosphereVariant", "dark").toString());
     onAtmospherePathChanged();
     onAtmosphereVariantChanged();
     ((QQmlApplicationEngine *)parent)->rootContext()->setContextProperty("screenBrightness", this->settingsStore->value("screenBrightness", 100));
-}
-
-void Settings::initCellular(int i) {
-    org::cutie_shell::SettingsDaemon::Modem *modem = 0;
-    if (modems->count() >= i) {
-        modem = modems->at(i - 1);
-    } else {
-        return;
-    }
-
-    QMetaObject::invokeMethod(((QQmlApplicationEngine *)parent())->rootObjects()[0], "addModem", Q_ARG(QVariant, i));   
-
-    QDBusPendingReply<QString> netReply = modem->GetNetName();
-    netReply.waitForFinished();
-    if (netReply.isValid()) {
-        QMetaObject::invokeMethod(((QQmlApplicationEngine *)parent())->rootObjects()[0], "setCellularName", Q_ARG(QVariant, i), Q_ARG(QVariant, netReply.value()));
-    }
-
-    QDBusPendingReply<uchar> netReply2 = modem->GetNetStrength();
-    netReply2.waitForFinished();
-    if (netReply2.isValid()) {
-        QMetaObject::invokeMethod(((QQmlApplicationEngine *)parent())->rootObjects()[0], "setCellularStrength", Q_ARG(QVariant, i), Q_ARG(QVariant, netReply2.value()));
-    }
-
-    connect(modem, SIGNAL(NetNameChanged(QString)), this, SLOT(onNetNameChanged(QString)));
-    connect(modem, SIGNAL(NetStrengthChanged(uchar)), this, SLOT(onNetStrengthChanged(uchar)));   
-}
-
-void Settings::initWifi() {
-	if (QString("/").compare(this->networks->activeService().path()) != 0)
-		onActiveServiceChanged(this->networks->activeService());
-    connect(this->networks, SIGNAL(ActiveServiceChanged(QDBusObjectPath)), this, SLOT(onActiveServiceChanged(QDBusObjectPath)));
-}
-
-void Settings::initCellularFull() {
-    for(int i = 0; i < modems->count(); i++) {
-        initCellular(i + 1);
-    }
 }
 
 unsigned int Settings::GetMaxBrightness() {
@@ -224,36 +162,6 @@ void Settings::onAtmosphereVariantChanged() {
     settingsStore->sync();
 }
 
-void Settings::onNetNameChanged(QString name) {
-    org::cutie_shell::SettingsDaemon::Modem *modem = (org::cutie_shell::SettingsDaemon::Modem *)sender();
-    int i = modems->lastIndexOf(modem);
-    QMetaObject::invokeMethod(((QQmlApplicationEngine *)parent())->rootObjects()[0], "setCellularName", Q_ARG(QVariant, i + 1), Q_ARG(QVariant, name));      
-}
-
-void Settings::onNetStrengthChanged(uchar strength) {
-    org::cutie_shell::SettingsDaemon::Modem *modem = (org::cutie_shell::SettingsDaemon::Modem *)sender();
-    int i = modems->lastIndexOf(modem);
-    QMetaObject::invokeMethod(((QQmlApplicationEngine *)parent())->rootObjects()[0], "setCellularStrength", Q_ARG(QVariant, i + 1), Q_ARG(QVariant, strength));      
-}
-
-void Settings::onActiveServiceChanged(QDBusObjectPath path) {
-	delete this->networkService;
-	qDebug() << path.path();
-	this->networkService = new org::cutie_shell::SettingsDaemon::NetworkService(
-        "org.cutie_shell.SettingsDaemon", path.path(),
-        QDBusConnection::systemBus());
-
-	if (this->networkService) {
-		QMetaObject::invokeMethod(((QQmlApplicationEngine *)parent())->rootObjects()[0], "setWifiName", Q_ARG(QVariant, this->networkService->displayName()));
-		QMetaObject::invokeMethod(((QQmlApplicationEngine *)parent())->rootObjects()[0], "setWifiStrength", Q_ARG(QVariant, this->networkService->strength()));
-    	connect(this->networkService, SIGNAL(StrengthChanged(uchar)), this, SLOT(onWifiStrengthChanged(uchar)));
-	}    
-}
-
-void Settings::onWifiStrengthChanged(uchar strength) {
-    QMetaObject::invokeMethod(((QQmlApplicationEngine *)parent())->rootObjects()[0], "setWifiStrength",Q_ARG(QVariant, strength));      
-}
-
 void Settings::setAtmospherePath(QString path) {
     this->atmosphere->SetPath(path);
     settingsStore->setValue("atmospherePath", path);
@@ -264,15 +172,4 @@ void Settings::setAtmosphereVariant(QString variant) {
     this->atmosphere->SetVariant(variant);
     settingsStore->setValue("atmosphereVariant", variant);
     settingsStore->sync();
-}
-
-void Settings::onModemAdded(QDBusObjectPath path) {
-    org::cutie_shell::SettingsDaemon::Modem *modem = 
-        new org::cutie_shell::SettingsDaemon::Modem(
-        "org.cutie_shell.SettingsDaemon", path.path(),
-        QDBusConnection::systemBus());
-    modem->PowerModem(true);
-    modem->OnlineModem(true);
-    modems->append(modem);
-    this->initCellular(modems->count());
 }

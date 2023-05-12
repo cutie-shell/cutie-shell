@@ -66,30 +66,6 @@ WaylandOutput {
         onFinished: {
             screenLockState.state = "locked";
         }
-    }
-
-    function addModem(n) {
-        settingSheet.addModem(n);
-    }
-
-    function setCellularName(n, name) {
-        settingSheet.setCellularName(n, name);
-    }
-
-    function setCellularStrength(n, strength) {
-        settingSheet.setCellularStrength(n, strength);
-        if (n == 1) { 
-            setting.setCellularStrength(strength);
-        }
-    } 
-
-    function setWifiName(name) {
-        settingSheet.setWifiName(name);
-    }
-
-    function setWifiStrength(strength) {
-        settingSheet.setWifiStrength(strength);
-        setting.setWifiStrength(strength);
     }   
 
     Item {

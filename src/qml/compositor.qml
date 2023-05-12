@@ -57,26 +57,6 @@ WaylandCompositor {
         screen.lock();
     }
 
-    function addModem(n) {
-        screen.addModem(n);
-    }
-
-    function setCellularName(n, name) {
-        screen.setCellularName(n, name);
-    }
-
-    function setCellularStrength(n, strength) {
-        screen.setCellularStrength(n, strength);
-    }
-
-    function setWifiName(name) {
-        screen.setWifiName(name);
-    }
-
-    function setWifiStrength(strength) {
-        screen.setWifiStrength(strength);
-    }
-
     function volUp() {
         if (CutieVolume.volume < 0.9)
             CutieVolume.volume += 0.1;

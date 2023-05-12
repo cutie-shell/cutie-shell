@@ -47,8 +47,8 @@ int main(int argc, char *argv[])
 
     settings->loadAppList();
     settings->autostart();
-    settings->initCellularFull();
-    settings->initWifi();
+    //settings->initCellularFull();
+    //settings->initWifi();
 
     HWButtons *btns = new HWButtons(&engine);
     app.installEventFilter(btns);

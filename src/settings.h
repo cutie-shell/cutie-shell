@@ -14,10 +14,6 @@ class Settings : public QObject
 private:
     org::cutie_shell::SettingsDaemon::Backlight *backlight;
     org::cutie_shell::SettingsDaemon::Atmosphere *atmosphere;
-    org::cutie_shell::SettingsDaemon::Modems *modemm;
-    QList<org::cutie_shell::SettingsDaemon::Modem *> *modems;
-    org::cutie_shell::SettingsDaemon::NetworkDevice *networks;
-    org::cutie_shell::SettingsDaemon::NetworkService *networkService;
     org::freedesktop::DBus::Properties *battery;
     QSettings *settingsStore;
     
@@ -32,19 +28,11 @@ public:
     Q_INVOKABLE void setAtmosphereVariant(QString variant);
     void refreshBatteryInfo();
     void autostart();
-    void initCellular(int i);
-    void initCellularFull();
-    void initWifi();
     Q_INVOKABLE void loadAppList();
 public Q_SLOTS:
     void onUPowerInfoChanged(QString interface, QVariantMap, QStringList);
     void onAtmospherePathChanged();
     Q_INVOKABLE void onAtmosphereVariantChanged();
-    void onNetNameChanged(QString name);
-    void onNetStrengthChanged(uchar strength);
-    void onModemAdded(QDBusObjectPath path);
-    void onActiveServiceChanged(QDBusObjectPath path);
-    void onWifiStrengthChanged(uchar strength);
 signals:
     void brightnessChanged(unsigned int brightness);
 };
