@@ -485,7 +485,7 @@ Item {
             anchors.right: volumeHigh1.left
             anchors.rightMargin: 25
             anchors.leftMargin: 25
-            color: Atmosphere.textColor
+            color: Atmosphere.primaryAlphaColor
             transitions: Transition {
                 ColorAnimation { properties: "color"; duration: 500; easing.type: Easing.InOutQuad }
             }
