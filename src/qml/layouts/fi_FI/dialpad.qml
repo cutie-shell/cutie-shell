@@ -36,10 +36,9 @@ KeyboardLayout {
     inputMode: InputEngine.Numeric
 
     KeyboardColumn {
-        Layout.fillWidth: false
+        Layout.fillWidth: true
         Layout.fillHeight: true
         Layout.alignment: Qt.AlignHCenter
-        Layout.preferredWidth: height
         KeyboardRow {
             Key {
                 key: Qt.Key_1
@@ -89,14 +88,17 @@ KeyboardLayout {
                 key: Qt.Key_9
                 text: "9"
             }
-            HideKeyboardKey {}
+            Key {
+                key: Qt.Key_Plus
+                displayText: "+"
+                text: "+"
+            }
         }
         KeyboardRow {
             Key {
                 key: Qt.Key_Asterisk
-                displayText: "*+"
+                displayText: "*"
                 text: "*"
-                alternativeKeys: "*+"
             }
             Key {
                 key: Qt.Key_0
@@ -106,7 +108,7 @@ KeyboardLayout {
                 text: "#"
                 key: Qt.Key_NumberSign
             }
-            EnterKey {}
+            HideKeyboardKey {}
         }
     }
 }
