@@ -17,7 +17,6 @@ Item {
         model: shellSurfaces
         cellWidth: view.width / 2 - 5
         cellHeight: view.height / 2 + 20
-        clip: true
 
         delegate: Item {
             id: appThumb
@@ -38,8 +37,8 @@ Item {
                     Rectangle {
                         width: appBg.width
                         height: appBg.height
-                        x: appThumb.x+appBg.x
-                        y: appThumb.y+appBg.y+tabListView.y
+                        x: appThumb.x+appBg.x+tabListView.x-tabListView.contentX
+                        y: appThumb.y+appBg.y+tabListView.y-tabListView.contentY
                         color: "black"
                         radius: 10
                     }
@@ -49,8 +48,8 @@ Item {
                     id: tileBlur
                     width: homeScreen.width
                     height: homeScreen.height
-                    x: -appThumb.x-appBg.x
-                    y: -appThumb.y-appBg.y-tabListView.y
+                    x: tabListView.contentX-appThumb.x-appBg.x-tabListView.x
+                    y: tabListView.contentY-appThumb.y-appBg.y-tabListView.y
                     source: realWallpaper
                     radius: 70
                     visible: false
