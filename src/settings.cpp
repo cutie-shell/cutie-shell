@@ -20,7 +20,7 @@ Settings::Settings(QObject *parent) : QObject(parent) {
     connect(this->battery, SIGNAL(PropertiesChanged(QString, QVariantMap, QStringList)), this, SLOT(onUPowerInfoChanged(QString, QVariantMap, QStringList)));
     connect(this->atmosphere, SIGNAL(PathChanged()), this, SLOT(onAtmospherePathChanged()));
     connect(this->atmosphere, SIGNAL(VariantChanged()), this, SLOT(onAtmosphereVariantChanged()));
-    setAtmospherePath(this->settingsStore->value("atmospherePath", "file://usr/share/atmospheres/city/").toString());
+    setAtmospherePath(this->settingsStore->value("atmospherePath", "/usr/share/atmospheres/city").toString());
     setAtmosphereVariant(this->settingsStore->value("atmosphereVariant", "dark").toString());
     onAtmospherePathChanged();
     onAtmosphereVariantChanged();
