@@ -17,49 +17,6 @@ Item {
         fillMode: Image.PreserveAspectCrop
     }
 
-    FastBlur {
-        id: clockBlur
-        anchors.fill: parent
-        source: lockWallpaper
-        radius: 70
-        visible: false
-    }
-
-    Item {
-        id: clockBlurMask
-        anchors.fill: parent
-        clip: true
-        visible: false
-        Rectangle {
-            id: clockBlurMaskRectangle
-            anchors.left: parent.left
-            anchors.right: parent.right
-            anchors.leftMargin: 20
-            anchors.rightMargin: 20
-            y: 130
-            height: lockscreenTime.height + lockscreenDate.height + lockscreenNotifs.height + 50
-            color: "black"
-            radius: 10
-        }
-    }
-
-    OpacityMask {
-        anchors.fill: parent
-        source: clockBlur
-        maskSource: clockBlurMask
-    }
-
-    Rectangle {
-        color: Atmosphere.secondaryAlphaColor
-        anchors.left: parent.left
-        anchors.right: parent.right
-        anchors.leftMargin: 20
-        anchors.rightMargin: 20
-        y: 130
-        height: lockscreenTime.height + lockscreenDate.height + lockscreenNotifs.height + 50
-        radius: 10
-    }
-
     function timeChanged() {
         lockscreenTime.text = Qt.formatDateTime(new Date(), "HH:mm");
         lockscreenDate.text = Qt.formatDateTime(new Date(), "dddd, MMMM d");
@@ -112,6 +69,14 @@ Item {
             top: parent.top; 
             topMargin: 150
         }
+
+        layer.enabled: true
+        layer.effect: DropShadow {
+            verticalOffset: 2
+            color: Atmosphere.primaryColor
+            radius: 2
+            samples: 3
+        }
     }
 
     Text { 
@@ -126,6 +91,14 @@ Item {
             horizontalCenter: parent.horizontalCenter
             top: lockscreenTime.bottom; 
             topMargin: 5
+        }
+
+        layer.enabled: true
+        layer.effect: DropShadow {
+            verticalOffset: 2
+            color: Atmosphere.primaryColor
+            radius: 2
+            samples: 3
         }
     }
 
@@ -145,6 +118,14 @@ Item {
             horizontalCenter: parent.horizontalCenter
             top: lockscreenDate.bottom; 
             topMargin: 5
+        }
+
+        layer.enabled: true
+        layer.effect: DropShadow {
+            verticalOffset: 2
+            color: Atmosphere.primaryColor
+            radius: 2
+            samples: 3
         }
     }
 
