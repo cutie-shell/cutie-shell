@@ -21,6 +21,12 @@ Item {
         radius: 70
     }   
 
+    Rectangle {
+        color: Atmosphere.secondaryAlphaColor
+        anchors.fill: parent
+        opacity: 1/3
+    }
+
     function setLauncherContainerY(y) {
         launcherContainer.y = y;
     }

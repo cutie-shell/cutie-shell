@@ -330,6 +330,12 @@ WaylandOutput {
                     }
                 }
 
+                Rectangle {
+                    color: Atmosphere.secondaryAlphaColor
+                    anchors.fill: wallpaperBlur
+                    opacity: wallpaperBlur.opacity / 3
+                }
+
                 HomeScreen { id: homeScreen }
                 NotificationScreen { id: notificationScreen }
                 AppScreen { id: appScreen }

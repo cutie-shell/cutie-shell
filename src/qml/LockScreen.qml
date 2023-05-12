@@ -10,7 +10,6 @@ Item {
     property alias lockscreenTime: lockscreenTime
     property alias lockscreenDate: lockscreenDate 
 
-
     Image {
         id: lockWallpaper
         anchors.fill: parent
@@ -30,7 +29,9 @@ Item {
         id: clockBlurMask
         anchors.fill: parent
         clip: true
+        visible: false
         Rectangle {
+            id: clockBlurMaskRectangle
             anchors.left: parent.left
             anchors.right: parent.right
             anchors.leftMargin: 20
@@ -46,6 +47,17 @@ Item {
         anchors.fill: parent
         source: clockBlur
         maskSource: clockBlurMask
+    }
+
+    Rectangle {
+        color: Atmosphere.secondaryAlphaColor
+        anchors.left: parent.left
+        anchors.right: parent.right
+        anchors.leftMargin: 20
+        anchors.rightMargin: 20
+        y: 130
+        height: lockscreenTime.height + lockscreenDate.height + lockscreenNotifs.height + 50
+        radius: 10
     }
 
     function timeChanged() {

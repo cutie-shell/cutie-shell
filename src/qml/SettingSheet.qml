@@ -18,6 +18,12 @@ Item {
         anchors.fill: parent
         source: realWallpaper
         radius: 70
+    } 
+
+    Rectangle {
+        color: Atmosphere.secondaryAlphaColor
+        anchors.fill: parent
+        opacity: 1/3
     }
 
     property bool isPoweroffPressed: false

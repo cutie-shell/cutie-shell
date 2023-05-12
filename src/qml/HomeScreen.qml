@@ -98,6 +98,13 @@ Item {
                     maskSource: tileBlurMask
                 }
 
+                Rectangle {
+                    color: Atmosphere.secondaryAlphaColor
+                    anchors.fill: appBg
+                    opacity: 1/3
+                    radius: 10
+                }
+
                 OpacityMask {
                     anchors.fill: appPreview
                     source: appPreview
