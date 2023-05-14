@@ -8,14 +8,7 @@ Item {
 
     property alias lockscreenMouseArea: lockscreenMouseArea
     property alias lockscreenTime: lockscreenTime
-    property alias lockscreenDate: lockscreenDate 
-
-    Image {
-        id: lockWallpaper
-        anchors.fill: parent
-        source: "file:/" + atmospherePath + "/wallpaper.jpg"
-        fillMode: Image.PreserveAspectCrop
-    }
+    property alias lockscreenDate: lockscreenDate
 
     function timeChanged() {
         lockscreenTime.text = Qt.formatDateTime(new Date(), "HH:mm");
@@ -43,7 +36,8 @@ Item {
 
             onPositionChanged: {
                 if (drag.active) {
-                    lockscreen.opacity = 1 + parent.y / view.height 
+                    lockscreen.opacity = 1 + parent.y / view.height;
+                    shellContainer.opacity = 1 - lockscreen.opacity;
                 }
             }
         }

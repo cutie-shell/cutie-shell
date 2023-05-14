@@ -86,6 +86,7 @@ WaylandOutput {
                 PropertyChanges { target: homeScreen; opacity: 1 }
                 PropertyChanges { target: appScreen; opacity: 0 }
                 PropertyChanges { target: notificationScreen; opacity: 0 }
+                PropertyChanges { target: mainViewContainer; opacity: 1 }
             },
             State {
                 name: "appScreen"
@@ -93,6 +94,7 @@ WaylandOutput {
                 PropertyChanges { target: homeScreen; opacity: 0 }
                 PropertyChanges { target: appScreen; opacity: 1 }
                 PropertyChanges { target: notificationScreen; opacity: 0 }
+                PropertyChanges { target: mainViewContainer; opacity: 1 }
             },
             State {
                 name: "notificationScreen"
@@ -100,6 +102,7 @@ WaylandOutput {
                 PropertyChanges { target: homeScreen; opacity: 0 }
                 PropertyChanges { target: appScreen; opacity: 0 }
                 PropertyChanges { target: notificationScreen; opacity: 1 }
+                PropertyChanges { target: mainViewContainer; opacity: 1 }
             }
         ]
 
@@ -121,14 +124,17 @@ WaylandOutput {
             State{
                 name: "closed"
                 PropertyChanges { target: lockscreen; opacity: 1; y: 0 }
+                PropertyChanges { target: shellContainer; visible: false; opacity: 0 }
             },
             State {
                 name: "locked"
                 PropertyChanges { target: lockscreen; opacity: 1; y: 0 }
+                PropertyChanges { target: shellContainer; visible: true; opacity: 0 }
             },
             State {
                 name: "opened"
                 PropertyChanges { target: lockscreen; opacity: 0; y: -view.height }
+                PropertyChanges { target: shellContainer; visible: true; opacity: 1 }
             }
         ]
 
@@ -148,10 +154,12 @@ WaylandOutput {
             State {
                 name: "opened"
                 PropertyChanges { target: launcherSheet; y: 0; opacity: 1 }
+                PropertyChanges { target: mainViewContainer; opacity: 0 }
             },
             State {
                 name: "closed"
                 PropertyChanges { target: launcherSheet; y: view.height; opacity: 0 }
+                PropertyChanges { target: mainViewContainer; opacity: 1 }
             },
             State {
                 name: "opening"
@@ -179,11 +187,13 @@ WaylandOutput {
                 name: "opened"
                 PropertyChanges { target: settingSheet; y: 0; opacity: 1 }
                 PropertyChanges { target: setting; opacity: 1 }
+                PropertyChanges { target: mainViewContainer; opacity: 0 }
             },
             State {
                 name: "closed"
                 PropertyChanges { target: settingSheet; y: -view.height; opacity: 0 }
                 PropertyChanges { target: setting; opacity: 1 }
+                PropertyChanges { target: mainViewContainer; opacity: 1 }
             },
             State {
                 name: "opening"
@@ -295,37 +305,55 @@ WaylandOutput {
                     }
                 }
 
-                FastBlur {
-                    id: wallpaperBlur
+                Item {
+                    id: shellContainer
                     anchors.fill: parent
-                    source: realWallpaper
-                    radius: 70
 
                     Behavior on opacity {
                         PropertyAnimation { duration: 300 }
                     }
+
+                    FastBlur {
+                        id: wallpaperBlur
+                        anchors.fill: parent
+                        source: realWallpaper
+                        radius: 70
+
+                        Behavior on opacity {
+                            PropertyAnimation { duration: 300 }
+                        }
+                    }
+
+                    Rectangle {
+                        color: Atmosphere.secondaryAlphaColor
+                        anchors.fill: wallpaperBlur
+                        opacity: wallpaperBlur.opacity / 3
+                    }
+
+                    Item {
+                        id: mainViewContainer
+                        anchors.fill: parent
+
+                        Behavior on opacity {
+                            PropertyAnimation { duration: 300 }
+                        }
+
+                        HomeScreen { id: homeScreen }
+                        NotificationScreen { id: notificationScreen }
+                        AppScreen { id: appScreen }
+
+                        ScreenSwipe { id: screenSwipe }
+                    }
+
+                    SettingSheet { id: settingSheet } 
+                    StatusArea { id: setting }
+
+                    LauncherSheet { id: launcherSheet } 
+                    LauncherSwipe { id: lSwipe }
                 }
-
-                Rectangle {
-                    color: Atmosphere.secondaryAlphaColor
-                    anchors.fill: wallpaperBlur
-                    opacity: wallpaperBlur.opacity / 3
-                }
-
-                HomeScreen { id: homeScreen }
-                NotificationScreen { id: notificationScreen }
-                AppScreen { id: appScreen }
-                Keyboard {}
-
-                ScreenSwipe { id: screenSwipe }
-
-                SettingSheet { id: settingSheet } 
-                StatusArea { id: setting }
-
-                LauncherSheet { id: launcherSheet } 
-                LauncherSwipe { id: lSwipe }
 
                 LockScreen { id: lockscreen }
+                Keyboard {}
             }
         }
     }

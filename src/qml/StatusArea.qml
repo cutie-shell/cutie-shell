@@ -264,10 +264,13 @@ Item {
                 if (parent.y > parent.height) { 
                     settingsState.state = "opened"
                     settingSheet.setSettingContainerState("opened");
+                    wallpaperBlur.opacity = 1;
                 }
                 else { 
                     settingsState.state = "closed"
                     settingSheet.setSettingContainerState("closed");
+                    if (root.state === "homeScreen")
+                        wallpaperBlur.opacity = 0;
                 }
                 parent.y = 0
             }
@@ -276,6 +279,9 @@ Item {
                 if (drag.active) {
                     settingSheet.opacity = 2 * parent.y / view.height;
                     settingSheet.setSettingContainerY(parent.y - view.height);
+                    mainViewContainer.opacity = 1 - parent.y / view.height;
+                    if (root.state === "homeScreen")
+                        wallpaperBlur.opacity = parent.y / view.height;
                 }
             }
 

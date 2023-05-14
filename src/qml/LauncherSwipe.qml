@@ -23,10 +23,13 @@ Item {
             if (parent.y < view.height - 2 * parent.height) { 
                 launcherState.state = "opened"
                 launcherSheet.setLauncherContainerState("opened");
+                wallpaperBlur.opacity = 1;
             }
             else { 
                 launcherState.state = "closed"
                 launcherSheet.setLauncherContainerState("closed");
+                if (root.state === "homeScreen")
+                    wallpaperBlur.opacity = 0;
             }
             parent.y = parent.parent.height - 20 ;
         }
@@ -35,6 +38,9 @@ Item {
             if (drag.active) {
                 launcherSheet.opacity = 2 - 2 * parent.y / view.height;
                 launcherSheet.setLauncherContainerY(parent.y);
+                mainViewContainer.opacity = parent.y / view.height;
+                if (root.state === "homeScreen")
+                    wallpaperBlur.opacity = 1 - parent.y / view.height;
             }
         }
     }

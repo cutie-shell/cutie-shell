@@ -14,18 +14,6 @@ Item {
         PropertyAnimation { duration: 300 }
     }
 
-    FastBlur {
-        anchors.fill: parent
-        source: realWallpaper
-        radius: 70
-    } 
-
-    Rectangle {
-        color: Atmosphere.secondaryAlphaColor
-        anchors.fill: parent
-        opacity: 1/3
-    }
-
     property bool isPoweroffPressed: false
     property string weatherIcon: ""
     
@@ -226,10 +214,13 @@ Item {
                 if (parent.y < view.height - 2 * parent.height) {
                     settingsState.state = "closed"
                     settingContainer.state = "closed"
+                    if (root.state === "homeScreen")
+                        wallpaperBlur.opacity = 0;
                 }
                 else {
                     settingsState.state = "opened"
                     settingContainer.state = "opened"
+                    wallpaperBlur.opacity = 1;
                 }
                 parent.y = parent.parent.height - 10
             }
@@ -238,6 +229,9 @@ Item {
                 if (drag.active) {
                     settingSheet.opacity = 1/2 + parent.y / view.height / 2
                     settingContainer.y = parent.y - view.height
+                    mainViewContainer.opacity = 1 - parent.y / view.height;
+                    if (root.state === "homeScreen")
+                        wallpaperBlur.opacity = parent.y / view.height;
                 }
             }
         }

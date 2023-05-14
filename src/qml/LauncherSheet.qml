@@ -15,18 +15,6 @@ Item {
         PropertyAnimation { duration: 300 }
     }
 
-    FastBlur {
-        anchors.fill: parent
-        source: realWallpaper
-        radius: 70
-    }   
-
-    Rectangle {
-        color: Atmosphere.secondaryAlphaColor
-        anchors.fill: parent
-        opacity: 1/3
-    }
-
     function setLauncherContainerY(y) {
         launcherContainer.y = y;
     }
@@ -50,10 +38,13 @@ Item {
                 if (parent.y > parent.height) { 
                     launcherState.state = "closed"
                     launcherContainer.state = "closed"
+                    if (root.state === "homeScreen")
+                        wallpaperBlur.opacity = 0;
                 }
                 else { 
                     launcherState.state = "opened"
                     launcherContainer.state = "opened"
+                    wallpaperBlur.opacity = 1;
                 }
                 parent.y = 0
             }
@@ -62,6 +53,9 @@ Item {
                 if (drag.active) {
                     launcherSheet.opacity = 1 - parent.y / view.height / 2
                     launcherContainer.y = parent.y
+                    mainViewContainer.opacity = parent.y / view.height;
+                    if (root.state === "homeScreen")
+                        wallpaperBlur.opacity = 1 - parent.y / view.height;
                 }
             }
 
