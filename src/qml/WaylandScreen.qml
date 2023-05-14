@@ -134,7 +134,7 @@ WaylandOutput {
 
         transitions: [
            Transition {
-                to: "locked, opened"
+                to: "*"
                 NumberAnimation { target: lockscreen; properties: "opacity"; duration: 200; easing.type: Easing.InOutQuad; }
            }
 
