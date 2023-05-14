@@ -1,2 +1,2 @@
 etc/systemd/system/android-service@hwcomposer.service.d/
-etc/systemd/system/cutie-ui-io.service.d/hybris.conf
+cutie-ui-io.service.d/30-hybris.conf etc/systemd/system/cutie-ui-io.service.d/

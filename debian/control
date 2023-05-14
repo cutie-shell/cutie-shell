@@ -18,11 +18,12 @@ Multi-Arch: foreign
 Pre-Depends: ${misc:Pre-Depends}
 Depends: ${misc:Depends}, ${shlibs:Depends}, 
           cutie-settings-daemon, 
+          cutie-atmospheres-default,
+          qml6-module-cutie, 
           qml6-module-qtquick, 
           qml6-module-qtquick-controls, 
           qml6-module-qtsensors, 
           qml6-module-qtwayland-compositor, 
-          qt6-virtualkeyboard-plugin, 
           qml6-module-qt-labs-folderlistmodel, 
           qml6-module-qtquick-virtualkeyboard,
           qml6-module-qtqml-workerscript,
@@ -30,10 +31,8 @@ Depends: ${misc:Depends}, ${shlibs:Depends},
           qml6-module-qtquick-window,
           qml6-module-qtquick-templates,
           qml6-module-qtquick-layouts,
-          upower,
-          cutie-atmospheres-default,
-          cutie-keyboard-layouts,
-          cutie-keyboard-style
+          qt6-virtualkeyboard-plugin, 
+          upower
 Description: This package contains Cutie Shell.
 
 Package: cutie-atmospheres-default
@@ -55,6 +54,20 @@ Pre-Depends: ${misc:Pre-Depends}
 Depends: ${misc:Depends}, ${shlibs:Depends}
 Description: This package contains the default styling for Cutie Shell OSK.
 
+Package: cutie-shell-config-convergence
+Architecture: all
+Pre-Depends: ${misc:Pre-Depends}
+Depends: ${misc:Depends}, ${shlibs:Depends}, cutie-shell
+Description: This package contains Cutie Shell configuration for convergent devices.
+
+Package: cutie-shell-config-desktop
+Architecture: all
+Pre-Depends: ${misc:Pre-Depends}
+Depends: ${misc:Depends}, ${shlibs:Depends}, cutie-shell
+Description: This package contains Cutie Shell configuration for desktop devices.
+Provides: cutie-shell-config-mode
+Conflicts: cutie-shell-config-mobile
+
 Package: cutie-shell-config-hybris
 Architecture: all
 Pre-Depends: ${misc:Pre-Depends}
@@ -63,3 +76,11 @@ Description: This package contains Cutie Shell configuration for hybris devices.
 Provides: phosh, phosh-config-hwcomposer, gnome-console
 Conflicts: phosh, phosh-config-hwcomposer, gnome-console
 Replaces: phosh, phosh-config-hwcomposer, gnome-console
+
+Package: cutie-shell-config-mobile
+Architecture: all
+Pre-Depends: ${misc:Pre-Depends}
+Depends: ${misc:Depends}, ${shlibs:Depends}, cutie-shell
+Description: This package contains Cutie Shell configuration for mobile devices.
+Provides: cutie-shell-config-mode
+Conflicts: cutie-shell-config-desktop

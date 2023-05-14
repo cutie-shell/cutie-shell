@@ -25,14 +25,12 @@ ConditionPathExists=/dev/tty0
 
 [Service]
 Environment=LANG=C.UTF-8
+Environment=XDG_DATA_DIRS=~/.local/share:/usr/local/share/:/usr/share/
 Environment=QT_QPA_PLATFORM=eglfs
-Environment=QT_IM_MODULE=qtvirtualkeyboard
-Environment=QT_ENABLE_HIGHDPI_SCALING=0
-Environment=QT_SCALE_FACTOR="2"
-Environment=QT_VIRTUALKEYBOARD_STYLE=cutie
-Environment=QT_VIRTUALKEYBOARD_LAYOUT_PATH=/usr/share/cutie-keyboard/layouts
 Environment=QT_MEDIA_BACKEND=ffmpeg
-ExecStart=/usr/bin/cutie-ui-io -plugin libinput
+Environment=QT_QPA_GENERIC_PLUGINS=evdevkeyboard:grab=1,evdevmouse:grab=1,evdevtouch,evdevtablet
+Environment=QT_QPA_EGLFS_DISABLE_INPUT=1
+ExecStart=/usr/bin/cutie-ui-io
 TimeoutStartSec=30
 User=1000
 PAMName=login
