@@ -49,7 +49,8 @@ Depends: ${misc:Depends}, ${shlibs:Depends}
 Description: This package contains OSK layouts for Cutie Shell.
 
 Package: cutie-keyboard-style
-Architecture: all
+Architecture: any
+Multi-Arch: foreign
 Pre-Depends: ${misc:Pre-Depends}
 Depends: ${misc:Depends}, ${shlibs:Depends}
 Description: This package contains the default styling for Cutie Shell OSK.
