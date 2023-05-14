@@ -1,5 +1,2 @@
 etc/systemd/logind.conf.d/10-cutie.conf
 usr/bin/cutie-ui-io
-usr/share/cutie-keyboard/
-usr/share/atmospheres/
-usr/lib/*/qt6/qml/QtQuick/VirtualKeyboard/Styles/cutie/

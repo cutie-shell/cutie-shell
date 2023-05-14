@@ -30,12 +30,32 @@ Depends: ${misc:Depends}, ${shlibs:Depends},
           qml6-module-qtquick-window,
           qml6-module-qtquick-templates,
           qml6-module-qtquick-layouts,
-          upower
+          upower,
+          cutie-atmospheres-default,
+          cutie-keyboard-layouts,
+          cutie-keyboard-style
 Description: This package contains Cutie Shell.
 
+Package: cutie-atmospheres-default
+Architecture: all
+Pre-Depends: ${misc:Pre-Depends}
+Depends: ${misc:Depends}, ${shlibs:Depends}
+Description: This package contains the default atmospheres for Cutie Shell.
+
+Package: cutie-keyboard-layouts
+Architecture: all
+Pre-Depends: ${misc:Pre-Depends}
+Depends: ${misc:Depends}, ${shlibs:Depends}
+Description: This package contains OSK layouts for Cutie Shell.
+
+Package: cutie-keyboard-style
+Architecture: all
+Pre-Depends: ${misc:Pre-Depends}
+Depends: ${misc:Depends}, ${shlibs:Depends}
+Description: This package contains the default styling for Cutie Shell OSK.
+
 Package: cutie-shell-config-hybris
-Architecture: any
-Multi-Arch: foreign
+Architecture: all
 Pre-Depends: ${misc:Pre-Depends}
 Depends: ${misc:Depends}, ${shlibs:Depends}, cutie-shell
 Description: This package contains Cutie Shell configuration for hybris devices.
