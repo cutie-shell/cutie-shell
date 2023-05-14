@@ -109,8 +109,8 @@ Item {
             anchors.fill: parent
             anchors.topMargin: 20
             model: launcherApps
-            cellWidth: view.width / 4
-            cellHeight: view.width / 4
+            cellWidth: width / Math.floor(width / 85)
+            cellHeight: cellWidth
 
             property real tempContentY: 0
             property bool refreshing: false
@@ -145,13 +145,13 @@ Item {
             delegate: Item {
                 Button {
                     id: appIconButton
-                    height: view.width / 4
-                    width: view.width / 4
+                    width: launchAppGrid.cellWidth
+                    height: width
                     icon.name: appIcon
                     icon.source: "file://" + appIcon
                     icon.color: "transparent"
-                    icon.height: view.width / 8
-                    icon.width: view.width / 8
+                    icon.height: width / 2
+                    icon.width: height / 2
                     background: Rectangle {
                         color: "transparent"
                     }

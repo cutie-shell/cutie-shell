@@ -380,8 +380,8 @@ Item {
             anchors.bottomMargin: 100
             anchors.leftMargin: 20
             model: settingsModel
-            cellWidth: width / 3
-            cellHeight: width / 3
+            cellWidth: width / Math.floor(width / 100)
+            cellHeight: cellWidth
             clip: true
 
             delegate: Item {
