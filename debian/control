@@ -36,13 +36,15 @@ Depends: ${misc:Depends}, ${shlibs:Depends},
 Description: This package contains Cutie Shell.
 
 Package: cutie-atmospheres-default
-Architecture: all
+Architecture: any
+Multi-Arch: foreign  
 Pre-Depends: ${misc:Pre-Depends}
 Depends: ${misc:Depends}, ${shlibs:Depends}
 Description: This package contains the default atmospheres for Cutie Shell.
 
 Package: cutie-keyboard-layouts
-Architecture: all
+Architecture: any 
+Multi-Arch: foreign 
 Pre-Depends: ${misc:Pre-Depends}
 Depends: ${misc:Depends}, ${shlibs:Depends}
 Description: This package contains OSK layouts for Cutie Shell.
@@ -55,13 +57,15 @@ Depends: ${misc:Depends}, ${shlibs:Depends}
 Description: This package contains the default styling for Cutie Shell OSK.
 
 Package: cutie-shell-config-convergence
-Architecture: all
+Architecture: any
+Multi-Arch: foreign 
 Pre-Depends: ${misc:Pre-Depends}
 Depends: ${misc:Depends}, ${shlibs:Depends}, cutie-shell
 Description: This package contains Cutie Shell configuration for convergent devices.
 
 Package: cutie-shell-config-desktop
-Architecture: all
+Architecture: any 
+Multi-Arch: foreign 
 Pre-Depends: ${misc:Pre-Depends}
 Depends: ${misc:Depends}, ${shlibs:Depends}, cutie-shell
 Description: This package contains Cutie Shell configuration for desktop devices.
@@ -69,7 +73,8 @@ Provides: cutie-shell-config-mode
 Conflicts: cutie-shell-config-mobile
 
 Package: cutie-shell-config-hybris
-Architecture: all
+Architecture: any 
+Multi-Arch: foreign 
 Pre-Depends: ${misc:Pre-Depends}
 Depends: ${misc:Depends}, ${shlibs:Depends}, cutie-shell
 Description: This package contains Cutie Shell configuration for hybris devices.
@@ -78,7 +83,8 @@ Conflicts: phosh, phosh-config-hwcomposer, gnome-console
 Replaces: phosh, phosh-config-hwcomposer, gnome-console
 
 Package: cutie-shell-config-mobile
-Architecture: all
+Architecture: any 
+Multi-Arch: foreign 
 Pre-Depends: ${misc:Pre-Depends}
 Depends: ${misc:Depends}, ${shlibs:Depends}, cutie-shell
 Description: This package contains Cutie Shell configuration for mobile devices.
