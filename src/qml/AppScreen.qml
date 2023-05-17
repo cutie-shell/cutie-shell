@@ -15,6 +15,7 @@ Item {
 
     onShellSurfaceChanged: {
         visibleClient.shellSurface = shellSurface;
+        visibleClient.takeFocus();
     }
 
     WaylandChrome {
