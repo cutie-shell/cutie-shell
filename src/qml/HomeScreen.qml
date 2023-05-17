@@ -81,7 +81,7 @@ Item {
 
                     Component.onCompleted: {
                         if (modelData.toplevel) {
-                            modelData.toplevel.sendResizing(Qt.size(view.width, view.height - 30))
+                            modelData.toplevel.sendMaximized(Qt.size(view.width, view.height - 30))
 
                         }
 
