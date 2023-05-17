@@ -29,7 +29,7 @@ Environment=XDG_DATA_DIRS=~/.local/share:/usr/local/share/:/usr/share/
 Environment=XDG_SESSION_TYPE=wayland
 Environment=QT_QPA_PLATFORM=eglfs
 Environment=QT_MEDIA_BACKEND=ffmpeg
-Environment=QT_QPA_GENERIC_PLUGINS=evdevkeyboard:grab=1,evdevmouse:grab=1,evdevtouch,evdevtablet
+Environment=QT_QPA_GENERIC_PLUGINS=evdevkeyboard,evdevmouse:grab=1,evdevtouch,evdevtablet
 Environment=QT_QPA_EGLFS_DISABLE_INPUT=1
 ExecStart=/usr/bin/cutie-ui-io
 TimeoutStartSec=30
