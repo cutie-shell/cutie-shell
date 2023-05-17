@@ -18,6 +18,7 @@
 import QtQuick
 import QtWayland.Compositor
 import QtWayland.Compositor.XdgShell
+import QtWayland.Compositor.WlShell
 import QtMultimedia
 import Cutie
 
@@ -79,12 +80,20 @@ WaylandCompositor {
     
     XdgShell {
         onToplevelCreated: {
-            screen.handleShellSurface(xdgSurface, toplevel)
+            screen.handleShellSurface(xdgSurface)
         }
     }
-	XdgDecorationManagerV1 {
-		preferredMode: XdgToplevel.ServerSideDecoration
-	}
+
+    XdgDecorationManagerV1 {
+        preferredMode: XdgToplevel.ServerSideDecoration
+    }
+
+    WlShell {
+        onWlShellSurfaceCreated: {
+            screen.handleShellSurface(shellSurface)
+        }
+    }
+    
     ListModel { id: shellSurfaces }
     ListModel { id: notifications }
     ListModel { id: launcherApps }

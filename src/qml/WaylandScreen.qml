@@ -29,7 +29,7 @@ WaylandOutput {
 
     property XdgSurface keyboard: null
 
-    function handleShellSurface(shellSurface, toplevel) {
+    function handleShellSurface(shellSurface) {
         shellSurfaces.append({shellSurface: shellSurface});
     }
 

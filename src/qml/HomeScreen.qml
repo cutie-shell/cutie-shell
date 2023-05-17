@@ -82,7 +82,10 @@ Item {
                     Component.onCompleted: {
                         if (modelData.toplevel) {
                             modelData.toplevel.sendMaximized(Qt.size(view.width, view.height - 30))
+                        }
 
+                        if (modelData.sendConfigure) {
+                            modelData.sendConfigure(Qt.size(view.width, view.height - 30), 0);
                         }
 
                         appScreen.shellSurface = modelData;
@@ -151,7 +154,9 @@ Item {
 
                     onReleased: {
                         if (Math.abs(appBg.x - 10) > parent.width / 3) {
-                            modelData.toplevel.sendClose();
+                            if (modelData.toplevel)
+                                modelData.toplevel.sendClose();
+                            else modelData.surface.destroy();
                             if (appScreen.shellSurfaceIdx == index){
                                 if (shellSurfaces.count != 1) {
                                     if (index == shellSurfaces.count - 1) {
