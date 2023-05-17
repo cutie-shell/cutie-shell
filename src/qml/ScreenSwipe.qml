@@ -5,7 +5,7 @@ Item {
         x: 0
         y: 0
         height: view.height
-        width: 20
+        width: 12
 
         MouseArea { 
             drag.target: parent; drag.axis: Drag.XAxis; drag.minimumX: 0; drag.maximumX: view.width
@@ -52,13 +52,13 @@ Item {
     }
 
     Item {
-        x: view.width - 20
+        x: view.width - 12
         y: 0
         height: view.height
-        width: 20
+        width: 12
 
         MouseArea { 
-            drag.target: parent; drag.axis: Drag.XAxis; drag.minimumX: -20; drag.maximumX: view.width - 20
+            drag.target: parent; drag.axis: Drag.XAxis; drag.minimumX: 0; drag.maximumX: view.width - 12
             anchors.fill: parent
 
             function getNextState() {
@@ -84,7 +84,7 @@ Item {
                         wallpaperBlur.opacity = 0;
                     else wallpaperBlur.opacity = 1;
                 }
-                parent.x = view.width - 20
+                parent.x = view.width - 12;
             }
 
             onPositionChanged: {
