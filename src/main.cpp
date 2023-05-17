@@ -47,6 +47,7 @@ int main(int argc, char *argv[])
 
     settings->loadAppList();
     settings->autostart();
+    settings->execApp("loginctl activate");
 
     HWButtons *btns = new HWButtons(&engine);
     app.installEventFilter(btns);
