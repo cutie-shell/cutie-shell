@@ -16,12 +16,12 @@ InputPanel {
             let surface = shellSurfaces.get(i).shellSurface;
             if (state == "visible") {
                 if (surface.toplevel)
-                    surface.toplevel.sendResizing(Qt.size(view.width, (view.height - height) - 30));
+                    surface.toplevel.sendMaximized(Qt.size(view.width, (view.height - height) - 30));
                 else if (surface.sendConfigure)
                     surface.sendConfigure(Qt.size(view.width, (view.height - height) - 30), 0);
             } else {
                 if (surface.toplevel)
-                    surface.toplevel.sendResizing(Qt.size(view.width, view.height - 30));
+                    surface.toplevel.sendMaximized(Qt.size(view.width, view.height - 30));
                 else if (surface.sendConfigure)
                     surface.sendConfigure(Qt.size(view.width, view.height - 30), 0);
             }
