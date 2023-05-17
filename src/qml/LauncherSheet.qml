@@ -154,6 +154,8 @@ Item {
                         settings.execApp(appExec);
                         launcherState.state = "closed"
                         launcherContainer.state = "closed"
+                        if (root.state === "homeScreen")
+                            wallpaperBlur.opacity = 0;
                     }
                 }
                 Text {
