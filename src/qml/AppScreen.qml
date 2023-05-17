@@ -5,6 +5,7 @@ import Cutie
 
 Item {
     anchors.fill: parent
+    anchors.topMargin: 30
     opacity: 0
     visible: opacity > 0
     property alias chrome: visibleClient
