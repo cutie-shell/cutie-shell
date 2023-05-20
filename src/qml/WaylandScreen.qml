@@ -353,7 +353,7 @@ WaylandOutput {
                 }
 
                 LockScreen { id: lockscreen }
-                Keyboard {}
+                Keyboard { id: inputPanel }
             }
         }
     }

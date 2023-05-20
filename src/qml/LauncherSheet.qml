@@ -141,8 +141,8 @@ Item {
                     id: appIconButton
                     width: launchAppGrid.cellWidth
                     height: width
-                    icon.name: appIcon
-                    icon.source: "file://" + appIcon
+                    icon.name: model["Desktop Entry/Icon"]
+                    icon.source: "file://" + model["Desktop Entry/Icon"]
                     icon.color: "transparent"
                     icon.height: width / 2
                     icon.width: height / 2
@@ -151,7 +151,7 @@ Item {
                     }
 
                     onClicked: {
-                        settings.execApp(appExec);
+                        settings.execApp(model["Desktop Entry/Exec"]);
                         launcherState.state = "closed"
                         launcherContainer.state = "closed"
                         if (root.state === "homeScreen")
@@ -161,7 +161,7 @@ Item {
                 Text {
                     anchors.bottom: appIconButton.bottom
                     anchors.horizontalCenter: appIconButton.horizontalCenter
-                    text: appName
+                    text: model["Desktop Entry/Name"]
                     font.pixelSize: 12
                     clip: true
                     font.family: "Lato"

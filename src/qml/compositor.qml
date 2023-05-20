@@ -29,12 +29,8 @@ WaylandCompositor {
     property alias window: screen.window
     WaylandScreen { id: screen }
 
-    function addApp(name, exec, icon) {
-        launcherApps.append({
-                        appName: name,
-                        appExec: exec,
-                        appIcon: icon
-                    })
+    function addApp(data) {
+        launcherApps.append(data)
     }
     
     SoundEffect {

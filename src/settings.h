@@ -16,6 +16,9 @@ private:
     org::cutie_shell::SettingsDaemon::Atmosphere *atmosphere;
     org::freedesktop::DBus::Properties *battery;
     QSettings *settingsStore;
+    QSettings::Format desktopFormat;
+
+    static bool readDesktopFile(QIODevice &device, QSettings::SettingsMap &map);
     
 public:
     Settings(QObject* parent = 0);
