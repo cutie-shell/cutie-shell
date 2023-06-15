@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.16)
-project(cutie-shell VERSION 1.0 LANGUAGES CXX)
+project(cutie-shell VERSION 1.0 LANGUAGES C CXX)
 
 set(CMAKE_INCLUDE_CURRENT_DIR ON)
 
@@ -7,7 +7,7 @@ set(CMAKE_AUTOMOC ON)
 
 include( GNUInstallDirs )
 
-find_package(Qt6 REQUIRED COMPONENTS Core Gui Quick Network Qml DBus)
+find_package(Qt6 REQUIRED COMPONENTS Core Gui Quick Network Qml DBus WaylandCompositor)
 
 set(cutie-shell_SOURCES 
         src/settings.cpp 
@@ -16,6 +16,8 @@ set(cutie-shell_SOURCES
         src/settings.h 
         src/hwbuttons.h 
         src/notifications.h 
+        src/qwaylandoutputpowermanagementv1.h 
+        src/qwaylandoutputpowermanagementv1.cpp 
 	src/main.cpp 
 )
 
@@ -31,9 +33,15 @@ qt_add_dbus_adaptor(cutie-shell_SOURCES src/org.freedesktop.Notifications.xml no
 
 qt_add_executable(cutie-ui-io ${cutie-shell_SOURCES} ${APP_RESOURCES})
 
+qt6_generate_wayland_protocol_server_sources(
+cutie-ui-io
+    FILES
+        ${CMAKE_CURRENT_SOURCE_DIR}/src/3rdparty/protocol/wlr-output-power-management-unstable-v1.xml
+)
+
 target_include_directories(cutie-ui-io PUBLIC src)
 
-target_link_libraries(cutie-ui-io PUBLIC Qt::Core Qt::Gui Qt::GuiPrivate Qt::DBus Qt::Quick Qt::Network Qt::Qml)
+target_link_libraries(cutie-ui-io PUBLIC Qt::Core Qt::Gui Qt::GuiPrivate Qt::DBus Qt::Quick Qt::Network Qt::Qml Qt::WaylandCompositor)
 
 install(TARGETS cutie-ui-io RUNTIME DESTINATION "${CMAKE_INSTALL_BINDIR}")
 install(DIRECTORY atmospheres/atmospheres DESTINATION "${CMAKE_INSTALL_DATADIR}")

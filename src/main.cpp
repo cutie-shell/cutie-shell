@@ -9,6 +9,13 @@
 #include <QLoggingCategory>
 #include <QIcon>
 
+#include "qwaylandoutputpowermanagementv1.h"
+
+static void registerTypes()
+{
+    qmlRegisterType<WlrOutputPowerManagerQuickExtension>("cutie.wlrpowermanager", 1, 0, "WlrOutputPowerManager");
+}
+
 int main(int argc, char *argv[])
 {
     int shellScaleFactor = qEnvironmentVariable("QT_SCALE_FACTOR", "1").toDouble();
@@ -24,6 +31,8 @@ int main(int argc, char *argv[])
     QCoreApplication::setApplicationName("Cutie Shell");
 
     QGuiApplication app(argc, argv);
+
+    registerTypes();
 
     QQmlApplicationEngine engine;
 
