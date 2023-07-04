@@ -1,13 +1,26 @@
 #include <QQmlApplicationEngine>
 #include <QQuickWindow>
 #include <QStandardPaths>
+#include <QGuiApplication>
+#include <qpa/qplatformnativeinterface.h>
 #include <QDir>
 
 #include "hwbuttons.h"
 
 HWButtons::HWButtons(QObject *parent) : QObject(parent), volUpDown(false), volUpUsed(false)
 {
+}
 
+void HWButtons::sleepDisplay(bool sleep)
+{
+    if(sleep){
+        QGuiApplication::platformNativeInterface()->nativeResourceForIntegration("displayoff");
+        m_displayOff = true;
+    } else {
+        QGuiApplication::platformNativeInterface()->nativeResourceForIntegration("displayon");
+        m_displayOff = false;
+    }
+    
 }
 
 bool HWButtons::eventFilter(QObject *, QEvent *ev)
@@ -19,6 +32,12 @@ bool HWButtons::eventFilter(QObject *, QEvent *ev)
         if (!volUpDown && keyEvent->key() == Qt::Key_PowerOff)
         {
             QMetaObject::invokeMethod(((QQmlApplicationEngine *)parent())->rootObjects()[0], "lock");
+            if(m_displayOff){
+                sleepDisplay(false);
+            } else {
+                sleepDisplay(true);
+            }
+
             return true;
         }
 

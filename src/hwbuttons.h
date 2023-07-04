@@ -12,8 +12,10 @@ public:
     explicit HWButtons(QObject *parent = nullptr);
     bool eventFilter(QObject *, QEvent *ev);
 private:
+    void sleepDisplay(bool sleep);
     bool volUpDown;
     bool volUpUsed;
+    bool m_displayOff = false;
 };
 
 #endif // HWBUTTONS_H
