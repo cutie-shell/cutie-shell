@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.16)
-project(cutie-shell VERSION 1.0 LANGUAGES CXX)
+project(cutie-shell VERSION 1.0 LANGUAGES C CXX)
 
 set(CMAKE_INCLUDE_CURRENT_DIR ON)
 
@@ -7,7 +7,7 @@ set(CMAKE_AUTOMOC ON)
 
 include( GNUInstallDirs )
 
-find_package(Qt6 REQUIRED COMPONENTS Core Gui Quick Network Qml DBus)
+find_package(Qt6 REQUIRED COMPONENTS Core Gui Quick Network Qml DBus WaylandCompositor)
 
 set(cutie-shell_SOURCES 
         src/settings.cpp 
@@ -16,13 +16,21 @@ set(cutie-shell_SOURCES
         src/settings.h 
         src/hwbuttons.h 
         src/notifications.h 
-	src/main.cpp 
+        src/extensions/cutie-im-relay.h
+        src/extensions/cutie-im-relay.cpp 
+        src/extensions/text-input-v1.h
+        src/extensions/text-input-v1.cpp 
+        src/extensions/text-input-v2.h
+        src/extensions/text-input-v2.cpp 
+        src/extensions/text-input-v3.h
+        src/extensions/text-input-v3.cpp 
+        src/main.cpp 
 )
 
 qt6_add_resources(APP_RESOURCES 
 	${CMAKE_SOURCE_DIR}/src/qml/qml.qrc 
 	${CMAKE_SOURCE_DIR}/icons/icons.qrc 
-        ${CMAKE_SOURCE_DIR}/sounds/sounds.qrc)
+    ${CMAKE_SOURCE_DIR}/sounds/sounds.qrc)
 
 qt_add_dbus_interface(cutie-shell_SOURCES src/org.cutie_shell.xml cutie_shell_interface)
 qt_add_dbus_interface(cutie-shell_SOURCES src/org.freedesktop.DBus.xml dbus_interface)
@@ -31,9 +39,23 @@ qt_add_dbus_adaptor(cutie-shell_SOURCES src/org.freedesktop.Notifications.xml no
 
 qt_add_executable(cutie-ui-io ${cutie-shell_SOURCES} ${APP_RESOURCES})
 
-target_include_directories(cutie-ui-io PUBLIC src)
+qt6_generate_wayland_protocol_server_sources(
+cutie-ui-io
+    FILES
+        ${CMAKE_CURRENT_SOURCE_DIR}/protocols/text-input-unstable-v1.xml
+        ${CMAKE_CURRENT_SOURCE_DIR}/protocols/text-input-unstable-v2.xml
+        ${CMAKE_CURRENT_SOURCE_DIR}/protocols/text-input-unstable-v3.xml
+        ${CMAKE_CURRENT_SOURCE_DIR}/protocols/cutie-im-relay-v1.xml
+)
 
-target_link_libraries(cutie-ui-io PUBLIC Qt::Core Qt::Gui Qt::GuiPrivate Qt::DBus Qt::Quick Qt::Network Qt::Qml)
+target_include_directories(cutie-ui-io PUBLIC src src/extensions)
+
+target_link_libraries(cutie-ui-io PUBLIC Qt::Core Qt::Gui Qt::GuiPrivate Qt::DBus Qt::Quick Qt::Network Qt::Qml Qt::WaylandCompositor)
+
+qt6_add_qml_module(cutie-ui-io
+  URI CutieImRelay
+  VERSION 1.0
+)
 
 install(TARGETS cutie-ui-io RUNTIME DESTINATION "${CMAKE_INSTALL_BINDIR}")
 install(DIRECTORY atmospheres/atmospheres DESTINATION "${CMAKE_INSTALL_DATADIR}")

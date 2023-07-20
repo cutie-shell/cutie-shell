@@ -2,6 +2,8 @@
     <qresource prefix="/">
         <file>compositor.qml</file>
         <file>Keyboard.qml</file>
+        <file>KeyButton.qml</file>
+        <file>layouts/en_US.qml</file>
         <file>LockScreen.qml</file>
         <file>WaylandScreen.qml</file>
         <file>SettingSheet.qml</file>

@@ -21,6 +21,7 @@ import QtWayland.Compositor.XdgShell
 import QtWayland.Compositor.WlShell
 import QtMultimedia
 import Cutie
+import CutieImRelay
 
 WaylandCompositor {
     id: comp
@@ -89,10 +90,12 @@ WaylandCompositor {
             screen.handleShellSurface(shellSurface)
         }
     }
+
+    CutieImRelay{
+        id: cutieIM
+    }
     
     ListModel { id: shellSurfaces }
     ListModel { id: notifications }
     ListModel { id: launcherApps }
-    
-    TextInputManager {}
 }

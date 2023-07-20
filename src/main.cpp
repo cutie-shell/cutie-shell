@@ -8,10 +8,13 @@
 #include "NotificationsAdaptor.h"
 #include <QLoggingCategory>
 #include <QIcon>
+#include "extensions/cutie-im-relay.h"
 
 int main(int argc, char *argv[])
 {
     int shellScaleFactor = qEnvironmentVariable("QT_SCALE_FACTOR", "1").toDouble();
+
+    qunsetenv("QT_IM_MODULE");
 
     QIcon::setThemeName("hicolor");
     QIcon::setThemeSearchPaths(QStringList("/usr/share/icons"));

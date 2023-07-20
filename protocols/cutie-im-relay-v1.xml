@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<protocol name="cutie_im_relay_v1">
+
+    <copyright>
+ Copyright (C) 2023 Cutie Community Project
+ GPL-3.0 license
+    </copyright>
+
+    <interface name="cutie_im_relay" version="1">
+
+      <description summary="A relay to text input methods">
+        A custom relay interface for the different input methods available in wayland
+      </description>
+
+      <enum name="input_methods">
+        <description summary="input methods">
+          Supported input methods
+        </description>
+        <entry name="text_input_v1" value="0" summary="text input protocol v1"/>
+        <entry name="text_input_v2" value="1" summary="text input protocol v2"/>
+        <entry name="text_input_v3" value="2" summary="text input protocol v3"/>
+      </enum>
+
+    </interface>
+
+</protocol>
