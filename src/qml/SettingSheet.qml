@@ -322,9 +322,8 @@ Item {
                         MouseArea{
                             anchors.fill: parent
                             onClicked:{
-                                settings.setAtmosphereVariant(modelData.variant);
                                 nextWallpaper.state = "changing"
-                                settings.setAtmospherePath(modelData.path);
+                                Atmosphere.setPath(modelData.path);
                                 nextWallpaper.state = "normal"
                                 atmosphereTimer.start();
                             }
