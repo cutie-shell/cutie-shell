@@ -9,15 +9,15 @@ Build-Depends: pkg-kde-tools,
                pkg-config,
                qt6-declarative-dev,
                libqt6dbus6,
-               libgles-dev
+               libgles-dev,
+               libudev-dev
 Standards-Version: 4.5.1
 
 Package: cutie-shell
 Architecture: any
 Multi-Arch: foreign
 Pre-Depends: ${misc:Pre-Depends}
-Depends: ${misc:Depends}, ${shlibs:Depends}, 
-          cutie-settings-daemon, 
+Depends: ${misc:Depends}, ${shlibs:Depends},
           cutie-atmospheres-default,
           qml6-module-cutie, 
           qml6-module-qtquick, 
