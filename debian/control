@@ -32,7 +32,8 @@ Depends: ${misc:Depends}, ${shlibs:Depends},
           qml6-module-qtquick-templates,
           qml6-module-qtquick-layouts,
           qt6-virtualkeyboard-plugin, 
-          upower
+          upower,
+          brightness-udev
 Description: This package contains Cutie Shell.
 
 Package: cutie-atmospheres-default
