@@ -334,7 +334,7 @@ Item {
                             interval: 500
                             repeat: false
                             onTriggered: {
-                                nextAtmospherePath = atmospherePath;
+                                nextAtmospherePath = Atmosphere.path;
                             }
                         }
                     }

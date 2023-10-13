@@ -24,7 +24,7 @@ WaylandOutput {
     property real unlockBrightness: 0.5
 
     property int drawerMargin: 5
-    property string nextAtmospherePath: "/usr/share/atmospheres/city/"
+    property string nextAtmospherePath: Atmosphere.path
     property color atmosphereForeground: "#ffffff"
 
     property XdgSurface keyboard: null
@@ -270,7 +270,7 @@ WaylandOutput {
                     Image {
                         id: wallpaper
                         anchors.fill: parent
-                        source: "file:/" + atmospherePath + "/wallpaper.jpg"
+                        source: "file:/" + Atmosphere.path + "/wallpaper.jpg"
                         fillMode: Image.PreserveAspectCrop
                     }
 
