@@ -77,11 +77,8 @@ Package: cutie-shell-config-hybris
 Architecture: any 
 Multi-Arch: foreign 
 Pre-Depends: ${misc:Pre-Depends}
-Depends: ${misc:Depends}, ${shlibs:Depends}, cutie-shell
+Depends: ${misc:Depends}, ${shlibs:Depends}, cutie-shell, qt6-qpa-hwcomposer-plugin
 Description: This package contains Cutie Shell configuration for hybris devices.
-Provides: phosh, phosh-config-hwcomposer, gnome-console
-Conflicts: phosh, phosh-config-hwcomposer, gnome-console
-Replaces: phosh, phosh-config-hwcomposer, gnome-console
 
 Package: cutie-shell-config-mobile
 Architecture: any 
